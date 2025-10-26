@@ -6,9 +6,10 @@ func query() -> QueryBuilder:
 	return q.with_all([C_CharacterBody, C_PlayerControl]).iterate([C_CharacterBody, C_PlayerControl])
 
 func process(entities: Array[Entity], components: Array, _delta: float) -> void:
+	if entities.is_empty(): return
+
 	var characters = components[0]
 	var controls = components[1]
-	print(entities.size())
 
 	for i in entities.size():
 		var character: C_CharacterBody = characters[i]
