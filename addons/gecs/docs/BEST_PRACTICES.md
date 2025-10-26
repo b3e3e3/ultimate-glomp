@@ -138,16 +138,15 @@ class_name HealthRegenerationSystem extends System
 func query():
     return q.with_all([C_Health]).with_none([C_Dead])
 
-func process(entities: Array[Entity], components: Array, delta: float):
-    for entity in entities:
-        var health = entity.get_component(C_Health)
+func process(entity: Entity, delta: float):
+    var health = entity.get_component(C_Health)
 
-        # Early exit if already at max health
-        if health.current >= health.maximum:
-            continue
+    # Early exit if already at max health
+    if health.current >= health.maximum:
+        return
 
-        # Apply regeneration
-        health.current = min(health.current + health.regeneration_rate * delta, health.maximum)
+    # Apply regeneration
+    health.current = min(health.current + health.regeneration_rate * delta, health.maximum)
 ```
 
 ## 🏗️ Code Organization Patterns
@@ -267,20 +266,19 @@ func query():
     # Better: q.with_all([C_Player])
 ```
 
-### Use iterate() for Batch Performance
+### Use Batch Processing for Performance
 
 ```gdscript
-# ✅ Good - Batch processing with iterate()
+# ✅ Good - Batch processing with process_all
 class_name TransformSystem
 extends System
 
 func query():
-    # Use iterate() to get component arrays
-    return q.with_all([C_Transform]).iterate([C_Transform])
+    return q.with_all([C_Transform])
 
-func process(entities: Array[Entity], components: Array, delta: float):
+func process_all(entities: Array, _delta):
     # Batch access to components for better performance
-    var transforms = components[0]  # C_Transform array from iterate()
+    var transforms = ECS.get_components(entities, C_Transform)
     for i in range(entities.size()):
         entities[i].global_transform = transforms[i].transform
 ```
@@ -432,17 +430,16 @@ extends System
 func query():
     return q.with_all([C_SpawnPoint])
 
-func process(entities: Array[Entity], components: Array, delta: float):
-    for entity in entities:
-        var spawn_point = entity.get_component(C_SpawnPoint)
+func process(entity: Entity, delta: float):
+    var spawn_point = entity.get_component(C_SpawnPoint)
 
-        if spawn_point.should_spawn():
-            var spawned = spawn_point.prefab.instantiate() as Entity
-            spawned.global_position = entity.global_position
-            get_tree().current_scene.add_child(spawned)
-            ECS.world.add_entity(spawned)
+    if spawn_point.should_spawn():
+        var spawned = spawn_point.prefab.instantiate() as Entity
+        spawned.global_position = entity.global_position
+        get_tree().current_scene.add_child(spawned)
+        ECS.world.add_entity(spawned)
 
-            spawn_point.mark_spawned()
+        spawn_point.mark_spawned()
 ```
 
 **Prefab Management Best Practices:**
@@ -643,13 +640,6 @@ func remove_poison_stacks(entity: Entity, stacks_to_remove: int):
 ```gdscript
 # ✅ Excellent - Integration with game systems
 class_name StatusEffectSystem extends System
-
-func process(entities: Array[Entity], components: Array, delta: float):
-    # Example: process spell casting entities
-    for entity in entities:
-        var spell = entity.get_component(C_SpellCaster)
-        if spell.is_casting_cleanse():
-            process_cleanse_spell(entity, spell.target, spell.power)
 
 func process_cleanse_spell(caster: Entity, target: Entity, spell_power: int):
     # Calculate cleanse strength based on spell power and caster stats

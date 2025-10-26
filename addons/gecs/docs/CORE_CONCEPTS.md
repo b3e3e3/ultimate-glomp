@@ -282,7 +282,7 @@ Systems have two main parts:
 
 ### System Types
 
-**Entity Processing:**
+**Single Entity Processing:**
 
 ```gdscript
 class_name LifetimeSystem
@@ -291,40 +291,37 @@ extends System
 func query() -> QueryBuilder:
     return q.with_all([C_Lifetime])
 
-func process(entities: Array[Entity], components: Array, delta: float):
-    # Process each entity - all systems use the same signature
-    for entity in entities:
-        var c_lifetime = entity.get_component(C_Lifetime) as C_Lifetime
-        c_lifetime.lifetime -= delta
+func process(entity: Entity, delta: float):
+    var c_lifetime = entity.get_component(C_Lifetime) as C_Lifetime
+    c_lifetime.lifetime -= delta
 
-        if c_lifetime.lifetime <= 0:
-            ECS.world.remove_entity(entity)
+    if c_lifetime.lifetime <= 0:
+        ECS.world.remove_entity(entity)
 ```
 
-**Optimized Batch Processing with iterate():**
+**Batch Processing (More Efficient):**
 
 ```gdscript
 class_name VelocitySystem
 extends System
 
 func query() -> QueryBuilder:
-    # Use iterate() to get component arrays for faster access
-    return q.with_all([C_Velocity]).iterate([C_Velocity])
+	return q.with_all([C_Velocity])
+	
 
-func process(entities: Array[Entity], components: Array, delta: float):
-    # components[0] contains all C_Velocity components
-    var velocities = components[0]
+func process_all(entities: Array, delta: float) -> void:
+	for entity in entities:
+		var velocity_component: C_Velocity = entity.get_component(C_Velocity)
+		# Update the entity's position based on its velocity
+		var position: Vector3 = entity.transform.origin
+		position += velocity_component.velocity * delta
+		entity.transform.origin = position
 
-    for i in entities.size():
-        # Direct array access is faster than get_component()
-        var position: Vector3 = entities[i].transform.origin
-        position += velocities[i].velocity * delta
-        entities[i].transform.origin = position
 ```
 
 ### Sub-Systems
 
-Group related logic into one system file - all subsystems use the unified signature:
+Group related logic into one system file:
 
 ```gdscript
 class_name DamageSystem
@@ -332,27 +329,25 @@ extends System
 
 func sub_systems():
     return [
-        # [query, callable] - all use same unified process signature
-        [ECS.world.query.with_all([C_Health, C_Damage]), damage_entities],
-        [ECS.world.query.with_all([C_Health]).with_none([C_Dead]).iterate([C_Health]), regenerate_health]
+        # [query, callable, process_all_flag]
+        [ECS.world.query.with_all([C_Health, C_Damage]), damage_entities, false],
+        [ECS.world.query.with_all([C_Health]).with_none([C_Dead]), regenerate_health, true]
     ]
 
-func damage_entities(entities: Array[Entity], components: Array, delta: float):
-    # Process entities with damage
-    for entity in entities:
+func damage_entities(entity: Entity, delta: float):
+    var c_health = entity.get_component(C_Health)
+    var c_damage = entity.get_component(C_Damage)
+    c_health.current -= c_damage.amount
+    entity.remove_component(c_damage)
+    
+    if health.current <= 0:
+        entity.add_component(C_Dead.new())
+
+func regenerate_health(entities: Array, delta: float):
+    # Batch process health regeneration
+    for ent in entities:
         var c_health = entity.get_component(C_Health)
-        var c_damage = entity.get_component(C_Damage)
-        c_health.current -= c_damage.amount
-        entity.remove_component(c_damage)
-
-        if c_health.current <= 0:
-            entity.add_component(C_Dead.new())
-
-func regenerate_health(entities: Array[Entity], components: Array, delta: float):
-    # Batch process using component arrays from iterate()
-    var healths = components[0]
-    for i in entities.size():
-        healths[i].current = min(healths[i].current + 1 * delta, healths[i].maximum)
+        c_health.current = min(c_health.current + 1 * delta, c_health.maximum)
 ```
 
 ### System Dependencies
@@ -388,8 +383,8 @@ func deps() -> Dictionary[int, Array]:
 
 Systems follow Godot node lifecycle:
 
-- `setup()` - Initial setup after system is added to world
-- `process(entities, components, delta)` - Unified method called each frame for matching entities
+- `on_ready()` - Initial setup after components loaded
+- `process(delta)` or `process_all(entities, delta)` - Called each frame for matching entities
 - System groups for organized processing order
 
 ## 🔍 Query System

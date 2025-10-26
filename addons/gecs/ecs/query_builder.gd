@@ -126,12 +126,6 @@ func with_relationship(relationships: Array = []) -> QueryBuilder:
 	_relationships = relationships
 	_cache_valid = false
 	_cache_key_valid = false
-
-	# Connect to relationship signals for cache invalidation (only if not already connected)
-	if _world and not _world.relationship_added.is_connected(_on_relationship_changed):
-		_world.relationship_added.connect(_on_relationship_changed)
-		_world.relationship_removed.connect(_on_relationship_changed)
-
 	return self
 
 
@@ -142,12 +136,6 @@ func without_relationship(relationships: Array = []) -> QueryBuilder:
 	_exclude_relationships = relationships
 	_cache_valid = false
 	_cache_key_valid = false
-
-	# Connect to relationship signals for cache invalidation (only if not already connected)
-	if _world and not _world.relationship_added.is_connected(_on_relationship_changed):
-		_world.relationship_added.connect(_on_relationship_changed)
-		_world.relationship_removed.connect(_on_relationship_changed)
-
 	return self
 
 
@@ -157,10 +145,6 @@ func with_reverse_relationship(relationships: Array = []) -> QueryBuilder:
 		if rel.relation != null:
 			var rev_key = "reverse_" + rel.relation.get_script().resource_path
 			if _world.reverse_relationship_index.has(rev_key):
-				# Connect to relationship signals (only if not already connected)
-				if _world and not _world.relationship_added.is_connected(_on_relationship_changed):
-					_world.relationship_added.connect(_on_relationship_changed)
-					_world.relationship_removed.connect(_on_relationship_changed)
 				return self.with_all(_world.reverse_relationship_index[rev_key])
 	_cache_valid = false
 	_cache_key_valid = false
@@ -543,19 +527,13 @@ func invalidate_cache():
 	_cache_key_valid = false
 
 
-## Called when a relationship is added or removed (only for queries using relationships)
-func _on_relationship_changed(_entity: Entity, _relationship: Relationship):
-	# Invalidate our cached results since relationship data changed
-	_cache_valid = false
-
-
 ## Get the cached query hash key, calculating it only once
 ## OPTIMIZATION: Avoids recalculating FNV-1a hash every frame in hot path queries
 func get_cache_key() -> int:
 	if not _cache_key_valid:
 		# Calculate using World's hash function
 		if _world:
-			_cache_key = QueryCacheKey.build(
+			_cache_key = _world._generate_query_cache_key(
 				_all_components,
 				_any_components,
 				_exclude_components

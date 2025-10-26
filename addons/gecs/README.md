@@ -82,8 +82,8 @@ ECS.world.add_entity(player)
 
 # System queries
 func query(): return q.with_all([C_Health, C_Position])
-func process(entities: Array[Entity], components: Array, delta: float): # Unified signature
-# Use .iterate([Components]) for batch component array access
+func process(entity: Entity, delta: float): # Process single entity
+func process_all(entities: Array, delta: float): # Batch processing
 
 # Relationships
 entity.add_relationship(Relationship.new(C_Likes.new(), target_entity))
@@ -91,12 +91,6 @@ var likers = ECS.world.query.with_relationship([Relationship.new(C_Likes.new(), 
 
 # Component queries
 var low_health = ECS.world.query.with_all([{C_Health: {"current": {"_lt": 20}}}]).execute()
-
-# Order Independence: with_all/with_any/with_node component order does not affect matching or caching.
-# The framework normalizes component sets internally so these yield identical results:
-# ECS.world.query.with_all([C_Health, C_Position])
-# ECS.world.query.with_all([C_Position, C_Health])
-# Cache keys and archetype matching are order-insensitive.
 
 # Serialization
 var data = ECS.serialize(ECS.world.query.with_all([C_Persistent]))
