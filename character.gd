@@ -1,6 +1,8 @@
 class_name CharacterBody
 extends CharacterBody2D
 
+signal glomped(whom: CharacterBody)
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -18,9 +20,9 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-# func _on_area_2d_body_entered(body: Object) -> void:
-# 	if body is Node2D:
-# 		$Sprite2D.reparent.call_deferred(body)
+func _on_area_2d_body_entered(body: Object) -> void:
+	if body is CharacterBody:
+		glomped.emit(body)
 
 func move(direction: float) -> void:
 	_direction = direction

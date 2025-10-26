@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://brhmblfdsq3un"]
 
 [ext_resource type="Script" uid="uid://byoefxp631hn1" path="res://character.gd" id="1_3h184"]
-[ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_ypj6x"]
+[ext_resource type="Script" path="res://level.gd" id="1_ypj6x"]
 [ext_resource type="Script" uid="uid://od5j8o1fqfks" path="res://enemy.gd" id="2_cojph"]
-[ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="3_rvmsc"]
 [ext_resource type="Script" uid="uid://butjfhc677oeq" path="res://systems/movement.gd" id="4_rjrbw"]
+[ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="4_ypj6x"]
 [ext_resource type="Script" uid="uid://f4v4gxr8b2in" path="res://observers/player_control.gd" id="5_rjrbw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
@@ -74,7 +74,7 @@ shape = SubResource("RectangleShape2D_rjrbw")
 position = Vector2(0, -36)
 
 [node name="World" type="Node" parent="."]
-script = ExtResource("3_rvmsc")
+script = ExtResource("4_ypj6x")
 entity_nodes_root = NodePath("Entities")
 system_nodes_root = NodePath("Systems")
 metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
