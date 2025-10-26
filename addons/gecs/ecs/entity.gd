@@ -44,11 +44,17 @@ signal relationship_removed(entity: Entity, relationship: Relationship)
 #endregion Signals
 
 #region Exported Variables
-## The id of the entity either UUID or custom string.
+## The id of the entity either UUID or custom string. 
 ## This must be unique within a [World]. If left blank, a UUID will be generated when the entity is added to a world.
 @export var id: String
 ## Is this entity active? (Will show up in queries)
-@export var enabled: bool = true
+@export var enabled: bool = true:
+	set(value):
+		if enabled != value:
+			var old_enabled = enabled
+			enabled = value
+			# Notify world to move entity between enabled/disabled archetypes
+			_on_enabled_changed(old_enabled, value)
 ## [Component]s to be attached to the entity set in the editor. These will be loaded for you and added to the [Entity]
 @export var component_resources: Array[Component] = []
 ## Serialization config override for this specific entity (optional)
@@ -129,12 +135,12 @@ func get_effective_serialize_config() -> GECSSerializeConfig:
 func add_component(component: Resource) -> void:
 	# Cache the resource path to avoid repeated calls
 	var resource_path = component.get_script().resource_path
-
+	
 	# If a component of this type already exists, remove it first
 	if components.has(resource_path):
 		var existing_component = components[resource_path]
 		remove_component(existing_component)
-
+	
 	_component_path_cache[component] = resource_path
 	components[resource_path] = component
 	if not component.property_changed.is_connected(_on_component_property_changed):
@@ -182,8 +188,7 @@ func remove_component(component: Resource) -> void:
 		_component_path_cache.erase(component_instance)
 
 		component_removed.emit(self, component_instance)
-		# Removing components happens immediately
-		ECS.world._remove_entity_from_index(self, resource_path)
+		# ARCHETYPE: Signal handler (_on_entity_component_removed) handles archetype update
 		_entityLogger.trace("Removed Component: ", resource_path)
 
 
@@ -255,13 +260,13 @@ func add_relationships(_relationships: Array):
 ## [codeblock]
 ## # Remove all matching relationships (default behavior)
 ## entity.remove_relationship(Relationship.new(C_Damage.new(), target))
-##
+## 
 ## # Remove only one matching relationship
 ## entity.remove_relationship(Relationship.new(C_Damage.new(), target), 1)
-##
+## 
 ## # Remove up to 3 matching relationships
 ## entity.remove_relationship(Relationship.new(C_Damage.new(), target), 3)
-##
+## 
 ## # Remove no relationships (useful for testing/debugging)
 ## entity.remove_relationship(Relationship.new(C_Damage.new(), target), 0)
 ## [/codeblock]
@@ -373,5 +378,34 @@ func on_enable() -> void:
 ## This should return a list of components to add by default when the entity is created
 func define_components() -> Array:
 	return []
+
+
+## INTERNAL: Called when entity.enabled changes to move entity between archetypes
+func _on_enabled_changed(old_value: bool, new_value: bool) -> void:
+	# Only handle if entity is already in a world
+	if not ECS.world or not ECS.world.entity_to_archetype.has(self):
+		return
+
+	# Move entity to new archetype (enabled/disabled archetypes are separate)
+	var old_archetype = ECS.world.entity_to_archetype[self]
+	var new_signature = ECS.world._calculate_entity_signature(self)
+	var comp_types = components.keys()
+	var new_archetype = ECS.world._get_or_create_archetype(new_signature, comp_types, new_value)
+
+	# Remove from old archetype
+	old_archetype.remove_entity(self)
+
+	# Add to new archetype
+	new_archetype.add_entity(self)
+	ECS.world.entity_to_archetype[self] = new_archetype
+
+	# Clean up empty old archetype
+	if old_archetype.is_empty():
+		old_archetype.add_edges.clear()
+		old_archetype.remove_edges.clear()
+		ECS.world.archetypes.erase(old_archetype.signature)
+
+	# Invalidate query cache since archetypes changed
+	ECS.world.cache_invalidated.emit()
 
 #endregion Lifecycle Methods
