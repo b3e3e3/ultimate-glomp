@@ -4,5 +4,5 @@ extends Component
 func get_move_axis() -> float:
 	return Input.get_axis(&"move_left", &"move_right")
 
-func get_jump_axis() -> bool:
+func get_jump_pressed() -> bool:
 	return Input.is_action_pressed(&"jump")

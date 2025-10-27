@@ -12,11 +12,10 @@ func process(entities: Array[Entity], components: Array, _delta: float) -> void:
 		var character: C_CharacterBody = characters[i]
 		var control: C_PlayerControl = controls[i]
 
-		if character.body:
+		if character.body and not character.is_frozen:
 			var _move := control.get_move_axis()
-			var _jump := control.get_jump_axis()
+			var _jump := control.get_jump_pressed()
 			if _move or character.body.should_move():
 				character.body.move(_move)
-
 			if _jump:
 				character.body.jump()

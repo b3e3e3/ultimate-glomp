@@ -1,11 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://brhmblfdsq3un"]
+[gd_scene load_steps=17 format=3 uid="uid://brhmblfdsq3un"]
 
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_ypj6x"]
 [ext_resource type="Script" uid="uid://od5j8o1fqfks" path="res://enemy.gd" id="2_cojph"]
 [ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="4_ypj6x"]
 [ext_resource type="Script" uid="uid://c6ercmh3isut1" path="res://systems/glomp.gd" id="5_0fpt2"]
+[ext_resource type="Script" uid="uid://cl6glf45pcrns" path="res://addons/gecs/ecs/entity.gd" id="5_igx0j"]
 [ext_resource type="Script" uid="uid://butjfhc677oeq" path="res://systems/player_control.gd" id="6_igx0j"]
-[ext_resource type="Script" uid="uid://dcmb8hnaa77hr" path="res://observers/glomp.gd" id="7_tctsc"]
+[ext_resource type="Script" uid="uid://b6k13gc2m4e5s" path="res://addons/gecs/ecs/component.gd" id="6_tctsc"]
+[ext_resource type="Script" uid="uid://cfihd74te05s0" path="res://components/c_character_body.gd" id="7_ai2o8"]
+[ext_resource type="Script" uid="uid://dmdqqy7dfya7n" path="res://components/c_glompinfo.gd" id="8_igx0j"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
 size = Vector2(1920, 32)
@@ -13,8 +16,21 @@ size = Vector2(1920, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
 size = Vector2(1920, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rvmsc"]
-size = Vector2(32, 48)
+[sub_resource type="Resource" id="Resource_luwg1"]
+script = ExtResource("7_ai2o8")
+metadata/_custom_type_script = "uid://cfihd74te05s0"
+
+[sub_resource type="Resource" id="Resource_igx0j"]
+script = ExtResource("8_igx0j")
+glomp_point_path = NodePath("EnemyBody/GlompPoint")
+metadata/_custom_type_script = "uid://dmdqqy7dfya7n"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0fpt2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igx0j"]
+width = 32
+height = 48
+noise = SubResource("FastNoiseLite_0fpt2")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjrbw"]
 size = Vector2(32, 48)
@@ -32,24 +48,9 @@ texture = SubResource("PlaceholderTexture2D_cojph")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_p7lbm")
 
-[node name="EnemyBody" type="CharacterBody2D" parent="."]
-position = Vector2(272, 520)
-collision_layer = 2
-collision_mask = 5
-script = ExtResource("2_cojph")
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="EnemyBody"]
-texture = SubResource("PlaceholderTexture2D_rvmsc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyBody"]
-shape = SubResource("RectangleShape2D_rjrbw")
-
-[node name="GlompPoint" type="Node2D" parent="EnemyBody"]
-position = Vector2(0, -36)
-
 [node name="World" type="Node" parent="."]
 script = ExtResource("4_ypj6x")
+entity_nodes_root = NodePath("Entities")
 system_nodes_root = NodePath("Systems")
 metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
 
@@ -63,6 +64,25 @@ metadata/_custom_type_script = "uid://c6ercmh3isut1"
 script = ExtResource("6_igx0j")
 metadata/_custom_type_script = "uid://butjfhc677oeq"
 
-[node name="GlompObserver" type="Node" parent="World/Systems"]
-script = ExtResource("7_tctsc")
-metadata/_custom_type_script = "uid://dcmb8hnaa77hr"
+[node name="Entities" type="Node2D" parent="World"]
+
+[node name="Entity" type="Node" parent="World/Entities"]
+script = ExtResource("5_igx0j")
+component_resources = Array[ExtResource("6_tctsc")]([SubResource("Resource_luwg1"), SubResource("Resource_igx0j")])
+metadata/_custom_type_script = "uid://cl6glf45pcrns"
+
+[node name="EnemyBody" type="CharacterBody2D" parent="World/Entities/Entity"]
+position = Vector2(272, 520)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("2_cojph")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Entities/Entity/EnemyBody"]
+texture = SubResource("NoiseTexture2D_igx0j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Entities/Entity/EnemyBody"]
+shape = SubResource("RectangleShape2D_rjrbw")
+
+[node name="GlompPoint" type="Node2D" parent="World/Entities/Entity/EnemyBody"]
+position = Vector2(0, -36)
