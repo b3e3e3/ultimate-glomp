@@ -2,19 +2,16 @@
 class_name Player
 extends Entity
 
-var _body: CharacterBody
-
 func define_components() -> Array:
 	return [
-		C_CharacterBody.new(),
 		C_PlayerControl.new(),
+		C_CharacterBody.new(),
+		C_GlompArea.new(),
 	]
 
+func on_ready():
+	var c_char_body := get_component(C_CharacterBody)
+	c_char_body.body = $CharacterBody
 
-func _init(character_body: CharacterBody):
-	_body = character_body
-
-func on_ready() -> void:
-	var c_body := self.get_component(C_CharacterBody)
-	c_body.body = _body
-	_body = null
+	var c_glomp_area := get_component(C_GlompArea)
+	c_glomp_area.area = $CharacterBody/GlompArea

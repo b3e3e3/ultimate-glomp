@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1wv0ies7lixs"]
+
+[ext_resource type="Script" uid="uid://b5nkrrdtoilhq" path="res://entities/e_player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://byoefxp631hn1" path="res://character.gd" id="2_i3pqv"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rvmsc"]
+size = Vector2(32, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjrbw"]
+size = Vector2(32, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cojph"]
+size = Vector2(32, 20)
+
+[node name="Player" type="Node"]
+script = ExtResource("1_onrkg")
+metadata/_custom_type_script = "uid://cl6glf45pcrns"
+
+[node name="CharacterBody" type="CharacterBody2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("2_i3pqv")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody"]
+texture = SubResource("PlaceholderTexture2D_rvmsc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody"]
+shape = SubResource("RectangleShape2D_rjrbw")
+
+[node name="GlompArea" type="Area2D" parent="CharacterBody"]
+position = Vector2(0, 24)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody/GlompArea"]
+shape = SubResource("RectangleShape2D_cojph")
+
+[node name="Crap" type="Node2D" parent="CharacterBody"]
+
+[connection signal="body_entered" from="CharacterBody/GlompArea" to="CharacterBody" method="_on_area_2d_body_entered"]

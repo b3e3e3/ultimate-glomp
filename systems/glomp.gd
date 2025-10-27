@@ -1,20 +1,21 @@
 class_name GlompSystem
 extends System
 
-var r := Relationship.new(C_IsGlomped.new())
-
 func query() -> QueryBuilder:
-	return q.with_relationship([r])
+	return q.with_all([C_GlompArea])
 
 func process(entities: Array[Entity], components: Array, delta: float) -> void:
-	print(entities)
-	if components.is_empty(): return#entities.is_empty(): return
-	print(entities[0].has_relationship(r))
+	if entities.is_empty(): return
+	return
 
-	var glomps = components[0]
+# 	for i in entities.size():
+# 		var entity := entities[i]
+# 		var glomp := entity.get_relationship(r)
 
-	for i in entities.size():
-		var entity := entities[i]
-		var glomp: C_IsGlomped = glomps[i]
+# 		var source: Entity = glomp.source
+# 		var target: Entity = glomp.target
 
-		entity.get_relationship(r)
+# 		assert(source, "Glomp relationship is missing source entity")
+# 		assert(target, "Glomp relationship is missing target entity")
+
+# 		entity.get_relationship(r)

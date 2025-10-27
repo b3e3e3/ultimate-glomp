@@ -1,13 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://brhmblfdsq3un"]
+[gd_scene load_steps=11 format=3 uid="uid://brhmblfdsq3un"]
 
-[ext_resource type="Script" uid="uid://byoefxp631hn1" path="res://character.gd" id="1_3h184"]
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_ypj6x"]
 [ext_resource type="Script" uid="uid://od5j8o1fqfks" path="res://enemy.gd" id="2_cojph"]
 [ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="4_ypj6x"]
 [ext_resource type="Script" uid="uid://c6ercmh3isut1" path="res://systems/glomp.gd" id="5_0fpt2"]
-[ext_resource type="Script" uid="uid://butjfhc677oeq" path="res://systems/movement.gd" id="6_igx0j"]
+[ext_resource type="Script" uid="uid://butjfhc677oeq" path="res://systems/player_control.gd" id="6_igx0j"]
 [ext_resource type="Script" uid="uid://dcmb8hnaa77hr" path="res://observers/glomp.gd" id="7_tctsc"]
-[ext_resource type="Script" uid="uid://f4v4gxr8b2in" path="res://observers/player_control.gd" id="8_ai2o8"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
 size = Vector2(1920, 32)
@@ -21,9 +19,6 @@ size = Vector2(32, 48)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjrbw"]
 size = Vector2(32, 48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cojph"]
-size = Vector2(32, 20)
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_ypj6x")
 
@@ -36,28 +31,6 @@ texture = SubResource("PlaceholderTexture2D_cojph")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_p7lbm")
-
-[node name="PlayerBody" type="CharacterBody2D" parent="."]
-collision_layer = 4
-collision_mask = 3
-script = ExtResource("1_3h184")
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayerBody"]
-texture = SubResource("PlaceholderTexture2D_rvmsc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
-shape = SubResource("RectangleShape2D_rjrbw")
-
-[node name="Area2D" type="Area2D" parent="PlayerBody"]
-position = Vector2(0, 24)
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody/Area2D"]
-shape = SubResource("RectangleShape2D_cojph")
-
-[node name="Crap" type="Node2D" parent="PlayerBody"]
 
 [node name="EnemyBody" type="CharacterBody2D" parent="."]
 position = Vector2(272, 520)
@@ -77,7 +50,6 @@ position = Vector2(0, -36)
 
 [node name="World" type="Node" parent="."]
 script = ExtResource("4_ypj6x")
-entity_nodes_root = NodePath("Entities")
 system_nodes_root = NodePath("Systems")
 metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
 
@@ -87,18 +59,10 @@ metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
 script = ExtResource("5_0fpt2")
 metadata/_custom_type_script = "uid://c6ercmh3isut1"
 
-[node name="MovementSystem" type="Node" parent="World/Systems"]
+[node name="PlayerControlSystem" type="Node" parent="World/Systems"]
 script = ExtResource("6_igx0j")
 metadata/_custom_type_script = "uid://butjfhc677oeq"
 
 [node name="GlompObserver" type="Node" parent="World/Systems"]
 script = ExtResource("7_tctsc")
 metadata/_custom_type_script = "uid://dcmb8hnaa77hr"
-
-[node name="PlayerControlObserver" type="Node" parent="World/Systems"]
-script = ExtResource("8_ai2o8")
-metadata/_custom_type_script = "uid://f4v4gxr8b2in"
-
-[node name="Entities" type="Node2D" parent="World"]
-
-[connection signal="body_entered" from="PlayerBody/Area2D" to="PlayerBody" method="_on_area_2d_body_entered"]

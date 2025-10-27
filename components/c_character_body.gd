@@ -3,5 +3,5 @@ extends Component
 
 var body: CharacterBody
 
-func _init(character_body: CharacterBody = null):
-	self.body = character_body
+# func _init(character_body: CharacterBody = null):
+# 	self.body = character_body
