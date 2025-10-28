@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://brhmblfdsq3un"]
+[gd_scene load_steps=18 format=3 uid="uid://brhmblfdsq3un"]
 
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_ypj6x"]
 [ext_resource type="Script" uid="uid://od5j8o1fqfks" path="res://enemy.gd" id="2_cojph"]
 [ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="4_ypj6x"]
 [ext_resource type="Script" uid="uid://c6ercmh3isut1" path="res://systems/glomp.gd" id="5_0fpt2"]
-[ext_resource type="Script" uid="uid://cl6glf45pcrns" path="res://addons/gecs/ecs/entity.gd" id="5_igx0j"]
+[ext_resource type="Script" uid="uid://digngggiqowjy" path="res://entities/e_character.gd" id="5_igx0j"]
+[ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="5_tctsc"]
 [ext_resource type="Script" uid="uid://butjfhc677oeq" path="res://systems/player_control.gd" id="6_igx0j"]
 [ext_resource type="Script" uid="uid://b6k13gc2m4e5s" path="res://addons/gecs/ecs/component.gd" id="6_tctsc"]
 [ext_resource type="Script" uid="uid://cfihd74te05s0" path="res://components/c_character_body.gd" id="7_ai2o8"]
@@ -16,8 +17,9 @@ size = Vector2(1920, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
 size = Vector2(1920, 32)
 
-[sub_resource type="Resource" id="Resource_luwg1"]
+[sub_resource type="Resource" id="Resource_tctsc"]
 script = ExtResource("7_ai2o8")
+body_path = NodePath("EnemyBody")
 metadata/_custom_type_script = "uid://cfihd74te05s0"
 
 [sub_resource type="Resource" id="Resource_igx0j"]
@@ -35,8 +37,9 @@ noise = SubResource("FastNoiseLite_0fpt2")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjrbw"]
 size = Vector2(32, 48)
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("world")]
 script = ExtResource("1_ypj6x")
+world = NodePath("World")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(608, 632)
@@ -66,23 +69,27 @@ metadata/_custom_type_script = "uid://butjfhc677oeq"
 
 [node name="Entities" type="Node2D" parent="World"]
 
-[node name="Entity" type="Node" parent="World/Entities"]
-script = ExtResource("5_igx0j")
-component_resources = Array[ExtResource("6_tctsc")]([SubResource("Resource_luwg1"), SubResource("Resource_igx0j")])
-metadata/_custom_type_script = "uid://cl6glf45pcrns"
+[node name="Player" parent="World/Entities" instance=ExtResource("5_tctsc")]
+enabled = false
 
-[node name="EnemyBody" type="CharacterBody2D" parent="World/Entities/Entity"]
+[node name="Enemy" type="Node" parent="World/Entities"]
+script = ExtResource("5_igx0j")
+enabled = false
+component_resources = Array[ExtResource("6_tctsc")]([SubResource("Resource_tctsc"), SubResource("Resource_igx0j")])
+metadata/_custom_type_script = "uid://digngggiqowjy"
+
+[node name="EnemyBody" type="CharacterBody2D" parent="World/Entities/Enemy"]
 position = Vector2(272, 520)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("2_cojph")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="World/Entities/Entity/EnemyBody"]
+[node name="Sprite2D" type="Sprite2D" parent="World/Entities/Enemy/EnemyBody"]
 texture = SubResource("NoiseTexture2D_igx0j")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Entities/Entity/EnemyBody"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Entities/Enemy/EnemyBody"]
 shape = SubResource("RectangleShape2D_rjrbw")
 
-[node name="GlompPoint" type="Node2D" parent="World/Entities/Entity/EnemyBody"]
+[node name="GlompPoint" type="Node2D" parent="World/Entities/Enemy/EnemyBody"]
 position = Vector2(0, -36)

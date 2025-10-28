@@ -44,7 +44,7 @@ signal relationship_removed(entity: Entity, relationship: Relationship)
 #endregion Signals
 
 #region Exported Variables
-## The id of the entity either UUID or custom string. 
+## The id of the entity either UUID or custom string.
 ## This must be unique within a [World]. If left blank, a UUID will be generated when the entity is added to a world.
 @export var id: String
 ## Is this entity active? (Will show up in queries)
@@ -135,12 +135,12 @@ func get_effective_serialize_config() -> GECSSerializeConfig:
 func add_component(component: Resource) -> void:
 	# Cache the resource path to avoid repeated calls
 	var resource_path = component.get_script().resource_path
-	
+
 	# If a component of this type already exists, remove it first
 	if components.has(resource_path):
 		var existing_component = components[resource_path]
 		remove_component(existing_component)
-	
+
 	_component_path_cache[component] = resource_path
 	components[resource_path] = component
 	if not component.property_changed.is_connected(_on_component_property_changed):
@@ -260,13 +260,13 @@ func add_relationships(_relationships: Array):
 ## [codeblock]
 ## # Remove all matching relationships (default behavior)
 ## entity.remove_relationship(Relationship.new(C_Damage.new(), target))
-## 
+##
 ## # Remove only one matching relationship
 ## entity.remove_relationship(Relationship.new(C_Damage.new(), target), 1)
-## 
+##
 ## # Remove up to 3 matching relationships
 ## entity.remove_relationship(Relationship.new(C_Damage.new(), target), 3)
-## 
+##
 ## # Remove no relationships (useful for testing/debugging)
 ## entity.remove_relationship(Relationship.new(C_Damage.new(), target), 0)
 ## [/codeblock]

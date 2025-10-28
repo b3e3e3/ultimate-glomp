@@ -1,8 +1,8 @@
 class_name GlompSystem
 extends System
 
-func query() -> QueryBuilder:
-	return q.with_all([C_GlompArea]).iterate([C_GlompArea])
+# func query() -> QueryBuilder:
+# 	return q.with_all([C_GlompArea]).iterate([C_GlompArea])
 
 func sub_systems():
 	return [
@@ -32,31 +32,32 @@ func monitor_glomp_areas(entities: Array[Entity], components: Array, _delta: flo
 		var c_area: C_GlompArea = areas[i]
 		var c_body: C_CharacterBody = bodies[i]
 
-		var char_bodies := c_area.area.get_overlapping_bodies()
+		var area := c_area.get_area(entity)
 
-		for body in char_bodies:
-			var other := body.get_parent() as Entity
+		if not area:
+			continue
+		var char_bodies := area.get_overlapping_bodies()
+
+		for other_body in char_bodies:
+			var other := other_body.get_parent() as Entity
+			var glomp_info := other.get_component(C_GlompInfo) as C_GlompInfo
 
 			if not other:
 				continue
 			if entity.has_relationship(Relationships.is_glomping()):
 				continue
+			var body := c_body.get_body(entity)
+			if not body:
+				continue
 
-			# glomp
-			c_body.body.disable()
+			body.disable()
 
-			if other.has_component(C_GlompInfo):
-				var c_info := other.get_component(C_GlompInfo) as C_GlompInfo
-				var glomp_point := c_info.get_glomp_point(other)
+			entity.remove_component(C_PlayerControl)
+			other.add_component(C_PlayerControl.new())
 
-				entity.reparent(glomp_point)
+			body.reparent(other_body)
+			body.global_position = glomp_info.get_glomp_point(other).global_position
 
-				c_body.body.global_position = glomp_point.global_position
-
-			entity.add_relationship(Relationships.is_glomping(other))
-
-			print(entity.get_relationship(Relationships.is_glomping(other)).source)
-			print(entity.get_relationship(Relationships.is_glomping(other)).target)
 
 func do_glomping(entities: Array[Entity], components: Array, _delta: float):
 	for i in entities.size():
@@ -64,20 +65,4 @@ func do_glomping(entities: Array[Entity], components: Array, _delta: float):
 		var c_control := components[0][i] as C_PlayerControl
 		var c_body := components[1][i] as C_CharacterBody
 
-		var is_glomping := entity.get_relationship(Relationships.is_glomping())
-		var other: Entity = is_glomping.target
-
-		if not other:
-			continue
-
-		if c_control.get_jump_pressed():
-			# unglomp
-			if other.has_component(C_GlompInfo):
-				entity.reparent(other.get_parent())
-
-			c_body.body.enable()
-
-			await get_tree().create_timer(0.5).timeout
-
-			entity.remove_relationship(Relationships.is_glomping())
-			print("Unglomped (relationship removed)")
+		pass

@@ -1,14 +1,20 @@
 extends Node2D
 
 @export var player_prefab: PackedScene = preload("res://player.tscn")
+@export var world: World
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ECS.world = $World
+	if world:
+		ECS.world = world
+	else:
+		ECS.world = $World
 
-	var player := player_prefab.instantiate() as Player
-	get_tree().current_scene.add_child(player)
-	ECS.world.add_entity(player)
+	for e in ECS.world.entities:
+		ECS.world.enable_entity(e)
+
+	# var player := player_prefab.instantiate() as Player
+	# get_tree().current_scene.add_child(player)
+	# ECS.world.add_entity(player)
 # Process systems by groups in order
 func _process(delta):
 	if ECS.world:

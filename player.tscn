@@ -1,7 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=13 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://b5nkrrdtoilhq" path="res://entities/e_player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://b6k13gc2m4e5s" path="res://addons/gecs/ecs/component.gd" id="2_hqtel"]
 [ext_resource type="Script" uid="uid://byoefxp631hn1" path="res://character.gd" id="2_i3pqv"]
+[ext_resource type="Script" uid="uid://cfihd74te05s0" path="res://components/c_character_body.gd" id="3_sweqy"]
+[ext_resource type="Script" uid="uid://cofsb42w7wdfa" path="res://components/c_player_control.gd" id="4_2hs0m"]
+[ext_resource type="Script" uid="uid://djwj10f32ett2" path="res://components/c_glomp_area.gd" id="5_1jxqw"]
+
+[sub_resource type="Resource" id="Resource_2hs0m"]
+script = ExtResource("3_sweqy")
+body_path = NodePath("CharacterBody")
+metadata/_custom_type_script = "uid://cfihd74te05s0"
+
+[sub_resource type="Resource" id="Resource_1jxqw"]
+script = ExtResource("5_1jxqw")
+area_path = NodePath("CharacterBody/GlompArea")
+metadata/_custom_type_script = "uid://djwj10f32ett2"
+
+[sub_resource type="Resource" id="Resource_dw050"]
+script = ExtResource("4_2hs0m")
+metadata/_custom_type_script = "uid://cofsb42w7wdfa"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rvmsc"]
 size = Vector2(32, 48)
@@ -14,7 +32,8 @@ size = Vector2(32, 20)
 
 [node name="Player" type="Node"]
 script = ExtResource("1_onrkg")
-metadata/_custom_type_script = "uid://cl6glf45pcrns"
+component_resources = Array[ExtResource("2_hqtel")]([SubResource("Resource_2hs0m"), SubResource("Resource_1jxqw"), SubResource("Resource_dw050")])
+metadata/_custom_type_script = "uid://digngggiqowjy"
 
 [node name="CharacterBody" type="CharacterBody2D" parent="."]
 collision_layer = 4
