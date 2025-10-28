@@ -28,6 +28,14 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func disable() -> void:
+	$CollisionShape2D.set_deferred(&"disabled", true)
+	set_deferred(&"is_frozen", true)
+
+func enable() -> void:
+	$CollisionShape2D.set_deferred(&"disabled", false)
+	set_deferred(&"is_frozen", false)
+
 func _on_area_2d_body_entered(body: Object) -> void:
 	if body is CharacterBody:
 		glomped.emit(body)

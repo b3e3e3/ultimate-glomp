@@ -43,10 +43,7 @@ func monitor_glomp_areas(entities: Array[Entity], components: Array, _delta: flo
 				continue
 
 			# glomp
-			c_body.body.is_frozen = true
-
-			var shape: CollisionShape2D = c_body.body.get_node("CollisionShape2D")
-			shape.set_deferred(&"disabled", true)
+			c_body.body.disable()
 
 			if other.has_component(C_GlompInfo):
 				var c_info := other.get_component(C_GlompInfo) as C_GlompInfo
@@ -75,13 +72,10 @@ func do_glomping(entities: Array[Entity], components: Array, _delta: float):
 
 		if c_control.get_jump_pressed():
 			# unglomp
-			c_body.body.is_frozen = false
-
 			if other.has_component(C_GlompInfo):
 				entity.reparent(other.get_parent())
 
-			var shape: CollisionShape2D = c_body.body.get_node("CollisionShape2D")
-			shape.set_deferred(&"disabled", false)
+			c_body.body.enable()
 
 			await get_tree().create_timer(0.5).timeout
 
