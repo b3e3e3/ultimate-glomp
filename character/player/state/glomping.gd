@@ -4,18 +4,23 @@ class_name PlayerGlompingState extends PlayerState
 @onready var jumping_state: State = $"../Jumping"
 
 func on_enter(_previous_state: State, _data := {}) -> void:
-	var bodies := player.get_glomped_bodies()
-	print("Glomped bodies", bodies)
+	player.gravity_enabled = false
+	player.move_enabled = false
 
-	if bodies.is_empty():
-		goto(idle_state)
-	else:
-		var body := bodies[0] as PhysicsBody2D
-		player.glomp_on(body)
+	if not player.glomped_body:
+		var bodies := player.get_glomped_bodies()
+		print("Glomped bodies", bodies)
+
+		if not bodies.is_empty():
+			player.glomp_on(bodies[0])
+		else:
+			goto(idle_state)
+
 
 func on_physics_update(_delta: float) -> void:
 	if check_for_jumping():
 		goto(jumping_state)
+		# player.carry_glomped_body()
 		#, {
 		# 	&"air_move_speed": 100000.0,
 		# 	&"air_accel_speed": 100000.0,

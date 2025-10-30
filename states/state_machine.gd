@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 
 func __transition_to_next_state(target_state: State, data: Dictionary = {}) -> void:
 	assert(target_state != null, owner.name + ": Trying to transition to state " + target_state.name + " but it does not exist.")
-
+	print("Going from state " + state.name + " to state " + target_state.name)
 	var previous_state := state
 	state.on_exit()
 	state = target_state

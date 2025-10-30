@@ -16,4 +16,4 @@ func check_for_jumping() -> bool:
 	return character.get_jump_input() and character.can_jump()
 
 func check_for_glomping() -> bool:
-	return not player.get_glomped_bodies().is_empty()
+	return player.glomped_body or not player.get_glomped_bodies().is_empty()

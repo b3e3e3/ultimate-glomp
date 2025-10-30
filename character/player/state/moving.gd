@@ -7,9 +7,11 @@ class_name PlayerMovingState extends PlayerState
 
 var movement: float = 0.0
 
-func on_physics_update(delta: float) -> void:
-	player.apply_gravity(delta)
+func on_enter(_previous_state: State, _data := {}) -> void:
+	player.gravity_enabled = true
+	player.move_enabled = true
 
+func on_physics_update(_delta: float) -> void:
 	movement = player.get_horizontal_input()
 
 	if check_for_falling():

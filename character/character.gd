@@ -6,15 +6,21 @@ const DECEL_SPEED: float = 80.0
 const SPEED: float = 200.0
 const JUMP_VELOCITY: float = -400.0
 
+var gravity_enabled: bool = true
+var move_enabled: bool = true
+
 func _physics_process(delta: float) -> void:
-	apply_gravity(delta)
-	move_and_slide()
+	if gravity_enabled:
+		apply_gravity(delta)
+
+	if move_enabled:
+		move_and_slide()
 
 func disable_collision():
-	$CollisionShape2D.set_deferred(&"disabled", true)
+	Global.disable_collision($CollisionShape2D)
 
 func enable_collision():
-	$CollisionShape2D.set_deferred(&"disabled", false)
+	Global.enable_collision($CollisionShape2D)
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():

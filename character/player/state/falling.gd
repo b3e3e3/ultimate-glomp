@@ -10,6 +10,9 @@ var _speed: float
 var _accel: float
 
 func on_enter(_previous_state: State, data := {}) -> void:
+	player.gravity_enabled = true
+	player.move_enabled = true
+
 	if data and data.has(&"air_move_speed"):
 		_speed = data.get(&"air_move_speed")
 	else:
@@ -20,14 +23,14 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	else:
 		_accel = air_accel_speed
 
-func on_physics_update(delta: float) -> void:
-	player.apply_gravity(delta)
-
+func on_physics_update(_delta: float) -> void:
 	var hor := player.get_horizontal_input()
 
 	if check_for_landing():
 		goto(idle_state)
 	elif check_for_glomping():
 		goto(glomping_state)
+	elif Input.is_action_just_pressed(&"interact"):
+		player.drop_glomped_body()
 	elif check_for_moving():
 		player.move(hor, _accel, _speed)
