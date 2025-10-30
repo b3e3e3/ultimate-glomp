@@ -1,60 +1,61 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=11 format=3 uid="uid://c1wv0ies7lixs"]
 
-[ext_resource type="Script" uid="uid://b5nkrrdtoilhq" path="res://entities/e_player.gd" id="1_onrkg"]
-[ext_resource type="Script" uid="uid://b6k13gc2m4e5s" path="res://addons/gecs/ecs/component.gd" id="2_hqtel"]
-[ext_resource type="Script" uid="uid://byoefxp631hn1" path="res://character.gd" id="2_i3pqv"]
-[ext_resource type="Script" uid="uid://cfihd74te05s0" path="res://components/c_character_body.gd" id="3_sweqy"]
-[ext_resource type="Script" uid="uid://cofsb42w7wdfa" path="res://components/c_player_control.gd" id="4_2hs0m"]
-[ext_resource type="Script" uid="uid://djwj10f32ett2" path="res://components/c_glomp_area.gd" id="5_1jxqw"]
+[ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://player/player.gd" id="1_1jxqw"]
+[ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
+[ext_resource type="Script" uid="uid://2mkoc7e487wg" path="res://player/state/idle.gd" id="3_b26j0"]
+[ext_resource type="Script" uid="uid://dsjk5ljw0trgx" path="res://player/state/moving.gd" id="4_n7ghd"]
+[ext_resource type="Script" uid="uid://bq53gcgs65d8t" path="res://player/state/jumping.gd" id="5_nvl01"]
+[ext_resource type="Script" uid="uid://odl2jpl1wkoo" path="res://player/state/falling.gd" id="6_ivps1"]
+[ext_resource type="Script" uid="uid://b4ma274x0f55t" path="res://player/state/glomping.gd" id="7_urp6f"]
 
-[sub_resource type="Resource" id="Resource_2hs0m"]
-script = ExtResource("3_sweqy")
-body_path = NodePath("CharacterBody")
-metadata/_custom_type_script = "uid://cfihd74te05s0"
-
-[sub_resource type="Resource" id="Resource_1jxqw"]
-script = ExtResource("5_1jxqw")
-area_path = NodePath("CharacterBody/GlompArea")
-metadata/_custom_type_script = "uid://djwj10f32ett2"
-
-[sub_resource type="Resource" id="Resource_dw050"]
-script = ExtResource("4_2hs0m")
-metadata/_custom_type_script = "uid://cofsb42w7wdfa"
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rvmsc"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
 size = Vector2(32, 48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjrbw"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
 size = Vector2(32, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cojph"]
-size = Vector2(32, 20)
 
-[node name="Player" type="Node"]
-script = ExtResource("1_onrkg")
-component_resources = Array[ExtResource("2_hqtel")]([SubResource("Resource_2hs0m"), SubResource("Resource_1jxqw"), SubResource("Resource_dw050")])
-metadata/_custom_type_script = "uid://digngggiqowjy"
-
-[node name="CharacterBody" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
-script = ExtResource("2_i3pqv")
+script = ExtResource("1_1jxqw")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody"]
-texture = SubResource("PlaceholderTexture2D_rvmsc")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_cojph")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody"]
-shape = SubResource("RectangleShape2D_rjrbw")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p7lbm")
 
-[node name="GlompArea" type="Area2D" parent="CharacterBody"]
+[node name="GlompArea" type="Area2D" parent="."]
 position = Vector2(0, 24)
 collision_layer = 4
 collision_mask = 2
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody/GlompArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GlompArea"]
 shape = SubResource("RectangleShape2D_cojph")
+debug_color = Color(0.74509805, 0.6745098, 0, 0.41960785)
 
-[node name="Crap" type="Node2D" parent="CharacterBody"]
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_dw050")
+metadata/_custom_type_script = "uid://01tdfipkjgo6"
 
-[connection signal="body_entered" from="CharacterBody/GlompArea" to="CharacterBody" method="_on_area_2d_body_entered"]
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_b26j0")
+metadata/_custom_type_script = "uid://2mkoc7e487wg"
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("4_n7ghd")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("5_nvl01")
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("6_ivps1")
+
+[node name="Glomping" type="Node" parent="StateMachine"]
+script = ExtResource("7_urp6f")
+
+[connection signal="body_entered" from="GlompArea" to="." method="_on_glomp_area_body_entered"]

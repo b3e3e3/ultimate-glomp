@@ -11,18 +11,13 @@ config_version=5
 [application]
 
 config/name="ultimate glomp"
-run/main_scene="res://ecs_sandbox.tscn"
+run/main_scene="uid://clwraaxyoly0o"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
-[autoload]
-
-ECS="*res://addons/gecs/ecs/ecs.gd"
-Relationships="*res://relationships.gd"
-
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gecs/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
@@ -64,6 +59,7 @@ attack={
 
 [layer_names]
 
+2d_physics/layer_1="ground"
 2d_physics/layer_2="glompable"
 2d_physics/layer_3="player"
 

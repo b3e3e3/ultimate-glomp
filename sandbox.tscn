@@ -1,3 +1,55 @@
-[gd_scene format=3 uid="uid://clwraaxyoly0o"]
+[gd_scene load_steps=9 format=3 uid="uid://clwraaxyoly0o"]
+
+[ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
+[ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="2_p7lbm"]
+[ext_resource type="Script" uid="uid://dccbvvcfrufu" path="res://character/enemy/enemy.gd" id="3_rvmsc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3h184"]
+size = Vector2(2000, 102)
+
+[sub_resource type="Gradient" id="Gradient_cojph"]
+colors = PackedColorArray(0, 0.975293, 0.39971256, 1, 0.67587477, 0.49745536, 0.7503111, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p7lbm"]
+gradient = SubResource("Gradient_cojph")
+width = 102
+height = 2000
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
+size = Vector2(32, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
+size = Vector2(32, 48)
 
 [node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(601, 604)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_3h184")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+rotation = 1.5707964
+texture = SubResource("GradientTexture2D_p7lbm")
+
+[node name="Player" parent="." instance=ExtResource("1_cojph")]
+position = Vector2(601, 484)
+script = ExtResource("2_p7lbm")
+
+[node name="Enemy" type="CharacterBody2D" parent="." groups=["Glompable"]]
+position = Vector2(736, 484)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("3_rvmsc")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+texture = SubResource("PlaceholderTexture2D_cojph")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource("RectangleShape2D_p7lbm")
+
+[node name="GlompPoint" type="Node2D" parent="Enemy"]
+position = Vector2(0, -24)
