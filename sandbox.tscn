@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://clwraaxyoly0o"]
+[gd_scene load_steps=11 format=3 uid="uid://clwraaxyoly0o"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
+[ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_rvmsc"]
 [ext_resource type="Script" uid="uid://dccbvvcfrufu" path="res://character/enemy/enemy.gd" id="3_rvmsc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3h184"]
@@ -23,7 +24,9 @@ gradient = SubResource("Gradient_p7lbm")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
 size = Vector2(32, 48)
 
-[node name="Node2D" type="Node2D"]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("player_controller")]
+script = ExtResource("1_rvmsc")
+player_controller = NodePath("PlayerController")
 
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource("1_p7lbm")

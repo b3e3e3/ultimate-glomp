@@ -1,5 +1,7 @@
 extends Node
 
+@export var current_level: Level
+
 func disable_collision(node: Node):
 	if node is CollisionShape2D:
 		node.set_deferred(&"disabled", true)

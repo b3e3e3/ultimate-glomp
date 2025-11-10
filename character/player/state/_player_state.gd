@@ -1,5 +1,6 @@
 class_name PlayerState extends CharacterState
 var player: Player
+var controller: PlayerController
 
 
 func _ready() -> void:
@@ -7,6 +8,9 @@ func _ready() -> void:
 
 	player = character as Player
 	assert(player != null, "The PlayerState state type must be used only in the player scene. It needs the owner to be a Player node.")
+
+	controller = Global.current_level.player_controller
+	assert(player != null, "PlayerController is null.")
 
 func on_update(_delta: float) -> void:
 	var l: Label = player.get_node(^"CanvasLayer/Label")
@@ -16,10 +20,10 @@ func on_update(_delta: float) -> void:
 	super.on_update(_delta)
 
 func check_for_moving() -> bool:
-	return character.get_horizontal_input() or character.is_moving()
+	return controller.get_horizontal_input() or character.is_moving()
 
 func check_for_jumping() -> bool:
-	return character.get_jump_input() and character.is_landed()
+	return controller.get_jump_input() and character.is_landed()
 
 func check_for_glomping() -> bool:
 	return player.glomped_body or not player.get_glomped_bodies().is_empty()

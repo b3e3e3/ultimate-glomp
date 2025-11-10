@@ -5,38 +5,11 @@ signal unglomped(body: PhysicsBody2D)
 
 var glomped_body: Node2D
 
-# func jump(force: float = JUMP_VELOCITY) -> void:
-# 	if glomped_body and get_parent() == glomped_body:
-# 		glomped_body.remove_child(self)
-# 		glomped_body.reparent(self)
+# func get_horizontal_input() -> float:
+# 	return Input.get_axis(&"move_left", &"move_right")
 
-# 	super.jump(force)
-
-# func move(dir: float, accel: float = ACCEL_SPEED, speed: float = SPEED) -> void:
-# 	if glomped_body and glomped_body.has_method(&"move"):
-# 		glomped_body.call(&"move", dir, accel, speed)
-# 		return
-
-# 	super.move(dir, accel, speed)
-
-# func is_moving() -> bool:
-# 	if glomped_body and glomped_body.has_method(&"is_moving"):
-# 		return glomped_body.call(&"is_moving")
-# 	return super.is_moving()
-
-# func _physics_process(delta: float) -> void:
-# 	if glomped_body and is_landed():
-# 		if is_landed() and glomped_body.get_parent() == self:
-# 			remove_child(glomped_body)
-# 			reparent(glomped_body)
-
-# 	super._physics_process(delta)
-
-func get_horizontal_input() -> float:
-	return Input.get_axis(&"move_left", &"move_right")
-
-func get_jump_input() -> bool:
-	return Input.is_action_just_pressed(&"jump")
+# func get_jump_input() -> bool:
+# 	return Input.is_action_just_pressed(&"jump")
 
 func get_glomped_bodies() -> Array[Node2D]:
 	return $GlompArea.get_overlapping_bodies()

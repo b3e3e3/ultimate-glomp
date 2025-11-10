@@ -24,7 +24,7 @@ func on_enter(_previous_state: State, data := {}) -> void:
 		_accel = air_accel_speed
 
 func on_physics_update(_delta: float) -> void:
-	var hor := player.get_horizontal_input()
+	var hor := controller.get_horizontal_input()
 
 	if check_for_landing():
 		goto(idle_state)

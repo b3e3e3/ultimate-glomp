@@ -1,11 +1,14 @@
-extends Node
+class_name PlayerController extends Node
 
+@export var character: CharacterBody2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _ready():
+	if character == null:
+		print("Controller found Player")
+		character = get_node(^"../Player")
 
+func get_horizontal_input() -> float:
+	return Input.get_axis(&"move_left", &"move_right")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func get_jump_input() -> bool:
+	return Input.is_action_just_pressed(&"jump")
