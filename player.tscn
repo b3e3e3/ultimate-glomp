@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=12 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bq53gcgs65d8t" path="res://character/player/state/jumping.gd" id="5_nvl01"]
 [ext_resource type="Script" uid="uid://odl2jpl1wkoo" path="res://character/player/state/falling.gd" id="6_ivps1"]
 [ext_resource type="Script" uid="uid://b4ma274x0f55t" path="res://character/player/state/glomping.gd" id="7_urp6f"]
+[ext_resource type="Script" uid="uid://dm3deb0vu25fw" path="res://character/player/state/throwing.gd" id="8_dw050"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
 size = Vector2(32, 48)
@@ -57,5 +58,8 @@ script = ExtResource("6_ivps1")
 
 [node name="Glomping" type="Node" parent="StateMachine"]
 script = ExtResource("7_urp6f")
+
+[node name="Throwing" type="Node" parent="StateMachine"]
+script = ExtResource("8_dw050")
 
 [connection signal="body_entered" from="GlompArea" to="." method="_on_glomp_area_body_entered"]

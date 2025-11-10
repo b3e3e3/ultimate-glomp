@@ -29,16 +29,16 @@ func glomp_on(body: PhysicsBody2D) -> void:
 	# collision_shape.disabled = true
 
 	# reparent player to glomped body
-	reparent(body)
+	# reparent(body)
 
-	# disable processing to prevent movement
-	body.process_mode = Node.PROCESS_MODE_DISABLED
-
+	if body.has_method(&"get_glomped"):
+		body.call(&"get_glomped", self)
 	glomped.emit(body)
 
 func un_glomp() -> void:
+	return
 	# # move the glomped body back into the world
-	reparent(glomped_body.get_parent()) # TODO: find a better parent?
+	# reparent(glomped_body.get_parent()) # TODO: find a better parent?
 
 	# # default distance
 	var dist := 64.0
@@ -53,9 +53,6 @@ func un_glomp() -> void:
 
 	# apply distance to player position
 	global_position += Vector2.UP * dist
-
-	# resume processing
-	glomped_body.process_mode = Node.PROCESS_MODE_INHERIT
 
 	# remove glomped body
 	unglomped.emit(glomped_body)

@@ -28,3 +28,6 @@ func check_for_jumping() -> bool:
 
 func check_for_glomping() -> bool:
 	return player.glomped_body or not player.get_glomped_bodies().is_empty()
+
+func check_for_throwing() -> bool:
+	return controller.get_jump_input() and player.glomped_body

@@ -2,6 +2,7 @@ class_name PlayerFallingState extends PlayerState
 
 @onready var idle_state: State = $"../Idle"
 @onready var glomping_state: State = $"../Glomping"
+@onready var throwing_state: State = $"../Throwing"
 
 @export var air_move_speed: float = 300.0
 @export var air_accel_speed: float = 15.0
@@ -28,5 +29,7 @@ func on_physics_update(_delta: float) -> void:
 
 	if check_for_landing():
 		goto(idle_state)
+	elif check_for_throwing():
+		goto(throwing_state)
 	elif check_for_moving():
 		player.move(hor, _accel, _speed)

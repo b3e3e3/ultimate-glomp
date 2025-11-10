@@ -10,7 +10,7 @@ func _ready() -> void:
 	for state_node: State in find_children("*", "State"):
 		state_node.finished.connect(__transition_to_next_state)
 
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = PROCESS_MODE_ALWAYS
 
 	# State machines usually access data from the root node of the scene they're part of: the owner.
 	# We wait for the owner to be ready to guarantee all the data and nodes the states may need are available.

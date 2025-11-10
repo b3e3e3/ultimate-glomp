@@ -18,9 +18,9 @@ func on_physics_update(_delta: float) -> void:
 		goto(falling_state)
 	elif check_for_jumping():
 		goto(jumping_state)
-	elif check_for_moving():
-		player.move(movement)
 	elif check_for_glomping():
 		goto(glomping_state)
+	elif check_for_moving():
+		player.move(movement)
 	else:
 		goto(idle_state)

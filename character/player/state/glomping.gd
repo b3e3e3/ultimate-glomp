@@ -7,7 +7,8 @@ var is_jumping := false
 
 
 func on_enter(_previous_state: State, _data := {}) -> void:
-	if not player.glomped_body:
+	print("Glomp state, has glomped body?", player.glomped_body)
+	if player.glomped_body == null:
 		var bodies := player.get_glomped_bodies()
 
 		if not bodies.is_empty():
@@ -16,7 +17,7 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 			goto(idle_state)
 
 	player.velocity = Vector2.ZERO
-	player.process_mode = Node.PROCESS_MODE_DISABLED
+	player.process_mode = PROCESS_MODE_DISABLED
 
 
 func on_physics_update(_delta: float) -> void:
@@ -30,5 +31,7 @@ func on_physics_update(_delta: float) -> void:
 			)
 
 func on_exit() -> void:
-	player.process_mode = Node.PROCESS_MODE_INHERIT
-	player.un_glomp()
+	player.process_mode = PROCESS_MODE_INHERIT
+
+	if not player.glomped_body.is_in_group(&"Throwable"):
+		player.un_glomp()

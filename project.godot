@@ -24,6 +24,11 @@ LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 
 enabled=PackedStringArray("res://addons/limbo_console/plugin.cfg")
 
+[global_group]
+
+Throwable=""
+Glompable=""
+
 [input]
 
 move_left={
@@ -82,6 +87,7 @@ limbo_console_search_history={
 2d_physics/layer_1="ground"
 2d_physics/layer_2="glompable"
 2d_physics/layer_3="player"
+2d_physics/layer_7="projectile"
 
 [rendering]
 

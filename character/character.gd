@@ -9,6 +9,8 @@ const JUMP_VELOCITY: float = -400.0
 var gravity_enabled: bool = true
 var move_enabled: bool = true
 
+var direction: Vector2 = Vector2.RIGHT
+
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 func _physics_process(delta: float) -> void:
@@ -17,6 +19,9 @@ func _physics_process(delta: float) -> void:
 
 	if move_enabled:
 		move_and_slide()
+
+	# TODO: better direction calculation
+	direction = Vector2.RIGHT * sign(velocity.x) if velocity.x != 0 else direction
 
 func disable_collision():
 	Global.disable_collision($CollisionShape2D)
