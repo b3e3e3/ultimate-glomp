@@ -11,4 +11,4 @@ func check_for_falling() -> bool:
 	return not character.is_on_floor()
 
 func check_for_landing() -> bool:
-	return character.is_on_floor()
+	return character.is_on_floor() or character.is_landed()

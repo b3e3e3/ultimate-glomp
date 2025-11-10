@@ -10,6 +10,8 @@ func _ready() -> void:
 	for state_node: State in find_children("*", "State"):
 		state_node.finished.connect(__transition_to_next_state)
 
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	# State machines usually access data from the root node of the scene they're part of: the owner.
 	# We wait for the owner to be ready to guarantee all the data and nodes the states may need are available.
 	await owner.ready
@@ -26,7 +28,7 @@ func _physics_process(delta: float) -> void:
 
 func __transition_to_next_state(target_state: State, data: Dictionary = {}) -> void:
 	assert(target_state != null, owner.name + ": Trying to transition to state " + target_state.name + " but it does not exist.")
-	print("Going from state " + state.name + " to state " + target_state.name)
+	# LimboConsole.info("[%s] State %s -> %s" % [owner.name, state.name, target_state.name])
 	var previous_state := state
 	state.on_exit()
 	state = target_state

@@ -8,12 +8,18 @@ func _ready() -> void:
 	player = character as Player
 	assert(player != null, "The PlayerState state type must be used only in the player scene. It needs the owner to be a Player node.")
 
+func on_update(_delta: float) -> void:
+	var l: Label = player.get_node(^"CanvasLayer/Label")
+	l.text = player.get_node(^"StateMachine").state.name + '\n'
+	l.text += player.glomped_body.name as String if player.glomped_body else "No glomp"
+
+	super.on_update(_delta)
 
 func check_for_moving() -> bool:
-	return character.get_horizontal_input() or character.velocity.x != 0
+	return character.get_horizontal_input() or character.is_moving()
 
 func check_for_jumping() -> bool:
-	return character.get_jump_input() and character.can_jump()
+	return character.get_jump_input() and character.is_landed()
 
 func check_for_glomping() -> bool:
 	return player.glomped_body or not player.get_glomped_bodies().is_empty()

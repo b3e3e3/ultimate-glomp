@@ -9,6 +9,8 @@ const JUMP_VELOCITY: float = -400.0
 var gravity_enabled: bool = true
 var move_enabled: bool = true
 
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
 func _physics_process(delta: float) -> void:
 	if gravity_enabled:
 		apply_gravity(delta)
@@ -35,5 +37,8 @@ func move(dir: float, accel: float = ACCEL_SPEED, speed: float = SPEED) -> void:
 func jump(force: float = JUMP_VELOCITY) -> void:
 	velocity.y = force
 
-func can_jump() -> bool:
+func is_landed() -> bool:
 	return is_on_floor() or velocity.y == 0
+
+func is_moving() -> bool:
+	return velocity.x != 0

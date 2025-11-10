@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://clwraaxyoly0o"]
+[gd_scene load_steps=10 format=3 uid="uid://clwraaxyoly0o"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
-[ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="2_p7lbm"]
+[ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
 [ext_resource type="Script" uid="uid://dccbvvcfrufu" path="res://character/enemy/enemy.gd" id="3_rvmsc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3h184"]
@@ -15,13 +15,18 @@ gradient = SubResource("Gradient_cojph")
 width = 102
 height = 2000
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
-size = Vector2(32, 48)
+[sub_resource type="Gradient" id="Gradient_p7lbm"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rvmsc"]
+gradient = SubResource("Gradient_p7lbm")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
 size = Vector2(32, 48)
 
 [node name="Node2D" type="Node2D"]
+
+[node name="PlayerController" type="Node" parent="."]
+script = ExtResource("1_p7lbm")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(601, 604)
@@ -36,7 +41,12 @@ texture = SubResource("GradientTexture2D_p7lbm")
 
 [node name="Player" parent="." instance=ExtResource("1_cojph")]
 position = Vector2(601, 484)
-script = ExtResource("2_p7lbm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+
+[node name="Label" type="Label" parent="Player/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Enemy" type="CharacterBody2D" parent="." groups=["Glompable"]]
 position = Vector2(736, 484)
@@ -46,10 +56,11 @@ script = ExtResource("3_rvmsc")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
-texture = SubResource("PlaceholderTexture2D_cojph")
+texture = SubResource("GradientTexture1D_rvmsc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("RectangleShape2D_p7lbm")
 
 [node name="GlompPoint" type="Node2D" parent="Enemy"]
 position = Vector2(0, -24)
+metadata/glomp_protected = true

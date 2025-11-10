@@ -28,9 +28,5 @@ func on_physics_update(_delta: float) -> void:
 
 	if check_for_landing():
 		goto(idle_state)
-	elif check_for_glomping():
-		goto(glomping_state)
-	elif Input.is_action_just_pressed(&"interact"):
-		player.drop_glomped_body()
 	elif check_for_moving():
 		player.move(hor, _accel, _speed)
