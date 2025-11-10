@@ -5,6 +5,7 @@ class_name PlayerGlompingState extends PlayerState
 
 var is_jumping := false
 
+
 func on_enter(_previous_state: State, _data := {}) -> void:
 	if not player.glomped_body:
 		var bodies := player.get_glomped_bodies()

@@ -1,4 +1,5 @@
 class_name PlayerState extends CharacterState
+
 var player: Player
 var controller: PlayerController
 
