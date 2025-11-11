@@ -5,7 +5,9 @@ class_name PlayerJumpingState extends PlayerState
 func on_enter(_previous_state: State, data := {}) -> void:
 	player.gravity_enabled = true
 	player.move_enabled = true
-	data.set(&'just_jumped', true)
+
+	if not data.has(&'just_jumped'):
+		data.set(&'just_jumped', true)
 
 	if data.has(&"jump_force"):
 		var force: Vector2 = data.get(&'jump_force')

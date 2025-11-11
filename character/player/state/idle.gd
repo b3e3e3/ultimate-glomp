@@ -10,7 +10,7 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 	player.move_enabled = true
 
 func on_physics_update(_delta: float) -> void:
-	if check_for_moving():
+	if check_for_moving_horizontal():
 		goto(moving_state)
 	elif check_for_falling():
 		goto(falling_state)

@@ -20,7 +20,7 @@ func on_physics_update(_delta: float) -> void:
 		goto(jumping_state)
 	elif check_for_glomping():
 		goto(glomping_state)
-	elif check_for_moving():
+	elif check_for_moving_horizontal():
 		player.move(movement)
 	else:
 		goto(idle_state)

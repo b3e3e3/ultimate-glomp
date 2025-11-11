@@ -22,6 +22,7 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	character.move_enabled = true
 
 	can_coyote = not data.get(&'just_jumped') if data.has(&'just_jumped') else true
+
 	jumps = data.get(&'jumps') if data.has(&'jumps') else 0
 
 	_speed = data.get(&"air_move_speed") if data.has(&"air_move_speed") else air_move_speed
@@ -29,7 +30,8 @@ func on_enter(_previous_state: State, data := {}) -> void:
 
 	if can_coyote:
 		# disable coyote timer after <coyote_time> seconds
-		get_tree().create_timer(coyote_time).timeout.connect(func():
+		var ct: float = data.get(&'coyote_time') if data.has(&'coyote_time') else coyote_time
+		get_tree().create_timer(ct).timeout.connect(func():
 			print("Can't coyote anymore")
 			can_coyote = false
 		, CONNECT_ONE_SHOT)
@@ -39,7 +41,7 @@ func on_physics_update(_delta: float) -> void:
 
 	if check_for_landing():
 		goto(idle_state)
-	elif check_for_grabbing():
+	elif check_for_climbing():
 		goto(climbing_state)
 
 	elif controller.get_jump_input() and can_coyote:
@@ -51,7 +53,7 @@ func on_physics_update(_delta: float) -> void:
 
 	elif check_for_throwing():
 		goto(throwing_state)
-	elif check_for_moving():
+	elif check_for_moving_horizontal():
 		character.move(hor, _speed, _accel)
 
 	super.on_physics_update(_delta)

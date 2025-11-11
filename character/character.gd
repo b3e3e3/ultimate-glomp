@@ -34,10 +34,16 @@ func apply_gravity(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 func move(dir: float, speed: float = SPEED, accel: float = ACCEL_SPEED) -> void:
+	var delta := accel
+	var target := dir * speed
+
 	if not dir and velocity.x:
-		velocity.x = move_toward(velocity.x, 0, DECEL_SPEED)
-	else:
-		velocity.x = move_toward(velocity.x, dir * speed, accel)
+		target = 0
+		delta = DECEL_SPEED
+	elif sign(dir) != sign(velocity.x):
+		delta = DECEL_SPEED
+
+	velocity.x = move_toward(velocity.x, target, delta)
 
 func vertical_move(dir: float, speed: float = SPEED, accel: float = ACCEL_SPEED) -> void:
 	velocity.y = dir * speed
@@ -56,3 +62,6 @@ func is_landed() -> bool:
 
 func is_moving() -> bool:
 	return velocity.x != 0
+
+func get_speed() -> float:
+	return SPEED
