@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dr4ihbcr24q34"]
+
+[ext_resource type="Script" uid="uid://dccbvvcfrufu" path="res://character/enemy/enemy.gd" id="1_2md1f"]
+[ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_46mkj"]
+[ext_resource type="PackedScene" uid="uid://col4yavuv2tw2" path="res://character/enemy/enemy_projectile.tscn" id="3_pgf0a"]
+
+[sub_resource type="Gradient" id="Gradient_ypj6x"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rvmsc"]
+gradient = SubResource("Gradient_ypj6x")
+width = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
+size = Vector2(32, 48)
+
+[node name="Enemy" type="CharacterBody2D" groups=["Glompable", "Throwable"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_2md1f")
+metadata/_edit_group_ = true
+
+[node name="ProjectileSpawner" type="Node2D" parent="."]
+script = ExtResource("2_46mkj")
+projectile_scene = ExtResource("3_pgf0a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 48)
+texture = SubResource("GradientTexture1D_rvmsc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p7lbm")
+
+[node name="GlompPoint" type="Node2D" parent="."]
+position = Vector2(0, -24)
+metadata/glomp_protected = true
+
+[connection signal="thrown" from="." to="ProjectileSpawner" method="_on_thrown"]

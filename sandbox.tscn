@@ -1,95 +1,75 @@
-[gd_scene load_steps=18 format=3 uid="uid://brhmblfdsq3un"]
+[gd_scene load_steps=9 format=3 uid="uid://clwraaxyoly0o"]
 
-[ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_ypj6x"]
-[ext_resource type="Script" uid="uid://od5j8o1fqfks" path="res://enemy.gd" id="2_cojph"]
-[ext_resource type="Script" uid="uid://cdu5tlyk72uu4" path="res://addons/gecs/ecs/world.gd" id="4_ypj6x"]
-[ext_resource type="Script" uid="uid://c6ercmh3isut1" path="res://systems/glomp.gd" id="5_0fpt2"]
-[ext_resource type="Script" uid="uid://digngggiqowjy" path="res://entities/e_character.gd" id="5_igx0j"]
-[ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="5_tctsc"]
-[ext_resource type="Script" uid="uid://butjfhc677oeq" path="res://systems/player_control.gd" id="6_igx0j"]
-[ext_resource type="Script" uid="uid://b6k13gc2m4e5s" path="res://addons/gecs/ecs/component.gd" id="6_tctsc"]
-[ext_resource type="Script" uid="uid://cfihd74te05s0" path="res://components/c_character_body.gd" id="7_ai2o8"]
-[ext_resource type="Script" uid="uid://dmdqqy7dfya7n" path="res://components/c_glompinfo.gd" id="8_igx0j"]
+[ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
+[ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
+[ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_rvmsc"]
+[ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="4_rvmsc"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
-size = Vector2(1920, 32)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3h184"]
+size = Vector2(2000, 102)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
-size = Vector2(1920, 32)
+[sub_resource type="Gradient" id="Gradient_cojph"]
+colors = PackedColorArray(0, 0.975293, 0.39971256, 1, 0.67587477, 0.49745536, 0.7503111, 1)
 
-[sub_resource type="Resource" id="Resource_tctsc"]
-script = ExtResource("7_ai2o8")
-body_path = NodePath("EnemyBody")
-metadata/_custom_type_script = "uid://cfihd74te05s0"
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p7lbm"]
+gradient = SubResource("Gradient_cojph")
+width = 102
+height = 2000
 
-[sub_resource type="Resource" id="Resource_igx0j"]
-script = ExtResource("8_igx0j")
-glomp_point_path = NodePath("EnemyBody/GlompPoint")
-metadata/_custom_type_script = "uid://dmdqqy7dfya7n"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvmsc"]
+size = Vector2(238, 649)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_0fpt2"]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("player_controller")]
+script = ExtResource("1_rvmsc")
+player_controller = NodePath("PlayerController")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igx0j"]
-width = 32
-height = 48
-noise = SubResource("FastNoiseLite_0fpt2")
+[node name="PlayerController" type="Node" parent="."]
+script = ExtResource("1_p7lbm")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjrbw"]
-size = Vector2(32, 48)
-
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("world")]
-script = ExtResource("1_ypj6x")
-world = NodePath("World")
-
-[node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(608, 632)
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(601, 604)
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Floor"]
-texture = SubResource("PlaceholderTexture2D_cojph")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_3h184")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-shape = SubResource("RectangleShape2D_p7lbm")
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+rotation = 1.5707964
+texture = SubResource("GradientTexture2D_p7lbm")
 
-[node name="World" type="Node" parent="."]
-script = ExtResource("4_ypj6x")
-entity_nodes_root = NodePath("Entities")
-system_nodes_root = NodePath("Systems")
-metadata/_custom_type_script = "uid://cdu5tlyk72uu4"
-
-[node name="Systems" type="Node2D" parent="World"]
-
-[node name="GlompSystem" type="Node" parent="World/Systems"]
-script = ExtResource("5_0fpt2")
-metadata/_custom_type_script = "uid://c6ercmh3isut1"
-
-[node name="PlayerControlSystem" type="Node" parent="World/Systems"]
-script = ExtResource("6_igx0j")
-metadata/_custom_type_script = "uid://butjfhc677oeq"
-
-[node name="Entities" type="Node2D" parent="World"]
-
-[node name="Player" parent="World/Entities" instance=ExtResource("5_tctsc")]
-enabled = false
-
-[node name="Enemy" type="Node" parent="World/Entities"]
-script = ExtResource("5_igx0j")
-enabled = false
-component_resources = Array[ExtResource("6_tctsc")]([SubResource("Resource_tctsc"), SubResource("Resource_igx0j")])
-metadata/_custom_type_script = "uid://digngggiqowjy"
-
-[node name="EnemyBody" type="CharacterBody2D" parent="World/Entities/Enemy"]
-position = Vector2(272, 520)
-collision_layer = 2
-collision_mask = 5
-script = ExtResource("2_cojph")
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(1800, 560)
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="World/Entities/Enemy/EnemyBody"]
-texture = SubResource("NoiseTexture2D_igx0j")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_3h184")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Entities/Enemy/EnemyBody"]
-shape = SubResource("RectangleShape2D_rjrbw")
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+rotation = 1.5707964
+texture = SubResource("GradientTexture2D_p7lbm")
 
-[node name="GlompPoint" type="Node2D" parent="World/Entities/Enemy/EnemyBody"]
-position = Vector2(0, -36)
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(376, 604)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(881, -273.5)
+shape = SubResource("RectangleShape2D_rvmsc")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+position = Vector2(881.33716, -273.4445)
+rotation = 1.5707964
+scale = Vector2(6.361657, 0.11866289)
+texture = SubResource("GradientTexture2D_p7lbm")
+
+[node name="Player" parent="." instance=ExtResource("1_cojph")]
+position = Vector2(601, 484)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+
+[node name="Label" type="Label" parent="Player/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Enemy" parent="." instance=ExtResource("4_rvmsc")]
+position = Vector2(736, 484)
