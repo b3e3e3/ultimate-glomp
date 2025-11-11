@@ -3,6 +3,9 @@ class_name Player extends Character
 signal glomped(body: PhysicsBody2D)
 signal unglomped(body: PhysicsBody2D)
 
+@onready var glomp_area: Area2D = $GlompArea
+@onready var climb_area: Area2D = $ClimbArea
+
 var glomped_body: Node2D
 
 # func get_horizontal_input() -> float:
@@ -11,8 +14,11 @@ var glomped_body: Node2D
 # func get_jump_input() -> bool:
 # 	return Input.is_action_just_pressed(&"jump")
 
+func get_climbable_bodies_in_proximity() -> Array[Node2D]:
+	return climb_area.get_overlapping_bodies()
+
 func get_glomped_bodies() -> Array[Node2D]:
-	return $GlompArea.get_overlapping_bodies()
+	return glomp_area.get_overlapping_bodies()
 
 func glomp_on(body: PhysicsBody2D) -> void:
 	# acquire glomped body

@@ -18,3 +18,5 @@ func on_physics_update(_delta: float) -> void:
 		goto(glomping_state)
 	elif check_for_jumping():
 		goto(jumping_state)
+
+	super.on_physics_update(_delta)

@@ -18,8 +18,13 @@ func on_update(_delta: float) -> void:
 	l.text = player.get_node(^"StateMachine").state.name + '\n'
 	l.text += player.glomped_body.name as String if player.glomped_body else "No glomp"
 	l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
+	l.text += '\n' + 'vel: ' + str(player.velocity)
+	l.text += '\n' + 'direction: ' + str(character.direction)
 
 	super.on_update(_delta)
+
+func on_physics_update(_delta: float) -> void:
+	controller.control_direction()
 
 func check_for_moving() -> bool:
 	return controller.get_horizontal_input() or character.is_moving()
@@ -32,3 +37,9 @@ func check_for_glomping() -> bool:
 
 func check_for_throwing() -> bool:
 	return controller.get_jump_input() and player.glomped_body
+
+func check_for_grabbing() -> bool:
+	return character.is_on_wall() and not player.get_climbable_bodies_in_proximity().is_empty()
+
+func check_for_climbing() -> bool:
+	return controller.get_vertical_input()

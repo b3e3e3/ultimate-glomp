@@ -24,3 +24,5 @@ func on_physics_update(_delta: float) -> void:
 		player.move(movement)
 	else:
 		goto(idle_state)
+
+	super.on_physics_update(_delta)

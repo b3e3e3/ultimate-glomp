@@ -4,6 +4,7 @@ class_name PlayerFallingState extends PlayerState
 @onready var glomping_state: State = $"../Glomping"
 @onready var throwing_state: State = $"../Throwing"
 @onready var jumping_state: State = $"../Jumping"
+@onready var climbing_state: State = $"../Climbing"
 
 @export var air_move_speed: float = 300.0
 @export var air_accel_speed: float = 15.0
@@ -14,11 +15,14 @@ var _accel: float
 
 var can_coyote: bool = true
 
+var jumps: int = 0
+
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
 	character.move_enabled = true
 
 	can_coyote = not data.get(&'just_jumped') if data.has(&'just_jumped') else true
+	jumps = data.get(&'jumps') if data.has(&'jumps') else 0
 
 	_speed = data.get(&"air_move_speed") if data.has(&"air_move_speed") else air_move_speed
 	_accel = data.get(&"air_accel_speed") if data.has(&"air_accel_speed") else air_accel_speed
@@ -35,10 +39,19 @@ func on_physics_update(_delta: float) -> void:
 
 	if check_for_landing():
 		goto(idle_state)
+	elif check_for_grabbing():
+		goto(climbing_state)
+
 	elif controller.get_jump_input() and can_coyote:
-		print('Coyote jump!')
-		goto(jumping_state)
+			print('Coyote jump!')
+			goto(jumping_state)
+	elif controller.get_jump_input() and jumps > 0:
+			print('(n)ble jump!')
+			goto(jumping_state)
+
 	elif check_for_throwing():
 		goto(throwing_state)
 	elif check_for_moving():
-		character.move(hor, _accel, _speed)
+		character.move(hor, _speed, _accel)
+
+	super.on_physics_update(_delta)

@@ -30,6 +30,8 @@ func on_physics_update(_delta: float) -> void:
 			# }
 			)
 
+	super.on_physics_update(_delta)
+
 func on_exit() -> void:
 	player.process_mode = PROCESS_MODE_INHERIT
 
