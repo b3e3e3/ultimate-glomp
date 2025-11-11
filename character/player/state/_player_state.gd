@@ -17,6 +17,7 @@ func on_update(_delta: float) -> void:
 	var l: Label = player.get_node(^"CanvasLayer/Label")
 	l.text = player.get_node(^"StateMachine").state.name + '\n'
 	l.text += player.glomped_body.name as String if player.glomped_body else "No glomp"
+	l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
 
 	super.on_update(_delta)
 

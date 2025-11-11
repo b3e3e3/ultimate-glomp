@@ -37,6 +37,17 @@ shape = SubResource("RectangleShape2D_3h184")
 rotation = 1.5707964
 texture = SubResource("GradientTexture2D_p7lbm")
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(1800, 560)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_3h184")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+rotation = 1.5707964
+texture = SubResource("GradientTexture2D_p7lbm")
+
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(376, 604)
 metadata/_edit_group_ = true

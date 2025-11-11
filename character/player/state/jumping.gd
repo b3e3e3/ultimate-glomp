@@ -7,6 +7,7 @@ class_name PlayerJumpingState extends PlayerState
 func on_enter(_previous_state: State, data := {}) -> void:
 	player.gravity_enabled = true
 	player.move_enabled = true
+	data.set(&'just_jumped', true)
 
 	var force := jump_force
 	if data:
