@@ -7,13 +7,12 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	player.move_enabled = true
 	data.set(&'just_jumped', true)
 
-	if data:
-		if data.has(&"jump_force"):
-			var force: Vector2 = data.get(&'jump_force')
-			print("Found jump force of ", force)
-			character.jump(force)
-		else:
-			character.jump()
+	if data.has(&"jump_force"):
+		var force: Vector2 = data.get(&'jump_force')
+		print("Found jump force of ", force)
+		character.jump(force)
+	else:
+		character.jump()
 
 
 	goto(falling_state, data)

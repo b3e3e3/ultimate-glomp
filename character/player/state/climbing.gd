@@ -32,7 +32,7 @@ func on_physics_update(_delta: float) -> void:
 	# jump off climbable
 	elif check_for_jumping():
 		goto(jumping_state, {
-			&'jump_force': jump_off_force + Vector2(character.direction.x * -100, 0),
+			&'jump_force': jump_off_force + Vector2(character.direction.x * -200, 0),
 			&'jumps': 1,
 		})
 

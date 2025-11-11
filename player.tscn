@@ -26,6 +26,8 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_1jxqw")
 ACCEL_SPEED = 10.0
+DECEL_SPEED = 120.0
+SPEED = 333.0
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
