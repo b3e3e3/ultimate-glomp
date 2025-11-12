@@ -38,7 +38,6 @@ func _physics_process(delta: float) -> void:
 
 	if not _direction.is_equal_approx(target_direction):
 		_direction = _direction.slerp(target_direction, delta * 50)
-		print(_direction)
 		linear_velocity = _direction * speed
 
 func _on_body_entered(body: Node) -> void:

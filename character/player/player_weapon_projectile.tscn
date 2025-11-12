@@ -24,6 +24,10 @@ contact_monitor = true
 script = ExtResource("1_1iiy4")
 metadata/_custom_type_script = "uid://b0ij04hfb1hg4"
 
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 4.0
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("NoiseTexture2D_m0lmd")
 

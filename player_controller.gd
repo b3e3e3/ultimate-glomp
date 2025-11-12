@@ -4,7 +4,7 @@ class_name PlayerController extends Node
 
 func _ready():
 	if character == null:
-		print("Controller found Player")
+		push_warning("Controller character is null, finding Player")
 		character = get_node(^"../Player")
 
 func control_direction():
@@ -29,3 +29,6 @@ func get_jump_input() -> bool:
 
 func get_attack_input() -> bool:
 	return Input.is_action_just_pressed(&"attack")
+
+func get_aim_direction() -> Vector2:
+	return character.global_position.direction_to(character.get_global_mouse_position())
