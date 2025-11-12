@@ -13,6 +13,9 @@ var direction: Vector2 = Vector2.RIGHT
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
+func _enter_tree() -> void:
+	set_collision_mask_value(1, true) # enable ground layer
+
 func _physics_process(delta: float) -> void:
 	if gravity_enabled:
 		apply_gravity(delta)

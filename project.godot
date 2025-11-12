@@ -90,6 +90,7 @@ limbo_console_search_history={
 2d_physics/layer_1="ground"
 2d_physics/layer_2="glompable"
 2d_physics/layer_3="player"
+2d_physics/layer_4="enemy"
 2d_physics/layer_5="climbable"
 2d_physics/layer_7="projectile"
 

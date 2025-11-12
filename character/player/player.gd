@@ -8,6 +8,10 @@ signal unglomped(body: PhysicsBody2D)
 
 var glomped_body: Node2D
 
+func _enter_tree() -> void:
+	super._enter_tree()
+	set_collision_mask_value(2, true) # enable glompable layer
+
 # func get_horizontal_input() -> float:
 # 	return Input.get_axis(&"move_left", &"move_right")
 

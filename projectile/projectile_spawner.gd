@@ -18,4 +18,15 @@ func spawn_projectile(dir: Vector2) -> Projectile:
 	return projectile
 
 func _on_thrown(by: Character) -> void:
+	print("On thrown")
 	spawn_projectile(by.direction)
+
+func _on_hit(by: Node2D) -> void:
+	(func():
+		print("On hit")
+		if by is Projectile:
+			by = by as Projectile
+			var p := spawn_projectile(-by.direction)
+			p.global_position.y = by.global_position.y
+			p.spinout()
+	).call_deferred()

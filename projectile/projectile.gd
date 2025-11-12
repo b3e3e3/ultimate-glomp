@@ -12,6 +12,11 @@ var direction: Vector2 = Vector2(1, 0)
 func _enter_tree() -> void:
 	body_entered.connect(_on_body_entered)
 
+	set_collision_layer_value(1, false) # disable default layer
+	set_collision_layer_value(7, true) # enable projectile layer
+
+	set_collision_mask_value(1, true) # enable ground layer
+
 func _exit_tree() -> void:
 	body_entered.disconnect(_on_body_entered)
 
@@ -25,6 +30,8 @@ func _physics_process(delta: float) -> void:
 	$Sprite2D.rotation_degrees += delta * get_spin_speed()
 
 func _on_body_entered(_body: Node) -> void:
+	if _body.has_method(&"get_hit"):
+		_body.get_hit(self)
 	spinout()
 
 func get_spin_speed() -> float:
@@ -35,7 +42,7 @@ func get_spin_speed() -> float:
 func spinout() -> void:
 	$CollisionShape2D.set_deferred(&"disabled", true)
 
-	linear_velocity = (-direction * speed * 0.4) + (Vector2.UP * speed * 0.7)
+	linear_velocity = (-direction * speed * 0.2) + (Vector2.UP * speed * 0.7)
 
 	# linear_damp = 1.5
 	spin_speed *= 1.5
