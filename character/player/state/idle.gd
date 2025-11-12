@@ -4,6 +4,7 @@ class_name PlayerIdleState extends PlayerState
 @onready var falling_state: State = $"../Falling"
 @onready var jumping_state: State = $"../Jumping"
 @onready var glomping_state: State = $"../Glomping"
+@onready var attacking_state: State = $"../Attacking"
 
 func on_enter(_previous_state: State, _data := {}) -> void:
 	player.gravity_enabled = true
@@ -14,6 +15,8 @@ func on_physics_update(_delta: float) -> void:
 		goto(moving_state)
 	elif check_for_falling():
 		goto(falling_state)
+	elif check_for_attacking():
+		goto(attacking_state)
 	elif check_for_glomping():
 		goto(glomping_state)
 	elif check_for_jumping():

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bt1vup4573skj" path="res://projectile/projectile.gd" id="1_53853"]
 
-[sub_resource type="Gradient" id="Gradient_p7lbm"]
+[sub_resource type="Gradient" id="Gradient_53853"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_b8s3k"]
-gradient = SubResource("Gradient_p7lbm")
+gradient = SubResource("Gradient_53853")
 width = 32
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53853"]

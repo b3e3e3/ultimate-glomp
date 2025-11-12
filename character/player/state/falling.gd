@@ -5,6 +5,7 @@ class_name PlayerFallingState extends PlayerState
 @onready var throwing_state: State = $"../Throwing"
 @onready var jumping_state: State = $"../Jumping"
 @onready var climbing_state: State = $"../Climbing"
+@onready var attacking_state: State = $"../Attacking"
 
 @export var air_move_speed: float = 300.0
 @export var air_accel_speed: float = 15.0
@@ -16,6 +17,7 @@ var _accel: float
 var can_coyote: bool = true
 
 var jumps: int = 0
+
 
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
@@ -41,6 +43,8 @@ func on_physics_update(_delta: float) -> void:
 
 	if check_for_landing():
 		goto(idle_state)
+	elif check_for_attacking():
+		goto(attacking_state)
 	elif check_for_climbing():
 		goto(climbing_state)
 

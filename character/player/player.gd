@@ -8,6 +8,9 @@ signal unglomped(body: PhysicsBody2D)
 
 var glomped_body: Node2D
 
+var is_attacking: bool = false
+
+
 func _enter_tree() -> void:
 	super._enter_tree()
 	set_collision_mask_value(2, true) # enable glompable layer
@@ -23,6 +26,15 @@ func get_climbable_bodies_in_proximity() -> Array[Node2D]:
 
 func get_glomped_bodies() -> Array[Node2D]:
 	return glomp_area.get_overlapping_bodies()
+
+func attack():
+	if is_attacking: return
+
+	$ProjectileSpawner.spawn_projectile(direction)
+	is_attacking = true
+	$ProjectileSpawner.projectile_finished.connect((func(_p):
+		is_attacking = false
+	), CONNECT_ONE_SHOT)
 
 func glomp_on(body: PhysicsBody2D) -> void:
 	# acquire glomped body

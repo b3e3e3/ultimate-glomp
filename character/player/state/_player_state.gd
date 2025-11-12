@@ -50,6 +50,10 @@ func check_for_climbing() -> bool:
 func check_for_moving_vertical() -> bool:
 	return controller.get_vertical_input()
 
+## Returns true if the player is trying to attack.
+func check_for_attacking() -> bool:
+	return controller.get_attack_input()
+
 ## Checks if the player is trying to move in the direction they are already moving.
 ## If so, a timer starts of @param time seconds.
 ## If the player is still trying to move in the same direction, returns true.
