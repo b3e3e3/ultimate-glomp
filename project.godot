@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://global.gd"
+Global="*res://_global.gd"
 LimboConsole="*res://addons/limbo_console/limbo_console.gd"
+Commands="*res://_commands.gd"
 
 [editor_plugins]
 
