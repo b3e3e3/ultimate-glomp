@@ -15,7 +15,7 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	player.move_enabled = true
 
 	_triangle_combo = data.get(&"triangle_combo", _triangle_combo)
-	if _triangle_combo < triangle_jump_limit:
+	if _triangle_combo < triangle_jump_limit and _previous_state:
 		_triangle_combo += 1
 	else:
 		_triangle_combo = 0
@@ -29,6 +29,19 @@ func on_enter(_previous_state: State, data := {}) -> void:
 		data.erase(&"triangle_combo")
 	, CONNECT_ONE_SHOT)
 
+	if data.get(&"reverse_coyote", false):
+		data.erase(&"reverse_coyote")
+		print("REVERSE COYOTE")
+		__do_jump()
+
+func __do_jump():
+	var data := {}
+
+	if _triangle_combo:
+		data.set(&'triangle_combo', _triangle_combo)
+
+	goto(jumping_state, data)
+
 func on_physics_update(_delta: float) -> void:
 	if check_for_moving_horizontal():
 		goto(moving_state)
@@ -39,12 +52,7 @@ func on_physics_update(_delta: float) -> void:
 	elif check_for_glomping():
 		goto(glomping_state)
 	elif check_for_jumping():
-		var data := {}
-
-		if _triangle_combo:
-			data.set(&'triangle_combo', _triangle_combo)
-
-		goto(jumping_state, data)
+		__do_jump()
 
 	super.on_physics_update(_delta)
 

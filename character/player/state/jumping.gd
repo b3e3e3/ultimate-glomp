@@ -9,7 +9,8 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	if not data.has(&'just_jumped'):
 		data.set(&'just_jumped', true)
 
-	var force: Vector2 = data.get(&'jump_force', character.get_jump_force())
+	var triangle_force := (character.get_jump_force() / 3) * (max(0, data.get(&"triangle_combo", 0) - 1) as int)
+	var force: Vector2 = data.get(&'jump_force', character.get_jump_force() + triangle_force)
 
 	character.jump(force)
 

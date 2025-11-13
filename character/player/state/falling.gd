@@ -11,12 +11,14 @@ class_name PlayerFallingState extends PlayerState
 @export var air_accel_speed: float = 15.0
 @export var air_decel_speed: float = 3.0
 @export var coyote_time: float = 0.2
+@export var reverse_coyote_time: float = 0.15
 
 var _speed: float
 var _accel: float
 var _decel: float
 
 var can_coyote: bool = true
+var _can_reverse_coyote: bool = false
 
 var climb_hopping: bool = false
 
@@ -28,6 +30,7 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	character.move_enabled = true
 	# print('Just jumped? ', data.get(&'just_jumped', false))
 	can_coyote = not data.get(&'just_jumped') if data.has(&'just_jumped') else true
+	_can_reverse_coyote = false
 	climb_hopping = data.get(&'just_climbed', false)
 
 	jumps = data.get(&'jumps', 0)
@@ -56,21 +59,30 @@ func on_physics_update(delta: float) -> void:
 	var hor := controller.get_horizontal_input()
 
 	if check_for_landing():
-		goto(idle_state)
+		goto(idle_state, {
+			&"reverse_coyote": _can_reverse_coyote
+		})
 	elif check_for_attacking() and not check_for_glomping():
 		goto(attacking_state)
 	elif check_for_climbing():
 		goto(climbing_state)
 
-	elif controller.get_jump_input() and can_coyote:
-			# print('Coyote jump!')
-			goto(jumping_state)
-	elif controller.get_jump_input() and jumps > 0:
-			# print('(n)ble jump!')
-			goto(jumping_state)
-
 	elif check_for_throwing():
 		goto(throwing_state)
+
+	elif controller.get_jump_input():
+		if can_coyote:
+			# print('Coyote jump!')
+			goto(jumping_state)
+		elif jumps > 0:
+			# print('(n)ble jump!')
+			goto(jumping_state)
+		elif not _can_reverse_coyote:
+			_can_reverse_coyote = true
+			get_tree().create_timer(reverse_coyote_time).timeout.connect(func():
+				_can_reverse_coyote = false
+			, CONNECT_ONE_SHOT)
+
 	elif check_for_moving_horizontal():
 		# character.move(hor, _speed, _accel, _decel)
 		var accel := _accel if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
