@@ -20,6 +20,7 @@ func on_update(_delta: float) -> void:
 	l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
 	l.text += '\n' + 'vel: ' + str(player.velocity)
 	l.text += '\n' + 'direction: ' + str(character.direction)
+	l.text += '\n' + 'triangle_combo: ' + str($"../Idle"._triangle_combo)
 
 	super.on_update(_delta)
 
@@ -50,6 +51,10 @@ func check_for_climbing() -> bool:
 func check_for_moving_vertical() -> bool:
 	return controller.get_vertical_input()
 
+## Returns true if the player is trying to attack.
+func check_for_attacking() -> bool:
+	return controller.get_attack_input()
+
 ## Checks if the player is trying to move in the direction they are already moving.
 ## If so, a timer starts of @param time seconds.
 ## If the player is still trying to move in the same direction, returns true.
@@ -66,3 +71,9 @@ func check_for_swapping(time: float) -> bool:
 				and character.velocity.length() == 0
 
 	return false
+
+func get_directional_acceleration(movement: float, accel: float = character.get_accel_speed(), decel: float = character.get_decel_speed()) -> float:
+	if character.velocity.length_squared() != 0 \
+	and (movement) != sign(character.velocity.x):
+		return decel
+	return accel

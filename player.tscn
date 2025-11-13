@@ -1,14 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=17 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
+[ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_n7ghd"]
 [ext_resource type="Script" uid="uid://2mkoc7e487wg" path="res://character/player/state/idle.gd" id="3_b26j0"]
+[ext_resource type="PackedScene" uid="uid://4ur8modix6my" path="res://character/player/player_weapon_projectile.tscn" id="3_nvl01"]
 [ext_resource type="Script" uid="uid://dsjk5ljw0trgx" path="res://character/player/state/moving.gd" id="4_n7ghd"]
 [ext_resource type="Script" uid="uid://bq53gcgs65d8t" path="res://character/player/state/jumping.gd" id="5_nvl01"]
 [ext_resource type="Script" uid="uid://odl2jpl1wkoo" path="res://character/player/state/falling.gd" id="6_ivps1"]
 [ext_resource type="Script" uid="uid://b4ma274x0f55t" path="res://character/player/state/glomping.gd" id="7_urp6f"]
 [ext_resource type="Script" uid="uid://dm3deb0vu25fw" path="res://character/player/state/throwing.gd" id="8_dw050"]
 [ext_resource type="Script" uid="uid://d1dxygfyk3hb0" path="res://character/player/state/climbing.gd" id="9_b26j0"]
+[ext_resource type="Script" uid="uid://dgbihqkvw2qv0" path="res://character/player/state/attacking.gd" id="12_ivps1"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
 size = Vector2(32, 48)
@@ -20,6 +23,7 @@ size = Vector2(32, 48)
 size = Vector2(48, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cojph"]
+size = Vector2(48, 20)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -30,7 +34,13 @@ DECEL_SPEED = 120.0
 SPEED = 333.0
 metadata/_edit_group_ = true
 
+[node name="ProjectileSpawner" type="Node2D" parent="."]
+script = ExtResource("2_n7ghd")
+projectile_scene = ExtResource("3_nvl01")
+metadata/_custom_type_script = "uid://bvr66sg8l5ano"
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 texture = SubResource("PlaceholderTexture2D_cojph")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -69,6 +79,8 @@ script = ExtResource("5_nvl01")
 
 [node name="Falling" type="Node" parent="StateMachine"]
 script = ExtResource("6_ivps1")
+air_accel_speed = 30.0
+air_decel_speed = 50.0
 
 [node name="Glomping" type="Node" parent="StateMachine"]
 script = ExtResource("7_urp6f")
@@ -80,4 +92,8 @@ script = ExtResource("8_dw050")
 script = ExtResource("9_b26j0")
 metadata/_custom_type_script = "uid://d1dxygfyk3hb0"
 
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("12_ivps1")
+
+[connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="body_entered" from="GlompArea" to="." method="_on_glomp_area_body_entered"]

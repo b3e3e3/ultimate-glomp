@@ -4,6 +4,7 @@ class_name PlayerMovingState extends PlayerState
 @onready var falling_state: State = $"../Falling"
 @onready var jumping_state: State = $"../Jumping"
 @onready var glomping_state: State = $"../Glomping"
+@onready var attacking_state: State = $"../Attacking"
 
 var movement: float = 0.0
 
@@ -18,10 +19,12 @@ func on_physics_update(_delta: float) -> void:
 		goto(falling_state)
 	elif check_for_jumping():
 		goto(jumping_state)
+	elif check_for_attacking():
+		goto(attacking_state)
 	elif check_for_glomping():
 		goto(glomping_state)
 	elif check_for_moving_horizontal():
-		player.move(movement)
+		player.move(movement, character.get_speed(), get_directional_acceleration(movement))
 	else:
 		goto(idle_state)
 

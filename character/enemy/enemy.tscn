@@ -14,8 +14,8 @@ width = 32
 size = Vector2(32, 48)
 
 [node name="Enemy" type="CharacterBody2D" groups=["Glompable", "Throwable"]]
-collision_layer = 2
-collision_mask = 5
+collision_layer = 10
+collision_mask = 69
 script = ExtResource("1_2md1f")
 metadata/_edit_group_ = true
 
@@ -34,4 +34,5 @@ shape = SubResource("RectangleShape2D_p7lbm")
 position = Vector2(0, -24)
 metadata/glomp_protected = true
 
+[connection signal="hit" from="." to="ProjectileSpawner" method="_on_hit"]
 [connection signal="thrown" from="." to="ProjectileSpawner" method="_on_thrown"]

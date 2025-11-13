@@ -1,9 +1,15 @@
 extends Character
 
 signal thrown(by: Character)
+signal hit(by: Node2D)
+
+func _enter_tree() -> void:
+	super._enter_tree()
+	set_collision_mask_value(3, true) # enable player layer
+	set_collision_mask_value(7, true) # enable projectile layer
 
 func get_thrown(by: Character):
-	print("whee!!")
+	# print("whee!!")
 	process_mode = PROCESS_MODE_INHERIT
 
 	reparent(by.get_parent())
@@ -13,8 +19,14 @@ func get_thrown(by: Character):
 	queue_free()
 	thrown.emit(by)
 
+func get_hit(by: Node2D):
+	# print("Hit by projectile")
+
+	queue_free()
+	hit.emit(by)
+
 func get_glomped(by: Character):
-	print("Glomped by " + by.name)
+	# print("Glomped by " + by.name)
 
 	reparent(by)
 	collision_shape.reparent(by)

@@ -3,10 +3,20 @@ class_name Player extends Character
 signal glomped(body: PhysicsBody2D)
 signal unglomped(body: PhysicsBody2D)
 
+signal attack_started
+signal attack_finished
+
 @onready var glomp_area: Area2D = $GlompArea
 @onready var climb_area: Area2D = $ClimbArea
 
 var glomped_body: Node2D
+
+var is_attacking: bool = false
+
+
+func _enter_tree() -> void:
+	super._enter_tree()
+	set_collision_mask_value(2, true) # enable glompable layer
 
 # func get_horizontal_input() -> float:
 # 	return Input.get_axis(&"move_left", &"move_right")
@@ -19,6 +29,19 @@ func get_climbable_bodies_in_proximity() -> Array[Node2D]:
 
 func get_glomped_bodies() -> Array[Node2D]:
 	return glomp_area.get_overlapping_bodies()
+
+func attack(aim_direction: Vector2 = self.direction):
+	if is_attacking: return
+
+	$ProjectileSpawner.spawn_projectile(aim_direction)
+
+	attack_started.emit()
+	is_attacking = true
+
+	$ProjectileSpawner.projectile_finished.connect((func(_p):
+		is_attacking = false
+		attack_finished.emit()
+	), CONNECT_ONE_SHOT)
 
 func glomp_on(body: PhysicsBody2D) -> void:
 	# acquire glomped body

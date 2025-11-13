@@ -10,7 +10,7 @@ func _ready() -> void:
 func cmd_spawn(what: String, x: float = 500, y: float = 0.0) -> void:
 	match what:
 		"enemy":
-			var enemy: PackedScene = load("res://character/enemy/enemy.tscn")
+			var enemy: PackedScene = preload("res://character/enemy/enemy.tscn")
 			var e: Node2D = enemy.instantiate()
 			e.position = Vector2(x, y)
 			Global.current_level.add_child(e)

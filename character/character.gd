@@ -13,6 +13,9 @@ var direction: Vector2 = Vector2.RIGHT
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
+func _enter_tree() -> void:
+	set_collision_mask_value(1, true) # enable ground layer
+
 func _physics_process(delta: float) -> void:
 	if gravity_enabled:
 		apply_gravity(delta)
@@ -33,15 +36,15 @@ func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-func move(dir: float, speed: float = SPEED, accel: float = ACCEL_SPEED) -> void:
+func move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed(), decel: float = get_decel_speed()) -> void:
 	var delta := accel
 	var target := dir * speed
 
 	if not dir and velocity.x:
 		target = 0
-		delta = DECEL_SPEED
-	elif sign(dir) != sign(velocity.x):
-		delta = DECEL_SPEED
+		delta = decel
+	# elif sign(dir) != sign(velocity.x):
+	# 	delta = decel
 
 	velocity.x = move_toward(velocity.x, target, delta)
 
@@ -65,3 +68,12 @@ func is_moving() -> bool:
 
 func get_speed() -> float:
 	return SPEED
+
+func get_decel_speed() -> float:
+	return DECEL_SPEED
+
+func get_accel_speed() -> float:
+	return ACCEL_SPEED
+
+func get_jump_force() -> Vector2:
+	return JUMP_VELOCITY
