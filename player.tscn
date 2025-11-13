@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=19 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dm3deb0vu25fw" path="res://character/player/state/throwing.gd" id="8_dw050"]
 [ext_resource type="Script" uid="uid://d1dxygfyk3hb0" path="res://character/player/state/climbing.gd" id="9_b26j0"]
 [ext_resource type="Script" uid="uid://dgbihqkvw2qv0" path="res://character/player/state/attacking.gd" id="12_ivps1"]
+[ext_resource type="Texture2D" uid="uid://bnrq00ulmd3ux" path="res://addons/kenney_particle_pack/star_07.png" id="13_urp6f"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
 size = Vector2(32, 48)
@@ -24,6 +25,25 @@ size = Vector2(48, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cojph"]
 size = Vector2(48, 20)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bwjto"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 0.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+angle_min = -159.99998
+angle_max = 176.70001
+direction = Vector3(0, -1, 0)
+spread = 42.87
+initial_velocity_min = 444.0
+initial_velocity_max = 444.0
+gravity = Vector3(0, 1500, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+color = Color(0.9480962, 0.91493136, 0.749571, 1)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -94,6 +114,16 @@ metadata/_custom_type_script = "uid://d1dxygfyk3hb0"
 
 [node name="Attacking" type="Node" parent="StateMachine"]
 script = ExtResource("12_ivps1")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, 32)
+emitting = false
+amount = 10
+texture = ExtResource("13_urp6f")
+lifetime = 0.2
+one_shot = true
+preprocess = 0.13
+process_material = SubResource("ParticleProcessMaterial_bwjto")
 
 [connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="body_entered" from="GlompArea" to="." method="_on_glomp_area_body_entered"]

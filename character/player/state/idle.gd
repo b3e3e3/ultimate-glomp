@@ -17,6 +17,10 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	_triangle_combo = data.get(&"triangle_combo", _triangle_combo)
 	if _triangle_combo < triangle_jump_limit and _previous_state:
 		_triangle_combo += 1
+		if _triangle_combo > 1:
+			$"../../GPUParticles2D".emitting = true
+			$"../../GPUParticles2D".amount_ratio = (_triangle_combo / 3.0)
+			$"../../GPUParticles2D".process_mode = PROCESS_MODE_ALWAYS
 	else:
 		_triangle_combo = 0
 
