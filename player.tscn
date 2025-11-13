@@ -95,4 +95,5 @@ metadata/_custom_type_script = "uid://d1dxygfyk3hb0"
 [node name="Attacking" type="Node" parent="StateMachine"]
 script = ExtResource("12_ivps1")
 
+[connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="body_entered" from="GlompArea" to="." method="_on_glomp_area_body_entered"]

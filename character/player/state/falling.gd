@@ -57,7 +57,7 @@ func on_physics_update(delta: float) -> void:
 
 	if check_for_landing():
 		goto(idle_state)
-	elif check_for_attacking():
+	elif check_for_attacking() and not check_for_glomping():
 		goto(attacking_state)
 	elif check_for_climbing():
 		goto(climbing_state)

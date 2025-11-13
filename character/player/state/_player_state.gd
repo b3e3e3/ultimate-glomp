@@ -20,6 +20,7 @@ func on_update(_delta: float) -> void:
 	l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
 	l.text += '\n' + 'vel: ' + str(player.velocity)
 	l.text += '\n' + 'direction: ' + str(character.direction)
+	l.text += '\n' + 'triangle_combo: ' + str($"../Idle"._triangle_combo)
 
 	super.on_update(_delta)
 

@@ -11,6 +11,9 @@ var side_swap_hold_time := 0.2
 func on_enter(_previous_state: State, _data := {}) -> void:
 	character.gravity_enabled = false
 	character.velocity = Vector2.ZERO
+
+	$"../Idle"._triangle_combo = 0 # TEMP: this is jank as fuck
+
 	# character.collision_shape.disabled = true
 # 	_old_jump_force = data.get(&'jump_force') if data.has(&'jump_force') else player.JUMP_VELOCITY
 
@@ -34,6 +37,7 @@ func on_physics_update(_delta: float) -> void:
 			# &'air_accel_speed': character.get_accel_speed(),
 			&'air_decel_speed': 120.0,
 			&'jumps': 1,
+			&"triangle_combo": 0
 			# &'coyote_time': 0.7,
 		})
 
