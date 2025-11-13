@@ -23,6 +23,7 @@ size = Vector2(32, 48)
 size = Vector2(48, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cojph"]
+size = Vector2(48, 20)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -39,6 +40,7 @@ projectile_scene = ExtResource("3_nvl01")
 metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 texture = SubResource("PlaceholderTexture2D_cojph")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
