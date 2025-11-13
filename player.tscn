@@ -79,6 +79,7 @@ script = ExtResource("5_nvl01")
 
 [node name="Falling" type="Node" parent="StateMachine"]
 script = ExtResource("6_ivps1")
+air_accel_speed = 30.0
 air_decel_speed = 50.0
 
 [node name="Glomping" type="Node" parent="StateMachine"]

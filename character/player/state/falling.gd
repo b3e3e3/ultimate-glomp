@@ -39,18 +39,20 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	# print(_speed, ' ', _accel, ' ', _decel)
 
 	# TODO: this doesnt work. opting for double jumps instead
-	# if can_coyote:
-	# 	# disable coyote timer after <coyote_time> seconds
-	# 	var ct: float = data.get(&'coyote_time', coyote_time)
+	if can_coyote:
+		# disable coyote timer after <coyote_time> seconds
+		var ct: float = data.get(&'coyote_time', coyote_time)
 
-	# 	get_tree().create_timer(ct).timeout.connect(func():
-	# 		# prevent this timer from firing if the player lands before the timer expires
-	# 		# TODO: still doesnt work. try climbing, jumping up the pole a bunch, and then trying to double jump
-	# 		if not character.is_on_floor() or not character.is_on_wall():
-	# 			can_coyote = false
-	# 	, CONNECT_ONE_SHOT)
+		get_tree().create_timer(ct).timeout.connect(func():
+			# prevent this timer from firing if the player lands before the timer expires
+			# TODO: still doesnt work. try climbing, jumping up the pole a bunch, and then trying to double jump
+			if not character.is_on_floor() or not character.is_on_wall():
+				can_coyote = false
+		, CONNECT_ONE_SHOT)
 
-func on_physics_update(_delta: float) -> void:
+func on_physics_update(delta: float) -> void:
+	super.on_physics_update(delta)
+
 	var hor := controller.get_horizontal_input()
 
 	if check_for_landing():
@@ -73,7 +75,8 @@ func on_physics_update(_delta: float) -> void:
 		# character.move(hor, _speed, _accel, _decel)
 		var accel := _accel if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
 		# print(accel)
-		# if hor != 0:
-		player.move(hor, character.get_speed(), accel, _decel)
 
-	super.on_physics_update(_delta)
+		# for some reason, this makes us jump way too far when jumping off from climbing
+		# without holding a direction down
+		if hor != 0:
+			player.move(hor, character.get_speed(), accel, _decel)

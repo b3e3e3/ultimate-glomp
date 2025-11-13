@@ -15,6 +15,8 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 # 	_old_jump_force = data.get(&'jump_force') if data.has(&'jump_force') else player.JUMP_VELOCITY
 
 func on_physics_update(_delta: float) -> void:
+	var hor := controller.get_horizontal_input()
+
 	var bodies := player.get_climbable_bodies_in_proximity()
 	var climb_body := bodies[0] if not bodies.is_empty() else null
 
@@ -24,7 +26,7 @@ func on_physics_update(_delta: float) -> void:
 		character.direction.x *= -1
 
 	# jump off climbable
-	elif check_for_jumping():
+	elif check_for_jumping() and hor != 0: # 2nd condition is temp fix. TODO
 		goto(jumping_state, {
 			&'jump_force': jump_off_force + Vector2(character.direction.x * (-character.get_speed() * 1.7), 0),
 			&'just_jumped': false,
@@ -41,7 +43,8 @@ func on_physics_update(_delta: float) -> void:
 		})
 
 	elif check_for_moving_vertical() or character.velocity.y != 0:
-		var ver := controller.get_vertical_input() if not player.is_attacking else 0.0
+		# TODO: figure out how to get player to stop at top of climbable
+		var ver: float = controller.get_vertical_input() if not player.is_attacking else 0.0
 		character.vertical_move(ver, 200 if ver > 0 else 150)
 
 	# super.on_physics_update(_delta)
