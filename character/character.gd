@@ -36,7 +36,7 @@ func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-func move(dir: float, speed: float = SPEED, accel: float = ACCEL_SPEED, decel: float = DECEL_SPEED) -> void:
+func move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed(), decel: float = get_decel_speed()) -> void:
 	var delta := accel
 	var target := dir * speed
 
