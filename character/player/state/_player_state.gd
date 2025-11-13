@@ -71,7 +71,8 @@ func check_for_swapping(time: float) -> bool:
 
 	return false
 
-func get_directional_acceleration(movement: float) -> float:
-	if sign(movement) != sign(character.velocity.x):
-		return character.get_decel_speed()
-	return character.get_accel_speed()
+func get_directional_acceleration(movement: float, accel: float = character.get_accel_speed(), decel: float = character.get_decel_speed()) -> float:
+	if character.velocity.length_squared() != 0 \
+	and (movement) != sign(character.velocity.x):
+		return decel
+	return accel

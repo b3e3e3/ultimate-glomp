@@ -29,8 +29,8 @@ func on_physics_update(_delta: float) -> void:
 			&'jump_force': jump_off_force + Vector2(character.direction.x * (-character.get_speed() * 1.7), 0),
 			&'just_jumped': false,
 			&'just_climbed': true,
-			&'air_accel_speed': character.get_accel_speed(),
-			&'air_decel_speed': character.get_decel_speed(),
+			# &'air_accel_speed': character.get_accel_speed(),
+			&'air_decel_speed': 120.0,
 			&'jumps': 1,
 			# &'coyote_time': 0.7,
 		})

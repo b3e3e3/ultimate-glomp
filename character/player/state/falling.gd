@@ -26,7 +26,7 @@ var jumps: int = 0
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
 	character.move_enabled = true
-	print('Just jumped? ', data.get(&'just_jumped', false))
+	# print('Just jumped? ', data.get(&'just_jumped', false))
 	can_coyote = not data.get(&'just_jumped') if data.has(&'just_jumped') else true
 	climb_hopping = data.get(&'just_climbed', false)
 
@@ -71,7 +71,9 @@ func on_physics_update(_delta: float) -> void:
 		goto(throwing_state)
 	elif check_for_moving_horizontal():
 		# character.move(hor, _speed, _accel, _decel)
-		var accel := _accel if not climb_hopping else get_directional_acceleration(hor)
+		var accel := _accel if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
+		# print(accel)
+		# if hor != 0:
 		player.move(hor, character.get_speed(), accel, _decel)
 
 	super.on_physics_update(_delta)

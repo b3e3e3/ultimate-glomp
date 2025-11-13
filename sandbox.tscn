@@ -94,6 +94,7 @@ texture = SubResource("GradientTexture2D_p7lbm")
 
 [node name="Player" parent="." instance=ExtResource("1_cojph")]
 position = Vector2(601, 484)
+DECEL_SPEED = 50.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Player"]
 
