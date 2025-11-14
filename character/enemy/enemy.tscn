@@ -33,6 +33,7 @@ shape = SubResource("BoxShape3D_2md1f")
 
 [node name="Sprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 48, 0, 0, 0, 1, 0, 0, 0)
+billboard = 1
 texture = SubResource("GradientTexture1D_2md1f")
 
 [connection signal="hit" from="." to="ProjectileSpawner" method="_on_hit"]

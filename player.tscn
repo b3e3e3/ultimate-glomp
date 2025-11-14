@@ -67,6 +67,7 @@ projectile_scene = ExtResource("3_nvl01")
 metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 
 [node name="Sprite" type="Sprite3D" parent="."]
+billboard = 1
 shaded = true
 texture = ExtResource("4_u1c27")
 script = ExtResource("4_606se")
