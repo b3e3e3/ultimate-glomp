@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=23 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b16ywy7ggd0m" path="res://character/player/sprite.gd" id="4_606se"]
 [ext_resource type="Script" uid="uid://bjtfwvaa3krvv" path="res://character/player/combo_jump.gd" id="4_bwjto"]
 [ext_resource type="Script" uid="uid://dsjk5ljw0trgx" path="res://character/player/state/moving.gd" id="4_n7ghd"]
+[ext_resource type="Texture2D" uid="uid://dpg7wycj3ftp2" path="res://Untitled.png" id="4_u1c27"]
 [ext_resource type="Script" uid="uid://bq53gcgs65d8t" path="res://character/player/state/jumping.gd" id="5_nvl01"]
 [ext_resource type="Script" uid="uid://odl2jpl1wkoo" path="res://character/player/state/falling.gd" id="6_ivps1"]
 [ext_resource type="Script" uid="uid://b4ma274x0f55t" path="res://character/player/state/glomping.gd" id="7_urp6f"]
@@ -16,74 +17,78 @@
 [ext_resource type="Script" uid="uid://dgbihqkvw2qv0" path="res://character/player/state/attacking.gd" id="12_ivps1"]
 [ext_resource type="Texture2D" uid="uid://bnrq00ulmd3ux" path="res://addons/kenney_particle_pack/star_07.png" id="13_urp6f"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cojph"]
-size = Vector2(32, 48)
+[sub_resource type="BoxShape3D" id="BoxShape3D_606se"]
+size = Vector3(0.32, 0.48, 0.32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
-size = Vector2(32, 48)
+[sub_resource type="BoxShape3D" id="BoxShape3D_u1c27"]
+size = Vector3(0.48, 0.64, 0.48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dw050"]
-size = Vector2(48, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cojph"]
-size = Vector2(48, 20)
+[sub_resource type="BoxShape3D" id="BoxShape3D_op7ga"]
+size = Vector3(0.48, 0.2, 0.48)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bwjto"]
 particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 1.0
-emission_ring_radius = 0.0
-emission_ring_inner_radius = 0.0
-emission_ring_cone_angle = 90.0
-angle_min = -159.99998
-angle_max = 176.70001
-direction = Vector3(0, -1, 0)
-spread = 42.87
-initial_velocity_min = 444.0
-initial_velocity_max = 444.0
-gravity = Vector3(0, 1500, 0)
-scale_min = 0.099999994
-scale_max = 0.099999994
-color = Color(0.9480962, 0.91493136, 0.749571, 1)
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+direction = Vector3(0, 1, 0)
+spread = 84.965
+flatness = 0.387
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_606se"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.9529412, 0, 1)
+albedo_texture = ExtResource("13_urp6f")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_u1c27"]
+material = SubResource("StandardMaterial3D_606se")
+size = Vector2(0.5, 0.5)
+
+[node name="Player" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_1jxqw")
-ACCEL_SPEED = 10.0
-DECEL_SPEED = 120.0
-SPEED = 333.0
+ACCEL_SPEED = 0.1
+DECEL_SPEED = 1.2
+SPEED = 3.33
 metadata/_edit_group_ = true
 
-[node name="ProjectileSpawner" type="Node2D" parent="."]
+[node name="ProjectileSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
 script = ExtResource("2_n7ghd")
 projectile_scene = ExtResource("3_nvl01")
 metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 1
-texture = SubResource("PlaceholderTexture2D_cojph")
+[node name="Sprite" type="Sprite3D" parent="."]
+shaded = true
+texture = ExtResource("4_u1c27")
 script = ExtResource("4_606se")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_p7lbm")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_606se")
 
-[node name="ClimbArea" type="Area2D" parent="."]
+[node name="ClimbArea" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClimbArea"]
-shape = SubResource("RectangleShape2D_dw050")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbArea"]
+shape = SubResource("BoxShape3D_u1c27")
 
-[node name="GlompArea" type="Area2D" parent="."]
-position = Vector2(0, 24)
+[node name="GlompArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
 collision_layer = 4
 collision_mask = 2
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GlompArea"]
-shape = SubResource("RectangleShape2D_cojph")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GlompArea"]
+shape = SubResource("BoxShape3D_op7ga")
 debug_color = Color(0.74509805, 0.6745098, 0, 0.41960785)
 
 [node name="ComboJump" type="Node" parent="."]
@@ -105,8 +110,8 @@ script = ExtResource("5_nvl01")
 
 [node name="Falling" type="Node" parent="StateMachine"]
 script = ExtResource("6_ivps1")
-air_accel_speed = 30.0
-air_decel_speed = 50.0
+air_accel_speed = 0.3
+air_decel_speed = 0.5
 
 [node name="Glomping" type="Node" parent="StateMachine"]
 script = ExtResource("7_urp6f")
@@ -121,7 +126,20 @@ metadata/_custom_type_script = "uid://d1dxygfyk3hb0"
 [node name="Attacking" type="Node" parent="StateMachine"]
 script = ExtResource("12_ivps1")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0)
+emitting = false
+amount = 10
+lifetime = 0.15000000000000002
+one_shot = true
+speed_scale = 0.8
+explosiveness = 0.19
+randomness = 0.81
+visibility_aabb = AABB(-2.7377985, -2.6248107, -1, 5.0880213, 4.8618793, 2)
+process_material = SubResource("ParticleProcessMaterial_bwjto")
+draw_pass_1 = SubResource("QuadMesh_u1c27")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
 position = Vector2(0, 32)
 emitting = false
 amount = 10
@@ -132,5 +150,4 @@ preprocess = 0.13
 process_material = SubResource("ParticleProcessMaterial_bwjto")
 
 [connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
-[connection signal="jumped" from="." to="Sprite2D" method="_on_player_jumped"]
-[connection signal="body_entered" from="GlompArea" to="." method="_on_glomp_area_body_entered"]
+[connection signal="jumped" from="." to="Sprite" method="_on_player_jumped"]

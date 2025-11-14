@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcqaf8nj3gs43"
-path.s3tc="res://.godot/imported/symbol_02.png-0442f22573016e9a11996f6923840860.s3tc.ctex"
+uid="uid://dpg7wycj3ftp2"
+path.s3tc="res://.godot/imported/Untitled.png-30da513a925d9064453decddf41ecbd4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/kenney_particle_pack/symbol_02.png"
-dest_files=["res://.godot/imported/symbol_02.png-0442f22573016e9a11996f6923840860.s3tc.ctex"]
+source_file="res://Untitled.png"
+dest_files=["res://.godot/imported/Untitled.png-30da513a925d9064453decddf41ecbd4.s3tc.ctex"]
 
 [params]
 

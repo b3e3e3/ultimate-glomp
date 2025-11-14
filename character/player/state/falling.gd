@@ -7,9 +7,9 @@ class_name PlayerFallingState extends PlayerState
 @onready var climbing_state: State = $"../Climbing"
 @onready var attacking_state: State = $"../Attacking"
 
-@export var air_move_speed: float = 300.0
-@export var air_accel_speed: float = 15.0
-@export var air_decel_speed: float = 3.0
+@export var air_move_speed: float = 3.0
+@export var air_accel_speed: float = 0.15
+@export var air_decel_speed: float = 0.03
 @export var coyote_time: float = 0.2
 @export var reverse_coyote_time: float = 0.2
 

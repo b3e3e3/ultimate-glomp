@@ -1,7 +1,7 @@
 extends Character
 
 signal thrown(by: Character)
-signal hit(by: Node2D)
+signal hit(by: Node3D)
 
 func _enter_tree() -> void:
 	super._enter_tree()
@@ -18,7 +18,7 @@ func get_thrown(by: Character):
 	queue_free()
 	thrown.emit(by)
 
-func get_hit(by: Node2D):
+func get_hit(by: Node3D):
 	queue_free()
 	hit.emit(by)
 

@@ -4,35 +4,36 @@
 [ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_46mkj"]
 [ext_resource type="PackedScene" uid="uid://col4yavuv2tw2" path="res://character/enemy/enemy_projectile.tscn" id="3_pgf0a"]
 
-[sub_resource type="Gradient" id="Gradient_ypj6x"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_2md1f"]
+size = Vector3(0.32, 0.48, 0.32)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rvmsc"]
-gradient = SubResource("Gradient_ypj6x")
+[sub_resource type="Gradient" id="Gradient_53853"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2md1f"]
+gradient = SubResource("Gradient_53853")
 width = 32
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7lbm"]
-size = Vector2(32, 48)
-
-[node name="Enemy" type="CharacterBody2D" groups=["Glompable", "Throwable"]]
+[node name="Enemy" type="CharacterBody3D" groups=["Glompable", "Throwable"]]
 collision_layer = 10
 collision_mask = 69
 script = ExtResource("1_2md1f")
 metadata/_edit_group_ = true
 
-[node name="ProjectileSpawner" type="Node2D" parent="."]
+[node name="ProjectileSpawner" type="Node3D" parent="."]
 script = ExtResource("2_46mkj")
 projectile_scene = ExtResource("3_pgf0a")
+metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1, 48)
-texture = SubResource("GradientTexture1D_rvmsc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_p7lbm")
-
-[node name="GlompPoint" type="Node2D" parent="."]
-position = Vector2(0, -24)
+[node name="GlompPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
 metadata/glomp_protected = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_2md1f")
+
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 48, 0, 0, 0, 1, 0, 0, 0)
+texture = SubResource("GradientTexture1D_2md1f")
 
 [connection signal="hit" from="." to="ProjectileSpawner" method="_on_hit"]
 [connection signal="thrown" from="." to="ProjectileSpawner" method="_on_thrown"]

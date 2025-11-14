@@ -7,15 +7,15 @@ func _ready() -> void:
 	)
 
 
-func cmd_spawn(what: String, x: float = 500, y: float = 0.0) -> void:
+func cmd_spawn(what: String, x: float = 5, y: float = 5.0) -> void:
 	match what:
 		"enemy":
 			var enemy: PackedScene = preload("res://character/enemy/enemy.tscn")
-			var e: Node2D = enemy.instantiate()
-			e.position = Vector2(x, y)
+			var e: Node3D = enemy.instantiate()
+			e.position = Vector3(x, y, 0.0)
 			Global.current_level.add_child(e)
 		_:
 			LimboConsole.error("Invalid argument")
 			return
 
-	LimboConsole.info("Spawning %s at %s, %s" % [what, x, y])
+	LimboConsole.info("Spawning %s at %s, %s, %s" % [what, x, y, 0.0])

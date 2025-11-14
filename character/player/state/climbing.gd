@@ -4,13 +4,13 @@ class_name PlayerClimbingState extends PlayerState
 @onready var jumping_state: State = $"../Jumping"
 @onready var attacking_state: State = $"../Attacking"
 
-@export var jump_off_force = Vector2(0, -300)
+@export var jump_off_force = Vector3(0, 3.0, 0)
 
 var side_swap_hold_time := 0.2
 
 func on_enter(_previous_state: State, _data := {}) -> void:
 	character.gravity_enabled = false
-	character.velocity = Vector2.ZERO
+	character.velocity = Vector3.ZERO
 
 
 func on_physics_update(_delta: float) -> void:
@@ -26,12 +26,16 @@ func on_physics_update(_delta: float) -> void:
 
 	# jump off climbable
 	elif check_for_jumping() and hor != 0: # 2nd condition is temp fix. TODO
+		var _dir := character.last_direction.x * \
+								(-character.get_speed() * \
+												5.0 if character.last_direction.x == hor else -1.0)
+
 		goto(jumping_state, {
-			&'jump_force': jump_off_force + Vector2(character.last_direction.x * (-character.get_speed() * 1.7), 0),
+			&'jump_force': jump_off_force + Vector3(_dir, 0, 0),
 			&'just_jumped': false,
 			&'just_climbed': true,
 			# &'air_accel_speed': character.get_accel_speed(),
-			&'air_decel_speed': 120.0,
+			&'air_decel_speed': 8,
 			&'jumps': 1,
 			&"jump_combo": 0
 		})
@@ -49,7 +53,7 @@ func on_physics_update(_delta: float) -> void:
 	elif check_for_moving_vertical() or character.velocity.y != 0:
 		# TODO: figure out how to get player to stop at top of climbable
 		var ver: float = controller.get_vertical_input() if not player.is_attacking else 0.0
-		character.vertical_move(ver, 200 if ver > 0 else 150)
+		character.vertical_move(ver, 2.0 if ver < 0 else 1.5)
 
 func on_exit() -> void:
 	character.gravity_enabled = true

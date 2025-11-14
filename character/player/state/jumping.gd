@@ -10,7 +10,7 @@ func on_enter(_previous_state: State, data := {}) -> void:
 		data.set(&'just_jumped', true)
 
 	var combo_force := (character.get_jump_force() / 3) * (max(0, player.combo_jump.current_combo - 1) as int)
-	var force: Vector2 = data.get(&'jump_force', character.get_jump_force() + combo_force)
+	var force: Vector3 = data.get(&'jump_force', character.get_jump_force() + combo_force)
 
 	character.jump(force)
 

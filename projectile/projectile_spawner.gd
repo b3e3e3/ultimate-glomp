@@ -1,15 +1,18 @@
-class_name ProjectileSpawner extends Node2D
+class_name ProjectileSpawner extends Node3D
 
 signal projectile_finished(projectile: Projectile)
 
 @export var projectile_scene: PackedScene
 
-func spawn_projectile(dir: Vector2) -> Projectile:
-	var projectile := projectile_scene.instantiate() as Projectile
+func spawn_projectile(dir: Vector3) -> Projectile:
+	print("Projectile scene? ", projectile_scene)
 
-	projectile.global_position = global_position
-	projectile.target_direction = dir
-	projectile.launched_by = owner
+	var projectile = projectile_scene.instantiate()
+	# projectile = projectile as Projectile
+
+	projectile.set_deferred(&"global_position", global_position)
+	projectile.set_deferred(&"target_direction", dir)
+	projectile.set_deferred(&"launched_by", owner)
 
 	owner.get_parent().add_child(projectile)
 
@@ -22,11 +25,12 @@ func spawn_projectile(dir: Vector2) -> Projectile:
 func _on_thrown(by: Character) -> void:
 	spawn_projectile(by.last_direction)
 
-func _on_hit(by: Node2D) -> void:
+func _on_hit(by: Node3D) -> void:
 	(func():
 		if by is Projectile:
 			by = by as Projectile
-			var p := spawn_projectile(-by.target_direction)
+			var p := spawn_projectile(by.target_direction * Vector3.LEFT)
 			p.global_position.y = by.global_position.y
+			print("SYNCING YS")
 			p.on_hit_finished()
 	).call_deferred()

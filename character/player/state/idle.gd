@@ -16,9 +16,9 @@ func on_enter(_previous_state: State, data := {}) -> void:
 
 	if _previous_state:
 		if player.combo_jump.progress() and player.combo_jump.is_comboing():
-				$"../../GPUParticles2D".emitting = true
-				$"../../GPUParticles2D".amount_ratio = (player.combo_jump.current_combo / 3.0)
-				$"../../GPUParticles2D".process_mode = PROCESS_MODE_ALWAYS
+				$"../../GPUParticles3D".emitting = true
+				$"../../GPUParticles3D".amount_ratio = (player.combo_jump.current_combo / 3.0)
+				$"../../GPUParticles3D".process_mode = PROCESS_MODE_ALWAYS
 
 	if data.get(&"reverse_coyote", false):
 		data.erase(&"reverse_coyote")
@@ -26,19 +26,19 @@ func on_enter(_previous_state: State, data := {}) -> void:
 		goto(jumping_state)
 
 func on_physics_update(_delta: float) -> void:
-	if check_for_moving_horizontal():
+	if check_for_glomping():
+		goto(glomping_state)
+	elif check_for_moving_horizontal():
 		goto(moving_state)
 	elif check_for_falling():
 		goto(falling_state)
 	elif check_for_attacking():
 		goto(attacking_state)
-	elif check_for_glomping():
-		goto(glomping_state)
 	elif check_for_jumping():
 		goto(jumping_state)
 
 	super.on_physics_update(_delta)
 
 
-func _on_player_glomped(_body: PhysicsBody2D) -> void:
+func _on_player_glomped(_body: PhysicsBody3D) -> void:
 	player.combo_jump.reset()

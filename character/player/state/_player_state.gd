@@ -18,6 +18,7 @@ func on_update(_delta: float) -> void:
 	l.text = player.get_node(^"StateMachine").state.name + '\n'
 	l.text += player.glomped_body.name as String if player.glomped_body else "No glomp"
 	l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
+	l.text += '\n' + 'can_reverse_coyote: ' + str($"../Falling"._can_reverse_coyote)
 	l.text += '\n' + 'vel: ' + str(player.velocity)
 	l.text += '\n' + 'direction: %s | last_direction: %s' % [character.direction, character.last_direction]
 	l.text += '\n' + 'jump_combo: ' + str(player.combo_jump.current_combo)

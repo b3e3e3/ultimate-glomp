@@ -8,20 +8,22 @@
 gradient = SubResource("Gradient_53853")
 width = 32
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_53853"]
-size = Vector2(32, 48)
+[sub_resource type="BoxShape3D" id="BoxShape3D_53853"]
+size = Vector3(0.32, 0.48, 0.32)
 
-[node name="EnemyProjectile" type="RigidBody2D"]
+[node name="EnemyProjectile" type="RigidBody3D"]
 collision_layer = 64
 collision_mask = 9
 mass = 10.0
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_53853")
+speed = 10.0
+metadata/_custom_type_script = "uid://bt1vup4573skj"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1, 48)
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 48, 0, 0, 0, 1, 0, 0, 0)
 texture = SubResource("GradientTexture1D_b8s3k")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_53853")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_53853")
