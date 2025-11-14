@@ -14,7 +14,6 @@ size = Vector3(0.32, 0.48, 0.32)
 [node name="EnemyProjectile" type="RigidBody3D"]
 collision_layer = 64
 collision_mask = 9
-mass = 10.0
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_53853")

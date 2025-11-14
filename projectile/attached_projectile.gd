@@ -9,8 +9,8 @@ func get_spin_speed() -> float:
 	return 0.0
 
 func on_hit_finished() -> void:
-	retracting = true
 	$CollisionShape3D.set_deferred(&"disabled", true)
+	set_deferred(&"retracting", true)
 
 
 func _ready() -> void:

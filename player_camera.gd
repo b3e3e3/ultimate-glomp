@@ -12,5 +12,5 @@ func _process(delta: float) -> void:
 	if not target:
 		return
 
-	position = target.position + Vector3(0, 1.5, 6)
+	position = target.position + Vector3(0, 1.0, 6)
 	look_at(target.position)
