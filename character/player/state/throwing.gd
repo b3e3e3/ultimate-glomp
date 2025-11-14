@@ -13,6 +13,8 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 	player.glomped_body.call(&"get_thrown", player)
 
 	await get_tree().create_timer(1.0).timeout
+
+	player.combo_jump.progress() # TODO: do we want this? progress combo jump when throwing the object
 	goto(jump_state)
 
 func on_exit() -> void:

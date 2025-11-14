@@ -7,7 +7,6 @@ var is_jumping := false
 
 
 func on_enter(_previous_state: State, _data := {}) -> void:
-	# print("Glomp state, has glomped body?", player.glomped_body)
 	if player.glomped_body == null:
 		var bodies := player.get_glomped_bodies()
 

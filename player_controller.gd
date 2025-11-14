@@ -9,7 +9,8 @@ func _ready():
 
 func control_direction():
 	var hor := get_horizontal_input()
-	character.direction.x = hor if hor != 0 else character.direction.x
+	# character.direction.x = hor if hor != 0 else character.direction.x
+	character.direction.x = hor
 
 func get_horizontal_input() -> float:
 	return Input.get_axis(&"move_left", &"move_right")

@@ -19,8 +19,8 @@ func on_update(_delta: float) -> void:
 	l.text += player.glomped_body.name as String if player.glomped_body else "No glomp"
 	l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
 	l.text += '\n' + 'vel: ' + str(player.velocity)
-	l.text += '\n' + 'direction: ' + str(character.direction)
-	l.text += '\n' + 'triangle_combo: ' + str($"../Idle"._triangle_combo)
+	l.text += '\n' + 'direction: %s | last_direction: %s' % [character.direction, character.last_direction]
+	l.text += '\n' + 'jump_combo: ' + str(player.combo_jump.current_combo)
 
 	super.on_update(_delta)
 

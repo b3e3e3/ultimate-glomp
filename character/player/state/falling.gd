@@ -28,7 +28,7 @@ var jumps: int = 0
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
 	character.move_enabled = true
-	# print('Just jumped? ', data.get(&'just_jumped', false))
+
 	can_coyote = not data.get(&'just_jumped') if data.has(&'just_jumped') else true
 	_can_reverse_coyote = false
 	climb_hopping = data.get(&'just_climbed', false)
@@ -38,8 +38,6 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	_speed = data.get(&"air_move_speed", air_move_speed)
 	_accel = data.get(&"air_accel_speed", air_accel_speed)
 	_decel = data.get(&"air_decel_speed", air_decel_speed)
-
-	# print(_speed, ' ', _accel, ' ', _decel)
 
 	# TODO: this doesnt work. opting for double jumps instead
 	if can_coyote:
@@ -72,10 +70,9 @@ func on_physics_update(delta: float) -> void:
 
 	elif controller.get_jump_input():
 		if can_coyote:
-			# print('Coyote jump!')
 			goto(jumping_state)
 		elif jumps > 0:
-			# print('(n)ble jump!')
+			player.combo_jump.progress()
 			goto(jumping_state)
 		elif not _can_reverse_coyote:
 			_can_reverse_coyote = true
@@ -84,9 +81,7 @@ func on_physics_update(delta: float) -> void:
 			, CONNECT_ONE_SHOT)
 
 	elif check_for_moving_horizontal():
-		# character.move(hor, _speed, _accel, _decel)
 		var accel := _accel if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
-		# print(accel)
 
 		# for some reason, this makes us jump way too far when jumping off from climbing
 		# without holding a direction down

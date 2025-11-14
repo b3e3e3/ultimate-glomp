@@ -9,6 +9,8 @@ signal attack_finished
 @onready var glomp_area: Area2D = $GlompArea
 @onready var climb_area: Area2D = $ClimbArea
 
+@onready var combo_jump: ComboJump = $ComboJump
+
 var glomped_body: Node2D
 
 var is_attacking: bool = false
@@ -17,12 +19,6 @@ var is_attacking: bool = false
 func _enter_tree() -> void:
 	super._enter_tree()
 	set_collision_mask_value(2, true) # enable glompable layer
-
-# func get_horizontal_input() -> float:
-# 	return Input.get_axis(&"move_left", &"move_right")
-
-# func get_jump_input() -> bool:
-# 	return Input.is_action_just_pressed(&"jump")
 
 func get_climbable_bodies_in_proximity() -> Array[Node2D]:
 	return climb_area.get_overlapping_bodies()
@@ -53,12 +49,6 @@ func glomp_on(body: PhysicsBody2D) -> void:
 
 	# move the player body to the glomped body's glomp point
 	global_position = body.get_node(^"GlompPoint").global_position
-
-	# disable our collision shape
-	# collision_shape.disabled = true
-
-	# reparent player to glomped body
-	# reparent(body)
 
 	if body.has_method(&"get_glomped"):
 		body.call(&"get_glomped", self)

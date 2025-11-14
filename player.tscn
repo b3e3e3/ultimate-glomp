@@ -1,10 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=21 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
 [ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_n7ghd"]
 [ext_resource type="Script" uid="uid://2mkoc7e487wg" path="res://character/player/state/idle.gd" id="3_b26j0"]
 [ext_resource type="PackedScene" uid="uid://4ur8modix6my" path="res://character/player/player_weapon_projectile.tscn" id="3_nvl01"]
+[ext_resource type="Script" uid="uid://b16ywy7ggd0m" path="res://character/player/sprite.gd" id="4_606se"]
+[ext_resource type="Script" uid="uid://bjtfwvaa3krvv" path="res://character/player/combo_jump.gd" id="4_bwjto"]
 [ext_resource type="Script" uid="uid://dsjk5ljw0trgx" path="res://character/player/state/moving.gd" id="4_n7ghd"]
 [ext_resource type="Script" uid="uid://bq53gcgs65d8t" path="res://character/player/state/jumping.gd" id="5_nvl01"]
 [ext_resource type="Script" uid="uid://odl2jpl1wkoo" path="res://character/player/state/falling.gd" id="6_ivps1"]
@@ -62,6 +64,7 @@ metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 texture = SubResource("PlaceholderTexture2D_cojph")
+script = ExtResource("4_606se")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p7lbm")
@@ -82,6 +85,9 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GlompArea"]
 shape = SubResource("RectangleShape2D_cojph")
 debug_color = Color(0.74509805, 0.6745098, 0, 0.41960785)
+
+[node name="ComboJump" type="Node" parent="."]
+script = ExtResource("4_bwjto")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_dw050")
@@ -126,4 +132,5 @@ preprocess = 0.13
 process_material = SubResource("ParticleProcessMaterial_bwjto")
 
 [connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
+[connection signal="jumped" from="." to="Sprite2D" method="_on_player_jumped"]
 [connection signal="body_entered" from="GlompArea" to="." method="_on_glomp_area_body_entered"]

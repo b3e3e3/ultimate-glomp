@@ -9,7 +9,6 @@ func _enter_tree() -> void:
 	set_collision_mask_value(7, true) # enable projectile layer
 
 func get_thrown(by: Character):
-	# print("whee!!")
 	process_mode = PROCESS_MODE_INHERIT
 
 	reparent(by.get_parent())
@@ -20,14 +19,10 @@ func get_thrown(by: Character):
 	thrown.emit(by)
 
 func get_hit(by: Node2D):
-	# print("Hit by projectile")
-
 	queue_free()
 	hit.emit(by)
 
 func get_glomped(by: Character):
-	# print("Glomped by " + by.name)
-
 	reparent(by)
 	collision_shape.reparent(by)
 	process_mode = PROCESS_MODE_DISABLED

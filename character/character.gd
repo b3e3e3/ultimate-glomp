@@ -1,6 +1,9 @@
 class_name Character
 extends CharacterBody2D
 
+signal jumped
+
+
 @export var ACCEL_SPEED: float = 30.0
 @export var DECEL_SPEED: float = 80.0
 @export var SPEED: float = 200.0
@@ -9,7 +12,16 @@ extends CharacterBody2D
 var gravity_enabled: bool = true
 var move_enabled: bool = true
 
-var direction: Vector2 = Vector2.RIGHT
+var _direction: Vector2 = Vector2.RIGHT
+
+var last_direction: Vector2 = _direction
+var direction: Vector2:
+	get:
+		return _direction
+	set(value):
+		_direction = value
+		last_direction.x = value.x if value.x != 0 else last_direction.x
+		last_direction.y = value.y if value.y != 0 else last_direction.y
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -43,20 +55,15 @@ func move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed
 	if not dir and velocity.x:
 		target = 0
 		delta = decel
-	# elif sign(dir) != sign(velocity.x):
-	# 	delta = decel
 
 	velocity.x = move_toward(velocity.x, target, delta)
 
-func vertical_move(dir: float, speed: float = SPEED, accel: float = ACCEL_SPEED) -> void:
+func vertical_move(dir: float, speed: float = SPEED, _accel: float = ACCEL_SPEED) -> void:
 	velocity.y = dir * speed
-	# if not dir and velocity.y:
-	# 	velocity.y = move_toward(velocity.y, 0, DECEL_SPEED)
-	# else:
-	# 	velocity.y = move_toward(velocity.y, dir * speed, accel)
 
 func jump(force: Vector2 = JUMP_VELOCITY) -> void:
 	velocity.y = force.y
+	jumped.emit()
 	if not is_zero_approx(force.x):
 		velocity.x = force.x
 

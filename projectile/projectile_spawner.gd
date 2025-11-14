@@ -20,7 +20,7 @@ func spawn_projectile(dir: Vector2) -> Projectile:
 	return projectile
 
 func _on_thrown(by: Character) -> void:
-	spawn_projectile(by.direction)
+	spawn_projectile(by.last_direction)
 
 func _on_hit(by: Node2D) -> void:
 	(func():
