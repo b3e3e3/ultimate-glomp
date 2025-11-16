@@ -2,9 +2,12 @@ class_name Projectile extends RigidBody3D
 
 signal finished
 
-@export var offset: Vector3 = Vector3(0.2, 0, 0)
 @onready var launched_from: Vector3 = self.global_position
 
+
+@export var hitting_particles: PackedScene
+
+@export var offset: Vector3 = Vector3(0.2, 0, 0)
 @export var speed: float = 1000
 @export var spin_speed: float = 2000
 
@@ -50,6 +53,12 @@ func _on_body_entered(body: Node) -> void:
 	if body.has_method(&"get_hit"):
 		body.get_hit(self)
 	print("AKJHGKDJFHG")
+
+	if hitting_particles:
+		var particles = hitting_particles.instantiate()
+		get_parent().add_child(particles)
+		particles.global_position = global_position
+
 	on_hit_finished()
 
 func get_spin_speed() -> float:

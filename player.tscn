@@ -147,15 +147,5 @@ visibility_aabb = AABB(-2.7377985, -2.6248107, -1, 5.0880213, 4.8618793, 2)
 process_material = SubResource("ParticleProcessMaterial_bwjto")
 draw_pass_1 = SubResource("QuadMesh_u1c27")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
-position = Vector2(0, 32)
-emitting = false
-amount = 10
-texture = ExtResource("13_urp6f")
-lifetime = 0.2
-one_shot = true
-preprocess = 0.13
-process_material = SubResource("ParticleProcessMaterial_bwjto")
-
 [connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="jumped" from="." to="Sprite" method="_on_player_jumped"]

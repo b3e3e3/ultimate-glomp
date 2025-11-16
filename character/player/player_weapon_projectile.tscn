@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://4ur8modix6my"]
+[gd_scene load_steps=7 format=3 uid="uid://4ur8modix6my"]
 
 [ext_resource type="Script" uid="uid://b0ij04hfb1hg4" path="res://projectile/attached_projectile.gd" id="1_1iiy4"]
+[ext_resource type="PackedScene" uid="uid://c6adqd7qbqx24" path="res://particles/smack_particles.tscn" id="2_m0lmd"]
 
 [sub_resource type="Gradient" id="Gradient_1iiy4"]
 colors = PackedColorArray(1, 0, 0.7254902, 1, 0.735357, 0.735357, 0.3740006, 1)
@@ -22,6 +23,7 @@ collision_layer = 64
 collision_mask = 9
 contact_monitor = true
 script = ExtResource("1_1iiy4")
+hitting_particles = ExtResource("2_m0lmd")
 speed = 10.0
 metadata/_custom_type_script = "uid://b0ij04hfb1hg4"
 
