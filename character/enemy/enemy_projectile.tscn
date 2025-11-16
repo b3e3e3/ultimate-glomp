@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://col4yavuv2tw2"]
 
-[ext_resource type="Script" uid="uid://bt1vup4573skj" path="res://projectile/projectile.gd" id="1_53853"]
+[ext_resource type="Script" uid="uid://gyf3tokkb5j1" path="res://character/enemy/enemy_projectile.gd" id="1_53853"]
 
 [sub_resource type="Gradient" id="Gradient_53853"]
 
@@ -17,6 +17,7 @@ collision_mask = 9
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_53853")
+offset = Vector3(0, 0, 0)
 speed = 10.0
 metadata/_custom_type_script = "uid://bt1vup4573skj"
 

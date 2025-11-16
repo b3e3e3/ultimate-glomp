@@ -26,7 +26,9 @@ func on_enter(_previous_state: State, data := {}) -> void:
 		goto(jumping_state)
 
 func on_physics_update(_delta: float) -> void:
-	if check_for_glomping():
+	if check_for_jumping():
+		goto(jumping_state)
+	elif check_for_glomping():
 		goto(glomping_state)
 	elif check_for_moving_horizontal():
 		goto(moving_state)
@@ -34,8 +36,6 @@ func on_physics_update(_delta: float) -> void:
 		goto(falling_state)
 	elif check_for_attacking():
 		goto(attacking_state)
-	elif check_for_jumping():
-		goto(jumping_state)
 
 	super.on_physics_update(_delta)
 

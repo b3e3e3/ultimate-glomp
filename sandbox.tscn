@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4sqxrqilk3yi"]
+[gd_scene load_steps=24 format=3 uid="uid://b4sqxrqilk3yi"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
@@ -68,6 +68,13 @@ gradient = SubResource("Gradient_cojph")
 width = 15
 height = 555
 
+[sub_resource type="Gradient" id="Gradient_rjrbw"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ypj6x"]
+gradient = SubResource("Gradient_rjrbw")
+width = 32
+
 [node name="Level" type="Node3D" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1_rvmsc")
 player_controller = NodePath("PlayerController")
@@ -76,7 +83,7 @@ player_controller = NodePath("PlayerController")
 environment = SubResource("Environment_ypj6x")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, 0.48870987, -0.83871853, 0.24023713, 0.105653904, 0.33022892, 0.93796915, 0, 0, 0)
 shadow_enabled = true
 
 [node name="PlayerController" type="Node" parent="."]
@@ -152,8 +159,16 @@ offset_bottom = 23.0
 [node name="Enemy" parent="." instance=ExtResource("4_rvmsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.36, 4.84, 0)
 
+[node name="Enemy2" parent="." instance=ExtResource("4_rvmsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 4.84, 0)
+
+[node name="Sprite" parent="Enemy2" index="3"]
+texture = SubResource("GradientTexture1D_ypj6x")
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 5.5513487, 8.71931)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 2.5583334, 3.6888437)
 current = true
 size = 13.304401
 script = ExtResource("5_rjrbw")
+
+[editable path="Enemy2"]

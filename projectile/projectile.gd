@@ -2,6 +2,7 @@ class_name Projectile extends RigidBody3D
 
 signal finished
 
+@export var offset: Vector3 = Vector3(0.2, 0, 0)
 @onready var launched_from: Vector3 = self.global_position
 
 @export var speed: float = 1000
@@ -29,6 +30,8 @@ func _ready() -> void:
 	linear_damp = 0
 	gravity_scale = 0
 
+	print("TARGET DIR:", target_direction)
+
 	lock_rotation = true
 	_direction = target_direction
 	linear_velocity = _direction * speed
@@ -46,6 +49,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.has_method(&"get_hit"):
 		body.get_hit(self)
+	print("AKJHGKDJFHG")
 	on_hit_finished()
 
 func get_spin_speed() -> float:

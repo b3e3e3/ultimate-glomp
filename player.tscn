@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=25 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b16ywy7ggd0m" path="res://character/player/sprite.gd" id="4_606se"]
 [ext_resource type="Script" uid="uid://bjtfwvaa3krvv" path="res://character/player/combo_jump.gd" id="4_bwjto"]
 [ext_resource type="Script" uid="uid://dsjk5ljw0trgx" path="res://character/player/state/moving.gd" id="4_n7ghd"]
+[ext_resource type="Shader" uid="uid://ba30xefyxbqmj" path="res://rotatable_billboard.tres" id="4_op7ga"]
 [ext_resource type="Texture2D" uid="uid://dpg7wycj3ftp2" path="res://Untitled.png" id="4_u1c27"]
 [ext_resource type="Script" uid="uid://bq53gcgs65d8t" path="res://character/player/state/jumping.gd" id="5_nvl01"]
 [ext_resource type="Script" uid="uid://odl2jpl1wkoo" path="res://character/player/state/falling.gd" id="6_ivps1"]
@@ -16,6 +17,10 @@
 [ext_resource type="Script" uid="uid://d1dxygfyk3hb0" path="res://character/player/state/climbing.gd" id="9_b26j0"]
 [ext_resource type="Script" uid="uid://dgbihqkvw2qv0" path="res://character/player/state/attacking.gd" id="12_ivps1"]
 [ext_resource type="Texture2D" uid="uid://bnrq00ulmd3ux" path="res://addons/kenney_particle_pack/star_07.png" id="13_urp6f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q13i1"]
+render_priority = 0
+shader = ExtResource("4_op7ga")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_606se"]
 size = Vector3(0.32, 0.48, 0.32)
@@ -63,11 +68,12 @@ metadata/_edit_group_ = true
 [node name="ProjectileSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
 script = ExtResource("2_n7ghd")
+offset = Vector3(0.2, 0, 0)
 projectile_scene = ExtResource("3_nvl01")
 metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 
 [node name="Sprite" type="Sprite3D" parent="."]
-billboard = 1
+material_overlay = SubResource("ShaderMaterial_q13i1")
 shaded = true
 texture = ExtResource("4_u1c27")
 script = ExtResource("4_606se")

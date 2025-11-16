@@ -8,6 +8,7 @@
 size = Vector3(0.32, 0.48, 0.32)
 
 [sub_resource type="Gradient" id="Gradient_53853"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_2md1f"]
 gradient = SubResource("Gradient_53853")
@@ -38,3 +39,4 @@ texture = SubResource("GradientTexture1D_2md1f")
 
 [connection signal="hit" from="." to="ProjectileSpawner" method="_on_hit"]
 [connection signal="thrown" from="." to="ProjectileSpawner" method="_on_thrown"]
+[connection signal="projectile_spawned" from="ProjectileSpawner" to="." method="_on_projectile_spawned"]

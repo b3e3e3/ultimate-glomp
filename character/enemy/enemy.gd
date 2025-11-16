@@ -26,3 +26,6 @@ func get_glomped(by: Character):
 	reparent(by)
 	collision_shape.reparent(by)
 	process_mode = PROCESS_MODE_DISABLED
+
+func _on_projectile_spawned(projectile: Projectile):
+	projectile.get_node(^"Sprite").texture = $Sprite.texture

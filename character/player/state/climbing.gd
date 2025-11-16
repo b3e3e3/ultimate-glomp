@@ -27,8 +27,7 @@ func on_physics_update(_delta: float) -> void:
 	# jump off climbable
 	elif check_for_jumping() and hor != 0: # 2nd condition is temp fix. TODO
 		var _dir := character.last_direction.x * \
-								(-character.get_speed() * \
-												3.4 if character.last_direction.x == hor else -1.0)
+								(-character.get_speed() * 2)
 
 		goto(jumping_state, {
 			&'jump_force': jump_off_force + Vector3(_dir, 0, 0),

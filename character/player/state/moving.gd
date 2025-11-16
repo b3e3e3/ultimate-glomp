@@ -15,10 +15,10 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 func on_physics_update(_delta: float) -> void:
 	movement = controller.get_horizontal_input()
 
-	if check_for_falling():
-		goto(falling_state)
-	elif check_for_jumping():
+	if check_for_jumping():
 		goto(jumping_state)
+	elif check_for_falling():
+		goto(falling_state)
 	elif check_for_attacking():
 		goto(attacking_state)
 	elif check_for_glomping():
