@@ -22,14 +22,15 @@
 render_priority = 0
 shader = ExtResource("4_op7ga")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_606se"]
-size = Vector3(0.32, 0.48, 0.32)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_op7ga"]
+radius = 0.16015625
+height = 0.48
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u1c27"]
 size = Vector3(0.48, 0.64, 0.48)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_op7ga"]
-size = Vector3(0.48, 0.2, 0.48)
+size = Vector3(0.32, 0.2, 0.32)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bwjto"]
 particle_flag_disable_z = true
@@ -68,7 +69,6 @@ metadata/_edit_group_ = true
 [node name="ProjectileSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
 script = ExtResource("2_n7ghd")
-offset = Vector3(0.2, 0, 0)
 projectile_scene = ExtResource("3_nvl01")
 metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 
@@ -79,7 +79,7 @@ texture = ExtResource("4_u1c27")
 script = ExtResource("4_606se")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_606se")
+shape = SubResource("CapsuleShape3D_op7ga")
 
 [node name="ClimbArea" type="Area3D" parent="."]
 collision_layer = 0
@@ -87,6 +87,7 @@ collision_mask = 16
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbArea"]
 shape = SubResource("BoxShape3D_u1c27")
+debug_color = Color(0.17547703, 0.643618, 0, 0.41960785)
 
 [node name="GlompArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)

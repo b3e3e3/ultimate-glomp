@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_46mkj"]
 [ext_resource type="PackedScene" uid="uid://col4yavuv2tw2" path="res://character/enemy/enemy_projectile.tscn" id="3_pgf0a"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2md1f"]
-size = Vector3(0.32, 0.48, 0.32)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2md1f"]
+radius = 0.16
+height = 0.48
 
 [sub_resource type="Gradient" id="Gradient_53853"]
 colors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1)
@@ -30,7 +31,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
 metadata/glomp_protected = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_2md1f")
+shape = SubResource("CapsuleShape3D_2md1f")
 
 [node name="Sprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 48, 0, 0, 0, 1, 0, 0, 0)

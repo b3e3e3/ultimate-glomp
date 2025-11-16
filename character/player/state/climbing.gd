@@ -12,6 +12,9 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 	character.gravity_enabled = false
 	character.velocity = Vector3.ZERO
 
+	player.get_node(^"Sprite").cancel_flip()
+	player.combo_jump.reset()
+
 
 func on_physics_update(_delta: float) -> void:
 	var hor := controller.get_horizontal_input()
