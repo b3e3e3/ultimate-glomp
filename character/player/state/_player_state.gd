@@ -33,8 +33,8 @@ func check_for_moving_horizontal() -> bool:
 	return controller.get_horizontal_input() or character.is_moving()
 
 ## Returns true if the jump button is pressed and the character is landed.
-func check_for_jumping() -> bool:
-	return controller.get_jump_input() and character.is_landed()
+func check_for_jumping(must_be_landed: bool = true) -> bool:
+	return controller.get_jump_input() and (character.is_landed() if must_be_landed else true)
 
 ## Returns true if the player has a glomped body, or there is one in its vicinity.
 func check_for_glomping() -> bool:

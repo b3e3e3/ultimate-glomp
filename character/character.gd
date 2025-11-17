@@ -8,6 +8,7 @@ signal jumped
 @export var DECEL_SPEED: float = 8.0
 @export var SPEED: float = 2.0
 @export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
+@export var WALL_SLIDE_SPEED: float = 1.0
 
 var gravity_enabled: bool = true
 var move_enabled: bool = true
@@ -58,8 +59,13 @@ func move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed
 
 	velocity.x = move_toward(velocity.x, target, delta)
 
-func vertical_move(dir: float, speed: float = SPEED, _accel: float = ACCEL_SPEED) -> void:
-	velocity.y = dir * speed
+func vertical_move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed()) -> void:
+	var delta := accel
+	var target := dir * speed
+
+	if not dir and velocity.y:
+		target = 0
+	velocity.y = move_toward(velocity.y, target, delta)
 
 func jump(force: Vector3 = JUMP_VELOCITY) -> void:
 	print("Jumping with force: ", force)
@@ -75,6 +81,7 @@ func is_landed() -> bool:
 func is_moving() -> bool:
 	return velocity.x != 0
 
+
 func get_speed() -> float:
 	return SPEED
 
@@ -86,3 +93,6 @@ func get_accel_speed() -> float:
 
 func get_jump_force() -> Vector3:
 	return JUMP_VELOCITY
+
+func get_wall_slide_speed() -> float:
+	return WALL_SLIDE_SPEED

@@ -16,9 +16,9 @@ func on_enter(_previous_state: State, data := {}) -> void:
 
 	if _previous_state:
 		if player.combo_jump.progress() and player.combo_jump.is_comboing():
-				$"../../GPUParticles3D".emitting = true
-				$"../../GPUParticles3D".amount_ratio = (player.combo_jump.current_combo / 3.0)
-				$"../../GPUParticles3D".process_mode = PROCESS_MODE_ALWAYS
+				$"../../ComboParticles".emitting = true
+				$"../../ComboParticles".amount_ratio = (player.combo_jump.current_combo / 3.0)
+				$"../../ComboParticles".process_mode = PROCESS_MODE_ALWAYS
 
 	if data.get(&"reverse_coyote", false):
 		data.erase(&"reverse_coyote")

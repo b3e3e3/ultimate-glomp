@@ -4,6 +4,7 @@ class_name PlayerController extends Node
 
 @onready var camera: Camera3D = $"../Camera3D"
 
+var force_direction: Vector3 = Vector3.ZERO
 
 func _ready():
 	if character == null:
@@ -11,8 +12,11 @@ func _ready():
 		character = get_node(^"../Player")
 
 func control_direction():
+	if force_direction:
+		character.direction = force_direction
+		return
+
 	var hor := get_horizontal_input()
-	# character.direction.x = hor if hor != 0 else character.direction.x
 	character.direction.x = hor
 
 func get_horizontal_input() -> float:

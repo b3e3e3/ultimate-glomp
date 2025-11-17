@@ -120,6 +120,17 @@ shape = SubResource("BoxShape3D_rjrbw")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
 mesh = SubResource("BoxMesh_44b12")
 
+[node name="Wall3" type="StaticBody3D" parent="." groups=["Climbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.418037, 5.622504, 0)
+collision_layer = 17
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("BoxShape3D_rjrbw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
+mesh = SubResource("BoxMesh_44b12")
+
 [node name="Wall2" type="StaticBody3D" parent="." groups=["Climbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.52, 2.78, 0)
 collision_layer = 17
