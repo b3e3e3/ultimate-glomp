@@ -5,7 +5,7 @@ signal jumped
 
 
 @export var ACCEL_SPEED: float = 3.0
-@export var ACCEL_SPEED_AIR: float =  0.15
+@export var ACCEL_SPEED_AIR: float =  3.0
 
 @export var DECEL_SPEED: float = 8.0
 @export var DECEL_SPEED_AIR: float = 0.03
@@ -15,9 +15,6 @@ signal jumped
 
 @export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
 @export var WALL_SLIDE_SPEED: float = 1.0
-
-@export var equipment: Array[Equipment] = []
-
 
 var gravity_enabled: bool = true
 var move_enabled: bool = true
@@ -34,6 +31,8 @@ var direction: Vector3:
 		last_direction.y = value.y if value.y != 0 else last_direction.y
 
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
+@onready var equip_inventory: EquipInventory = $EquipInventory
+
 
 func _enter_tree() -> void:
 	set_collision_mask_value(1, true) # enable ground layer
@@ -82,100 +81,51 @@ func is_moving() -> bool:
 	return velocity.x != 0
 
 
+
+func _get_air_variant_stat(grounded_key: StringName, air_key: StringName, grounded: Variant, air: Variant) -> Variant:
+	var value: float
+	var _key: StringName = grounded_key
+
+	if is_on_floor():
+		value = grounded
+	else:
+		value = air
+		_key = air_key
+
+	value += $EquipInventory.get_all_adds(_key)
+	value *= $EquipInventory.get_all_multipliers(_key)
+
+	return value
+
 func get_jumps_after_climbing() -> int:
 	var _jumps := 0
 
-	for e in equipment:
-		_jumps += e.adds.get(&"jumps_after_climbing", 0.0)
-
-	for e in equipment:
-		_jumps *= e.multipliers.get(&"jumps_after_climbing", 1.0)
-
-	# for e in equipment:
-		# TODO: overrides?
+	_jumps += $EquipInventory.get_all_adds(&"jumps_after_climbing")
+	_jumps *= $EquipInventory.get_all_multipliers(&"jumps_after_climbing")
 
 	return _jumps
 
 func get_speed() -> float:
-	var _speed := SPEED
-
-	for e in equipment:
-		_speed += e.adds.get(&"speed", 0.0)
-
-	for e in equipment:
-		_speed *= e.multipliers.get(&"speed", 1.0)
-
-	# for e in equipment:
-		# TODO: overrides?
-
-	return _speed
+	return _get_air_variant_stat(&"speed", &"air_speed", SPEED, SPEED_AIR)
 
 func get_decel_speed() -> float:
-	var _decel: float
-	var _key: StringName = &"decel_speed"
-
-	if is_on_floor():
-		_decel = DECEL_SPEED
-	else:
-		_decel = DECEL_SPEED_AIR
-		_key = &"air_decel_speed"
-
-	for e in equipment:
-		_decel += e.adds.get(_key, 0.0)
-
-	for e in equipment:
-		_decel *= e.multipliers.get(_key, 1.0)
-
-	# for e in equipment:
-		# TODO: overrides?
-
-	return _decel
+	return _get_air_variant_stat(&"decel_speed", &"air_decel_speed", DECEL_SPEED, DECEL_SPEED_AIR)
 
 func get_accel_speed() -> float:
-	var _accel: float
-	var _key: StringName = &"accel_speed"
-
-	if is_on_floor():
-		_accel = ACCEL_SPEED
-	else:
-		_accel = ACCEL_SPEED_AIR
-		_key = &"air_accel_speed"
-
-	for e in equipment:
-		_accel += e.adds.get(_key, 0.0)
-
-	for e in equipment:
-		_accel *= e.multipliers.get(_key, 1.0)
-
-	# for e in equipment:
-		# TODO: overrides?
-
-	return _accel
+	return _get_air_variant_stat(&"accel_speed", &"air_accel_speed", ACCEL_SPEED, ACCEL_SPEED_AIR)
 
 func get_jump_force() -> Vector3:
 	var _vel := JUMP_VELOCITY
 
-	for e in equipment:
-		_vel += e.adds.get(&"jump_force", Vector3.ZERO)
-
-	for e in equipment:
-		_vel *= e.multipliers.get(&"jump_force", 1.0)
-
-	# for e in equipment:
-		# TODO: overrides?
+	_vel += $EquipInventory.get_all_adds(&"jump_force")
+	_vel *= $EquipInventory.get_all_multipliers(&"jump_force")
 
 	return _vel
 
 func get_wall_slide_speed() -> float:
 	var _speed := WALL_SLIDE_SPEED
 
-	for e in equipment:
-		_speed += e.adds.get(&"wall_slide_speed", 0.0)
-
-	for e in equipment:
-		_speed *= e.multipliers.get(&"wall_slide_speed", 1.0)
-
-	# for e in equipment:
-		# TODO: overrides?
+	_speed += $EquipInventory.get_all_adds(&"wall_slide_speed")
+	_speed *= $EquipInventory.get_all_multipliers(&"wall_slide_speed")
 
 	return _speed
