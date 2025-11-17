@@ -16,6 +16,9 @@ signal jumped
 @export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
 @export var WALL_SLIDE_SPEED: float = 1.0
 
+@export var equipment: Array[Equipment] = []
+
+
 var gravity_enabled: bool = true
 var move_enabled: bool = true
 
@@ -79,26 +82,60 @@ func is_moving() -> bool:
 	return velocity.x != 0
 
 
+func get_jumps_after_climbing() -> int:
+	var _jumps := 0
+
+	for e in equipment:
+		_jumps += e.get_jumps_after_climbing(self, _jumps)
+		# print(e.name, " added to jumps")
+
+	return _jumps
+
 func get_speed() -> float:
-	# if is_on_floor():
-	return SPEED
-	# else:
-	# 	return SPEED_AIR
+	var _speed := SPEED
+
+	for e in equipment:
+		_speed += e.get_speed(self, _speed)
+		# print(e.name, " added to speed")
+
+	return _speed
 
 func get_decel_speed() -> float:
-	if is_on_floor():
-		return DECEL_SPEED
-	else:
-		return DECEL_SPEED_AIR
+	var _decel := DECEL_SPEED
+	if not is_on_floor():
+		_decel = DECEL_SPEED_AIR
+
+	for e in equipment:
+		_decel += e.get_decel_speed(self, _decel)
+		# print(e.name, " added to decel speed")
+
+	return _decel
 
 func get_accel_speed() -> float:
-	if is_on_floor():
-		return ACCEL_SPEED
-	else:
-		return ACCEL_SPEED_AIR
+	var _accel := ACCEL_SPEED
+	if not is_on_floor():
+		_accel = ACCEL_SPEED_AIR
+
+	for e in equipment:
+		_accel += e.get_accel_speed(self, _accel)
+		# print(e.name, " added to accel speed")
+
+	return _accel
 
 func get_jump_force() -> Vector3:
-	return JUMP_VELOCITY
+	var _vel := JUMP_VELOCITY
+
+	for e in equipment:
+		_vel += e.get_jump_force(self, _vel)
+		# print(e.name, " added to jump force")
+
+	return _vel
 
 func get_wall_slide_speed() -> float:
-	return WALL_SLIDE_SPEED
+	var _speed := WALL_SLIDE_SPEED
+
+	for e in equipment:
+		_speed += e.get_wall_slide_speed(self, _speed)
+		# print(e.name, " added to wall slide speed")
+
+	return _speed

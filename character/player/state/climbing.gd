@@ -73,7 +73,7 @@ func on_physics_update(_delta: float) -> void:
 			&'jump_force': jump_off_force + Vector3(_dir * _speed, 0, 0),
 			&'just_jumped': false,
 			&'just_climbed': true,
-			&'jumps': 1,
+			&'jumps': character.get_jumps_after_climbing(),
 			# &"jump_combo": 0
 		})
 
@@ -96,7 +96,7 @@ func on_physics_update(_delta: float) -> void:
 		character.vertical_move(ver, 2.0 if ver < 0 else 1.5, 9999)
 
 	# if we should slide and we can't climb, slide down
-	elif $SlideManager.should_slide and not can_climb_like_ladder:
+	elif $SlideManager.should_slide:# and not can_climb_like_ladder:
 		character.vertical_move(-1, slide_speed, 9999.0 \
 						if character.velocity.y != 0 else character.get_accel_speed()
 		)
