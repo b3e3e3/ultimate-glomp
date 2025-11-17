@@ -86,8 +86,8 @@ func get_jumps_after_climbing() -> int:
 	var _jumps := 0
 
 	for e in equipment:
-		_jumps += e.get_jumps_after_climbing(self, _jumps)
-		# print(e.name, " added to jumps")
+		_jumps += e.adds.get(&"jumps_after_climbing", 0.0)
+		_jumps *= e.multipliers.get(&"jumps_after_climbing", 1.0)
 
 	return _jumps
 
@@ -95,8 +95,8 @@ func get_speed() -> float:
 	var _speed := SPEED
 
 	for e in equipment:
-		_speed += e.get_speed(self, _speed)
-		# print(e.name, " added to speed")
+		_speed += e.adds.get(&"speed", 0.0)
+		_speed *= e.multipliers.get(&"speed", 1.0)
 
 	return _speed
 
@@ -106,8 +106,8 @@ func get_decel_speed() -> float:
 		_decel = DECEL_SPEED_AIR
 
 	for e in equipment:
-		_decel += e.get_decel_speed(self, _decel)
-		# print(e.name, " added to decel speed")
+		_decel += e.adds.get(&"decel_speed", 0.0)
+		_decel *= e.multipliers.get(&"decel_speed", 1.0)
 
 	return _decel
 
@@ -117,8 +117,8 @@ func get_accel_speed() -> float:
 		_accel = ACCEL_SPEED_AIR
 
 	for e in equipment:
-		_accel += e.get_accel_speed(self, _accel)
-		# print(e.name, " added to accel speed")
+		_accel += e.adds.get(&"accel_speed", 0.0)
+		_accel *= e.multipliers.get(&"accel_speed", 1.0)
 
 	return _accel
 
@@ -126,8 +126,8 @@ func get_jump_force() -> Vector3:
 	var _vel := JUMP_VELOCITY
 
 	for e in equipment:
-		_vel += e.get_jump_force(self, _vel)
-		# print(e.name, " added to jump force")
+		_vel += e.adds.get(&"jump_force", Vector3.ZERO)
+		_vel *= e.multipliers.get(&"jump_force", 1.0)
 
 	return _vel
 
@@ -135,7 +135,7 @@ func get_wall_slide_speed() -> float:
 	var _speed := WALL_SLIDE_SPEED
 
 	for e in equipment:
-		_speed += e.get_wall_slide_speed(self, _speed)
-		# print(e.name, " added to wall slide speed")
+		_speed += e.adds.get(&"wall_slide_speed", 0.0)
+		_speed *= e.multipliers.get(&"wall_slide_speed", 1.0)
 
 	return _speed
