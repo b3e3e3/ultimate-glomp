@@ -1,5 +1,7 @@
 class_name StateMachine extends Node
 
+signal state_changed(previous_state: State, new_state: State)
+
 @export var initial_state: State
 @onready var state: State = (func() -> State:
 	return initial_state if initial_state != null else get_child(0)
@@ -33,3 +35,5 @@ func __transition_to_next_state(target_state: State, data: Dictionary = {}) -> v
 	state.on_exit()
 	state = target_state
 	state.on_enter(previous_state, data)
+
+	state_changed.emit(previous_state, state)

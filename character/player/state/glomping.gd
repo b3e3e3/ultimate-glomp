@@ -7,7 +7,6 @@ var is_jumping := false
 
 
 func on_enter(_previous_state: State, _data := {}) -> void:
-	# print("Glomp state, has glomped body?", player.glomped_body)
 	if player.glomped_body == null:
 		var bodies := player.get_glomped_bodies()
 
@@ -16,7 +15,7 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 		else:
 			goto(idle_state)
 
-	player.velocity = Vector2.ZERO
+	player.velocity = Vector3.ZERO
 	player.process_mode = PROCESS_MODE_DISABLED
 
 

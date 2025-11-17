@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6adqd7qbqx24"]
+
+[ext_resource type="Texture2D" uid="uid://ygr6qr601aeu" path="res://addons/kenney_particle_pack/star_08.png" id="1_dp3gk"]
+[ext_resource type="Script" uid="uid://cdofum3diqhil" path="res://particles/burst_particle.gd" id="1_gvaff"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gvaff"]
+lifetime_randomness = 0.43
+particle_flag_disable_z = true
+angle_min = -703.8
+angle_max = 558.2
+direction = Vector3(0, 2, 0)
+spread = 46.847
+flatness = 0.387
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+scale_min = 0.19999999
+scale_max = 1.1999999
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_606se"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("1_dp3gk")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_gvaff"]
+material = SubResource("StandardMaterial3D_606se")
+size = Vector2(0.5, 0.5)
+
+[node name="SmackParticles" type="Node3D"]
+script = ExtResource("1_gvaff")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0)
+emitting = false
+amount = 10
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+visibility_aabb = AABB(-2.7377985, -2.6248107, -1, 5.0880213, 4.8618793, 2)
+process_material = SubResource("ParticleProcessMaterial_gvaff")
+draw_pass_1 = SubResource("QuadMesh_gvaff")
+
+[connection signal="finished" from="GPUParticles3D" to="." method="_on_gpu_particles_3d_finished"]

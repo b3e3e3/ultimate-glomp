@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://4ur8modix6my"]
+[gd_scene load_steps=7 format=3 uid="uid://4ur8modix6my"]
 
 [ext_resource type="Script" uid="uid://b0ij04hfb1hg4" path="res://projectile/attached_projectile.gd" id="1_1iiy4"]
+[ext_resource type="PackedScene" uid="uid://c6adqd7qbqx24" path="res://particles/smack_particles.tscn" id="2_m0lmd"]
 
 [sub_resource type="Gradient" id="Gradient_1iiy4"]
 colors = PackedColorArray(1, 0, 0.7254902, 1, 0.735357, 0.735357, 0.3740006, 1)
@@ -14,22 +15,25 @@ height = 24
 noise = SubResource("FastNoiseLite_1iiy4")
 color_ramp = SubResource("Gradient_1iiy4")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1iiy4"]
-size = Vector2(24, 24)
+[sub_resource type="BoxShape3D" id="BoxShape3D_05vh3"]
+size = Vector3(0.24, 0.24, 0.24)
 
-[node name="PlayerWeaponProjectile" type="RigidBody2D"]
+[node name="PlayerWeaponProjectile" type="RigidBody3D"]
 collision_layer = 64
 collision_mask = 9
 contact_monitor = true
 script = ExtResource("1_1iiy4")
+hitting_particles = ExtResource("2_m0lmd")
+speed = 10.0
 metadata/_custom_type_script = "uid://b0ij04hfb1hg4"
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 0, 0, 0)
 width = 4.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite3D" parent="."]
 texture = SubResource("NoiseTexture2D_m0lmd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_1iiy4")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_05vh3")

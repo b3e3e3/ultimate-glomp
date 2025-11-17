@@ -18,9 +18,10 @@ func on_update(_delta: float) -> void:
 	l.text = player.get_node(^"StateMachine").state.name + '\n'
 	l.text += player.glomped_body.name as String if player.glomped_body else "No glomp"
 	l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
+	l.text += '\n' + 'can_reverse_coyote: ' + str($"../Falling"._can_reverse_coyote)
 	l.text += '\n' + 'vel: ' + str(player.velocity)
-	l.text += '\n' + 'direction: ' + str(character.direction)
-	l.text += '\n' + 'triangle_combo: ' + str($"../Idle"._triangle_combo)
+	l.text += '\n' + 'direction: %s | last_direction: %s' % [character.direction, character.last_direction]
+	l.text += '\n' + 'jump_combo: ' + str(player.combo_jump.current_combo)
 
 	super.on_update(_delta)
 
@@ -32,8 +33,8 @@ func check_for_moving_horizontal() -> bool:
 	return controller.get_horizontal_input() or character.is_moving()
 
 ## Returns true if the jump button is pressed and the character is landed.
-func check_for_jumping() -> bool:
-	return controller.get_jump_input() and character.is_landed()
+func check_for_jumping(must_be_landed: bool = true) -> bool:
+	return controller.get_jump_input() and (character.is_landed() if must_be_landed else true)
 
 ## Returns true if the player has a glomped body, or there is one in its vicinity.
 func check_for_glomping() -> bool:

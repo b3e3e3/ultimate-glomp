@@ -1,17 +1,39 @@
 class_name Character
-extends CharacterBody2D
+extends CharacterBody3D
 
-@export var ACCEL_SPEED: float = 30.0
-@export var DECEL_SPEED: float = 80.0
-@export var SPEED: float = 200.0
-@export var JUMP_VELOCITY: Vector2 = Vector2(0, -400.0)
+signal jumped
+
+
+@export var ACCEL_SPEED: float = 3.0
+@export var ACCEL_SPEED_AIR: float =  0.15
+
+@export var DECEL_SPEED: float = 8.0
+@export var DECEL_SPEED_AIR: float = 0.03
+
+@export var SPEED: float = 2.0
+@export var SPEED_AIR: float = 2.0
+
+@export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
+@export var WALL_SLIDE_SPEED: float = 1.0
+
+@export var equipment: Array[Equipment] = []
+
 
 var gravity_enabled: bool = true
 var move_enabled: bool = true
 
-var direction: Vector2 = Vector2.RIGHT
+var _direction: Vector3 = Vector3.RIGHT
 
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+var last_direction: Vector3 = _direction
+var direction: Vector3:
+	get:
+		return _direction
+	set(value):
+		_direction = value
+		last_direction.x = value.x if value.x != 0 else last_direction.x
+		last_direction.y = value.y if value.y != 0 else last_direction.y
+
+@onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 func _enter_tree() -> void:
 	set_collision_mask_value(1, true) # enable ground layer
@@ -22,15 +44,6 @@ func _physics_process(delta: float) -> void:
 
 	if move_enabled:
 		move_and_slide()
-
-	# TODO: better direction calculation
-	# direction = Vector2.RIGHT * sign(velocity.x) if velocity.x != 0 else direction
-
-func disable_collision():
-	Global.disable_collision($CollisionShape2D)
-
-func enable_collision():
-	Global.enable_collision($CollisionShape2D)
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -43,20 +56,22 @@ func move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed
 	if not dir and velocity.x:
 		target = 0
 		delta = decel
-	# elif sign(dir) != sign(velocity.x):
-	# 	delta = decel
 
 	velocity.x = move_toward(velocity.x, target, delta)
 
-func vertical_move(dir: float, speed: float = SPEED, accel: float = ACCEL_SPEED) -> void:
-	velocity.y = dir * speed
-	# if not dir and velocity.y:
-	# 	velocity.y = move_toward(velocity.y, 0, DECEL_SPEED)
-	# else:
-	# 	velocity.y = move_toward(velocity.y, dir * speed, accel)
+func vertical_move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed()) -> void:
+	var target := dir * speed
 
-func jump(force: Vector2 = JUMP_VELOCITY) -> void:
+	if not dir and velocity.y:
+		target = 0
+
+	velocity.y = move_toward(velocity.y, target, accel)
+
+func jump(force: Vector3 = JUMP_VELOCITY) -> void:
+	print("Jumping with force: ", force)
+
 	velocity.y = force.y
+	jumped.emit()
 	if not is_zero_approx(force.x):
 		velocity.x = force.x
 
@@ -66,14 +81,61 @@ func is_landed() -> bool:
 func is_moving() -> bool:
 	return velocity.x != 0
 
+
+func get_jumps_after_climbing() -> int:
+	var _jumps := 0
+
+	for e in equipment:
+		_jumps += e.adds.get(&"jumps_after_climbing", 0.0)
+		_jumps *= e.multipliers.get(&"jumps_after_climbing", 1.0)
+
+	return _jumps
+
 func get_speed() -> float:
-	return SPEED
+	var _speed := SPEED
+
+	for e in equipment:
+		_speed += e.adds.get(&"speed", 0.0)
+		_speed *= e.multipliers.get(&"speed", 1.0)
+
+	return _speed
 
 func get_decel_speed() -> float:
-	return DECEL_SPEED
+	var _decel := DECEL_SPEED
+	if not is_on_floor():
+		_decel = DECEL_SPEED_AIR
+
+	for e in equipment:
+		_decel += e.adds.get(&"decel_speed", 0.0)
+		_decel *= e.multipliers.get(&"decel_speed", 1.0)
+
+	return _decel
 
 func get_accel_speed() -> float:
-	return ACCEL_SPEED
+	var _accel := ACCEL_SPEED
+	if not is_on_floor():
+		_accel = ACCEL_SPEED_AIR
 
-func get_jump_force() -> Vector2:
-	return JUMP_VELOCITY
+	for e in equipment:
+		_accel += e.adds.get(&"accel_speed", 0.0)
+		_accel *= e.multipliers.get(&"accel_speed", 1.0)
+
+	return _accel
+
+func get_jump_force() -> Vector3:
+	var _vel := JUMP_VELOCITY
+
+	for e in equipment:
+		_vel += e.adds.get(&"jump_force", Vector3.ZERO)
+		_vel *= e.multipliers.get(&"jump_force", 1.0)
+
+	return _vel
+
+func get_wall_slide_speed() -> float:
+	var _speed := WALL_SLIDE_SPEED
+
+	for e in equipment:
+		_speed += e.adds.get(&"wall_slide_speed", 0.0)
+		_speed *= e.multipliers.get(&"wall_slide_speed", 1.0)
+
+	return _speed

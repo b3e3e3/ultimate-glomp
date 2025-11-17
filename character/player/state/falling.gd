@@ -7,9 +7,9 @@ class_name PlayerFallingState extends PlayerState
 @onready var climbing_state: State = $"../Climbing"
 @onready var attacking_state: State = $"../Attacking"
 
-@export var air_move_speed: float = 300.0
-@export var air_accel_speed: float = 15.0
-@export var air_decel_speed: float = 3.0
+# @export var air_move_speed: float = 3.0
+# @export var air_accel_speed: float = 0.15
+# @export var air_decel_speed: float = 0.03
 @export var coyote_time: float = 0.2
 @export var reverse_coyote_time: float = 0.2
 
@@ -28,18 +28,16 @@ var jumps: int = 0
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
 	character.move_enabled = true
-	# print('Just jumped? ', data.get(&'just_jumped', false))
+
 	can_coyote = not data.get(&'just_jumped') if data.has(&'just_jumped') else true
 	_can_reverse_coyote = false
 	climb_hopping = data.get(&'just_climbed', false)
 
 	jumps = data.get(&'jumps', 0)
 
-	_speed = data.get(&"air_move_speed", air_move_speed)
-	_accel = data.get(&"air_accel_speed", air_accel_speed)
-	_decel = data.get(&"air_decel_speed", air_decel_speed)
-
-	# print(_speed, ' ', _accel, ' ', _decel)
+	_speed = data.get(&"air_move_speed", character.get_speed())
+	_accel = data.get(&"air_accel_speed", character.get_accel_speed())
+	_decel = data.get(&"air_decel_speed", character.get_decel_speed())
 
 	# TODO: this doesnt work. opting for double jumps instead
 	if can_coyote:
@@ -72,10 +70,9 @@ func on_physics_update(delta: float) -> void:
 
 	elif controller.get_jump_input():
 		if can_coyote:
-			# print('Coyote jump!')
 			goto(jumping_state)
 		elif jumps > 0:
-			# print('(n)ble jump!')
+			player.combo_jump.progress()
 			goto(jumping_state)
 		elif not _can_reverse_coyote:
 			_can_reverse_coyote = true
@@ -84,9 +81,7 @@ func on_physics_update(delta: float) -> void:
 			, CONNECT_ONE_SHOT)
 
 	elif check_for_moving_horizontal():
-		# character.move(hor, _speed, _accel, _decel)
-		var accel := _accel if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
-		# print(accel)
+		var accel := _accel #if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
 
 		# for some reason, this makes us jump way too far when jumping off from climbing
 		# without holding a direction down

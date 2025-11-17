@@ -1,12 +1,26 @@
-[gd_scene load_steps=14 format=3 uid="uid://clwraaxyoly0o"]
+[gd_scene load_steps=26 format=3 uid="uid://b4sqxrqilk3yi"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_rvmsc"]
 [ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="4_rvmsc"]
+[ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_rjrbw"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjrbw"]
-size = Vector2(1300, 50)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvmsc"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_rjrbw"]
+sky_material = SubResource("ProceduralSkyMaterial_rvmsc")
+
+[sub_resource type="Environment" id="Environment_ypj6x"]
+background_mode = 2
+sky = SubResource("Sky_rjrbw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rvmsc"]
+size = Vector3(130, 0.5, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_cojph"]
 colors = PackedColorArray(0, 0.975293, 0.39971256, 1, 0.67587477, 0.49745536, 0.7503111, 1)
@@ -16,6 +30,13 @@ gradient = SubResource("Gradient_cojph")
 width = 1300
 height = 50
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjrbw"]
+albedo_texture = SubResource("GradientTexture2D_ypj6x")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ypj6x"]
+material = SubResource("StandardMaterial3D_rjrbw")
+size = Vector3(130, 0.5, 0.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3h184"]
 size = Vector2(555, 100)
 
@@ -24,40 +45,68 @@ gradient = SubResource("Gradient_cojph")
 width = 555
 height = 100
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_44b12"]
-size = Vector2(50, 667)
+[sub_resource type="BoxShape3D" id="BoxShape3D_rjrbw"]
+size = Vector3(0.5, 6.67, 0.5)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0fpt2"]
 gradient = SubResource("Gradient_cojph")
 width = 50
 height = 667
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvmsc"]
-size = Vector2(15, 502)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvmsc"]
+albedo_texture = SubResource("GradientTexture2D_0fpt2")
+
+[sub_resource type="BoxMesh" id="BoxMesh_44b12"]
+material = SubResource("StandardMaterial3D_rvmsc")
+size = Vector3(0.5, 6.67, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ypj6x"]
+size = Vector3(0.15, 5.02, 0.15)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_p7lbm"]
 gradient = SubResource("Gradient_cojph")
 width = 15
 height = 555
 
-[node name="Level" type="Node2D" node_paths=PackedStringArray("player_controller")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44b12"]
+albedo_texture = SubResource("GradientTexture2D_p7lbm")
+
+[sub_resource type="BoxMesh" id="BoxMesh_0fpt2"]
+material = SubResource("StandardMaterial3D_44b12")
+size = Vector3(0.15, 5, 0.15)
+
+[sub_resource type="Gradient" id="Gradient_rjrbw"]
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ypj6x"]
+gradient = SubResource("Gradient_rjrbw")
+width = 32
+
+[node name="Level" type="Node3D" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1_rvmsc")
 player_controller = NodePath("PlayerController")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ypj6x")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, 0.48870987, -0.83871853, 0.24023713, 0.105653904, 0.33022892, 0.93796915, 0, 0, 0)
+shadow_enabled = true
 
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource("1_p7lbm")
 
-[node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(617, 629)
+[node name="Floor" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-shape = SubResource("RectangleShape2D_rjrbw")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_rvmsc")
 
-[node name="Sprite2D" type="Sprite2D" parent="Floor"]
-texture = SubResource("GradientTexture2D_ypj6x")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_ypj6x")
 
 [node name="Platform" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(1071, 604)
 metadata/_edit_group_ = true
 
@@ -67,33 +116,53 @@ shape = SubResource("RectangleShape2D_3h184")
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
 texture = SubResource("GradientTexture2D_rvmsc")
 
-[node name="Wall" type="StaticBody2D" parent="." groups=["Climbable"]]
-position = Vector2(1148, 278)
+[node name="Wall" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.48, 2.78, 0)
 collision_layer = 17
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-shape = SubResource("RectangleShape2D_44b12")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+shape = SubResource("BoxShape3D_rjrbw")
 
-[node name="Sprite2D" type="Sprite2D" parent="Wall"]
-texture = SubResource("GradientTexture2D_0fpt2")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+mesh = SubResource("BoxMesh_44b12")
 
-[node name="Pole" type="StaticBody2D" parent="." groups=["ClimbSwappable", "Climbable"]]
-position = Vector2(-640, 604)
+[node name="Wall3" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.418037, 5.622504, 0)
+collision_layer = 17
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("BoxShape3D_rjrbw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
+mesh = SubResource("BoxMesh_44b12")
+
+[node name="Wall2" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.52, 2.78, 0)
+collision_layer = 17
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("BoxShape3D_rjrbw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+mesh = SubResource("BoxMesh_44b12")
+
+[node name="Pole" type="StaticBody3D" parent="." groups=["ClimbSwappable", "Climbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4, 2.5505395, 0)
 collision_layer = 17
 collision_mask = 0
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pole"]
-position = Vector2(881.337, -247)
-shape = SubResource("RectangleShape2D_rvmsc")
+[node name="CollisionShape2D" type="CollisionShape3D" parent="Pole"]
+shape = SubResource("BoxShape3D_ypj6x")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pole"]
-position = Vector2(881.33716, -273.4445)
-texture = SubResource("GradientTexture2D_p7lbm")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pole"]
+mesh = SubResource("BoxMesh_0fpt2")
 
 [node name="Player" parent="." instance=ExtResource("1_cojph")]
-position = Vector2(601, 484)
+transform = Transform3D(0.99999964, 0.0008726645, 0, -0.0008726645, 0.99999964, 0, 0, 0, 1, 0, 1.7893027, 0)
 DECEL_SPEED = 50.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Player"]
@@ -103,4 +172,18 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="Enemy" parent="." instance=ExtResource("4_rvmsc")]
-position = Vector2(736, 484)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.36, 4.84, 0)
+
+[node name="Enemy2" parent="." instance=ExtResource("4_rvmsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 4.84, 0)
+
+[node name="Sprite" parent="Enemy2" index="3"]
+texture = SubResource("GradientTexture1D_ypj6x")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 2.5583334, 3.6888437)
+current = true
+size = 13.304401
+script = ExtResource("5_rjrbw")
+
+[editable path="Enemy2"]
