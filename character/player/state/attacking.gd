@@ -22,4 +22,4 @@ func on_physics_update(delta: float) -> void:
 	if character.is_on_floor():
 		character.move(0.0)
 	else:
-		character.move(character.direction.x, falling_state.air_move_speed, falling_state.air_accel_speed, falling_state.air_decel_speed)
+		character.move(character.direction.x, character.get_speed(), character.get_accel_speed(), character.get_decel_speed())

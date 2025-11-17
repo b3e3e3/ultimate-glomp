@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b4sqxrqilk3yi"]
+[gd_scene load_steps=26 format=3 uid="uid://b4sqxrqilk3yi"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
@@ -60,13 +60,20 @@ albedo_texture = SubResource("GradientTexture2D_0fpt2")
 material = SubResource("StandardMaterial3D_rvmsc")
 size = Vector3(0.5, 6.67, 0.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvmsc"]
-size = Vector2(15, 502)
+[sub_resource type="BoxShape3D" id="BoxShape3D_ypj6x"]
+size = Vector3(0.15, 5.02, 0.15)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_p7lbm"]
 gradient = SubResource("Gradient_cojph")
 width = 15
 height = 555
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44b12"]
+albedo_texture = SubResource("GradientTexture2D_p7lbm")
+
+[sub_resource type="BoxMesh" id="BoxMesh_0fpt2"]
+material = SubResource("StandardMaterial3D_44b12")
+size = Vector3(0.15, 5, 0.15)
 
 [sub_resource type="Gradient" id="Gradient_rjrbw"]
 colors = PackedColorArray(1, 0, 0, 1, 0, 1, 1, 1)
@@ -109,7 +116,7 @@ shape = SubResource("RectangleShape2D_3h184")
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
 texture = SubResource("GradientTexture2D_rvmsc")
 
-[node name="Wall" type="StaticBody3D" parent="." groups=["Climbable"]]
+[node name="Wall" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.48, 2.78, 0)
 collision_layer = 17
 metadata/_edit_group_ = true
@@ -120,7 +127,7 @@ shape = SubResource("BoxShape3D_rjrbw")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
 mesh = SubResource("BoxMesh_44b12")
 
-[node name="Wall3" type="StaticBody3D" parent="." groups=["Climbable"]]
+[node name="Wall3" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.418037, 5.622504, 0)
 collision_layer = 17
 metadata/_edit_group_ = true
@@ -131,7 +138,7 @@ shape = SubResource("BoxShape3D_rjrbw")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
 mesh = SubResource("BoxMesh_44b12")
 
-[node name="Wall2" type="StaticBody3D" parent="." groups=["Climbable"]]
+[node name="Wall2" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.52, 2.78, 0)
 collision_layer = 17
 metadata/_edit_group_ = true
@@ -142,20 +149,17 @@ shape = SubResource("BoxShape3D_rjrbw")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
 mesh = SubResource("BoxMesh_44b12")
 
-[node name="Pole" type="StaticBody2D" parent="." groups=["ClimbSwappable", "Climbable"]]
-visible = false
-position = Vector2(-640, 604)
+[node name="Pole" type="StaticBody3D" parent="." groups=["ClimbSwappable", "Climbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4, 2.5505395, 0)
 collision_layer = 17
 collision_mask = 0
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pole"]
-position = Vector2(881.337, -247)
-shape = SubResource("RectangleShape2D_rvmsc")
+[node name="CollisionShape2D" type="CollisionShape3D" parent="Pole"]
+shape = SubResource("BoxShape3D_ypj6x")
 
-[node name="Sprite2D" type="Sprite2D" parent="Pole"]
-position = Vector2(881.33716, -273.4445)
-texture = SubResource("GradientTexture2D_p7lbm")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pole"]
+mesh = SubResource("BoxMesh_0fpt2")
 
 [node name="Player" parent="." instance=ExtResource("1_cojph")]
 transform = Transform3D(0.99999964, 0.0008726645, 0, -0.0008726645, 0.99999964, 0, 0, 0, 1, 0, 1.7893027, 0)

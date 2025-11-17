@@ -5,8 +5,14 @@ signal jumped
 
 
 @export var ACCEL_SPEED: float = 3.0
+@export var ACCEL_SPEED_AIR: float =  0.15
+
 @export var DECEL_SPEED: float = 8.0
+@export var DECEL_SPEED_AIR: float = 0.03
+
 @export var SPEED: float = 2.0
+@export var SPEED_AIR: float = 2.0
+
 @export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
 @export var WALL_SLIDE_SPEED: float = 1.0
 
@@ -36,15 +42,6 @@ func _physics_process(delta: float) -> void:
 	if move_enabled:
 		move_and_slide()
 
-	# TODO: better direction calculation
-	# direction = Vector3.RIGHT * sign(velocity.x) if velocity.x != 0 else direction
-
-func disable_collision():
-	Global.disable_collision($CollisionShape3D)
-
-func enable_collision():
-	Global.enable_collision($CollisionShape3D)
-
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -60,12 +57,12 @@ func move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed
 	velocity.x = move_toward(velocity.x, target, delta)
 
 func vertical_move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed()) -> void:
-	var delta := accel
 	var target := dir * speed
 
 	if not dir and velocity.y:
 		target = 0
-	velocity.y = move_toward(velocity.y, target, delta)
+
+	velocity.y = move_toward(velocity.y, target, accel)
 
 func jump(force: Vector3 = JUMP_VELOCITY) -> void:
 	print("Jumping with force: ", force)
@@ -83,13 +80,22 @@ func is_moving() -> bool:
 
 
 func get_speed() -> float:
+	# if is_on_floor():
 	return SPEED
+	# else:
+	# 	return SPEED_AIR
 
 func get_decel_speed() -> float:
-	return DECEL_SPEED
+	if is_on_floor():
+		return DECEL_SPEED
+	else:
+		return DECEL_SPEED_AIR
 
 func get_accel_speed() -> float:
-	return ACCEL_SPEED
+	if is_on_floor():
+		return ACCEL_SPEED
+	else:
+		return ACCEL_SPEED_AIR
 
 func get_jump_force() -> Vector3:
 	return JUMP_VELOCITY

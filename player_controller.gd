@@ -20,10 +20,16 @@ func control_direction():
 	character.direction.x = hor
 
 func get_horizontal_input() -> float:
-	return Input.get_axis(&"move_left", &"move_right")
+	var axis := Input.get_axis(&"move_left", &"move_right")
+	if axis != 0.0:
+		force_direction = Vector3.ZERO
+	return axis
 
 func get_vertical_input() -> float:
-	return Input.get_axis(&"move_down", &"move_up")
+	var axis := Input.get_axis(&"move_down", &"move_up")
+	if axis != 0.0:
+		force_direction = Vector3.ZERO
+	return axis
 
 func just_pressed_horizontal():
 	return Input.is_action_just_pressed(&"move_left") || Input.is_action_just_pressed(&"move_right")

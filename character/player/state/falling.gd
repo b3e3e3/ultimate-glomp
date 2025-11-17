@@ -7,9 +7,9 @@ class_name PlayerFallingState extends PlayerState
 @onready var climbing_state: State = $"../Climbing"
 @onready var attacking_state: State = $"../Attacking"
 
-@export var air_move_speed: float = 3.0
-@export var air_accel_speed: float = 0.15
-@export var air_decel_speed: float = 0.03
+# @export var air_move_speed: float = 3.0
+# @export var air_accel_speed: float = 0.15
+# @export var air_decel_speed: float = 0.03
 @export var coyote_time: float = 0.2
 @export var reverse_coyote_time: float = 0.2
 
@@ -35,9 +35,9 @@ func on_enter(_previous_state: State, data := {}) -> void:
 
 	jumps = data.get(&'jumps', 0)
 
-	_speed = data.get(&"air_move_speed", air_move_speed)
-	_accel = data.get(&"air_accel_speed", air_accel_speed)
-	_decel = data.get(&"air_decel_speed", air_decel_speed)
+	_speed = data.get(&"air_move_speed", character.get_speed())
+	_accel = data.get(&"air_accel_speed", character.get_accel_speed())
+	_decel = data.get(&"air_decel_speed", character.get_decel_speed())
 
 	# TODO: this doesnt work. opting for double jumps instead
 	if can_coyote:
@@ -81,7 +81,7 @@ func on_physics_update(delta: float) -> void:
 			, CONNECT_ONE_SHOT)
 
 	elif check_for_moving_horizontal():
-		var accel := _accel if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
+		var accel := _accel #if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
 
 		# for some reason, this makes us jump way too far when jumping off from climbing
 		# without holding a direction down
