@@ -1,10 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://b4sqxrqilk3yi"]
+[gd_scene load_steps=27 format=3 uid="uid://b4sqxrqilk3yi"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_rvmsc"]
 [ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="4_rvmsc"]
-[ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_rjrbw"]
+[ext_resource type="Script" path="res://player_camera.gd" id="5_rjrbw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvmsc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -63,17 +63,22 @@ size = Vector3(0.5, 6.67, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ypj6x"]
 size = Vector3(0.15, 5.02, 0.15)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_p7lbm"]
-gradient = SubResource("Gradient_cojph")
-width = 15
-height = 555
+[sub_resource type="Gradient" id="Gradient_ypj6x"]
+colors = PackedColorArray(0, 0.975293, 0.39971256, 1, 0.67587477, 0.49745536, 0.7503111, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44b12"]
-albedo_texture = SubResource("GradientTexture2D_p7lbm")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_44b12"]
+gradient = SubResource("Gradient_ypj6x")
+width = 1300
+height = 50
 
-[sub_resource type="BoxMesh" id="BoxMesh_0fpt2"]
-material = SubResource("StandardMaterial3D_44b12")
-size = Vector3(0.15, 5, 0.15)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fpt2"]
+albedo_texture = SubResource("GradientTexture2D_44b12")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_igx0j"]
+material = SubResource("StandardMaterial3D_0fpt2")
+top_radius = 0.075
+bottom_radius = 0.075
+height = 5.0
 
 [sub_resource type="Gradient" id="Gradient_rjrbw"]
 colors = PackedColorArray(1, 0, 0, 1, 0, 1, 1, 1)
@@ -159,7 +164,7 @@ metadata/_edit_group_ = true
 shape = SubResource("BoxShape3D_ypj6x")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pole"]
-mesh = SubResource("BoxMesh_0fpt2")
+mesh = SubResource("CylinderMesh_igx0j")
 
 [node name="Player" parent="." instance=ExtResource("1_cojph")]
 transform = Transform3D(0.99999964, 0.0008726645, 0, -0.0008726645, 0.99999964, 0, 0, 0, 1, 0, 1.7893027, 0)
@@ -177,7 +182,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.36, 4.84, 0)
 [node name="Enemy2" parent="." instance=ExtResource("4_rvmsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 4.84, 0)
 
-[node name="Sprite" parent="Enemy2" index="3"]
+[node name="Sprite" parent="Enemy2" index="4"]
 texture = SubResource("GradientTexture1D_ypj6x")
 
 [node name="Camera3D" type="Camera3D" parent="."]

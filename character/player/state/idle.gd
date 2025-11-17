@@ -9,16 +9,7 @@ class_name PlayerIdleState extends PlayerState
 func on_enter(_previous_state: State, data := {}) -> void:
 	player.gravity_enabled = true
 	player.move_enabled = true
-
-	if check_for_glomping():
-		player.combo_jump.reset()
-		player.combo_jump.cancel_timer()
-
-	if _previous_state:
-		if player.combo_jump.progress() and player.combo_jump.is_comboing():
-				$"../../ComboParticles".emitting = true
-				$"../../ComboParticles".amount_ratio = (player.combo_jump.current_combo / 3.0)
-				$"../../ComboParticles".process_mode = PROCESS_MODE_ALWAYS
+	# TODO: DIRECT REFERENCE TO COMBOJUMP BAD!!!!
 
 	if data.get(&"reverse_coyote", false):
 		data.erase(&"reverse_coyote")
@@ -38,7 +29,3 @@ func on_physics_update(_delta: float) -> void:
 		goto(attacking_state)
 
 	super.on_physics_update(_delta)
-
-
-func _on_player_glomped(_body: PhysicsBody3D) -> void:
-	player.combo_jump.reset()

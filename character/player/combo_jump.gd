@@ -1,5 +1,7 @@
 class_name ComboJump extends Node
 
+
+signal jumped(combo: int)
 signal combo_added(combo: int)
 signal timer_expired(combo: int)
 
@@ -11,10 +13,14 @@ signal timer_expired(combo: int)
 
 @onready var timer: Timer = Timer.new()
 
+@onready var character: Character = get_parent() as Character
+
 
 func _ready():
 	add_child(timer)
 	timer.timeout.connect(_on_timeout)
+
+	character.jumped.connect(_on_character_jump)
 
 
 func combo_limit_reached() -> bool:
@@ -35,6 +41,7 @@ func progress() -> bool:
 
 	current_combo += 1
 	combo_added.emit(current_combo)
+	print("COMBO ADDED!")
 
 	return true
 
@@ -49,3 +56,10 @@ func _on_timeout():
 	reset()
 
 	timer_expired.emit(old_combo)
+
+func _on_character_jump():
+	jumped.emit(current_combo)
+
+
+func get_jump_force() -> Vector3:
+	return (character.get_jump_force() / 3) * (max(0, current_combo - 1) as int)

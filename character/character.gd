@@ -16,6 +16,8 @@ signal jumped
 @export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
 @export var WALL_SLIDE_SPEED: float = 1.0
 
+var remaining_jumps: int = 0
+
 var gravity_enabled: bool = true
 var move_enabled: bool = true
 
@@ -68,6 +70,9 @@ func vertical_move(dir: float, speed: float = get_speed(), accel: float = get_ac
 
 func jump(force: Vector3 = JUMP_VELOCITY) -> void:
 	print("Jumping with force: ", force)
+
+	if remaining_jumps > 0:
+		remaining_jumps -= 1
 
 	velocity.y = force.y
 	jumped.emit()

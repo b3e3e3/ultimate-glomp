@@ -4,6 +4,7 @@ class_name PlayerFallingState extends PlayerState
 @onready var glomping_state: State = $"../Glomping"
 @onready var throwing_state: State = $"../Throwing"
 @onready var jumping_state: State = $"../Jumping"
+@onready var coyote_jumping_state: State = $"../CoyoteJumping"
 @onready var climbing_state: State = $"../Climbing"
 @onready var attacking_state: State = $"../Attacking"
 
@@ -22,8 +23,6 @@ var _can_reverse_coyote: bool = false
 
 var climb_hopping: bool = false
 
-var jumps: int = 0
-
 
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
@@ -33,13 +32,12 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	_can_reverse_coyote = false
 	climb_hopping = data.get(&'just_climbed', false)
 
-	jumps = data.get(&'jumps', 0)
+	character.remaining_jumps = data.get(&'jumps', 0)
 
 	_speed = data.get(&"air_move_speed", character.get_speed())
 	_accel = data.get(&"air_accel_speed", character.get_accel_speed())
 	_decel = data.get(&"air_decel_speed", character.get_decel_speed())
 
-	# TODO: this doesnt work. opting for double jumps instead
 	if can_coyote:
 		# disable coyote timer after <coyote_time> seconds
 		var ct: float = data.get(&'coyote_time', coyote_time)
@@ -70,10 +68,11 @@ func on_physics_update(delta: float) -> void:
 
 	elif controller.get_jump_input():
 		if can_coyote:
+			goto(coyote_jumping_state)
+
+		elif character.remaining_jumps > 0:
 			goto(jumping_state)
-		elif jumps > 0:
-			player.combo_jump.progress()
-			goto(jumping_state)
+
 		elif not _can_reverse_coyote:
 			_can_reverse_coyote = true
 			get_tree().create_timer(reverse_coyote_time).timeout.connect(func():

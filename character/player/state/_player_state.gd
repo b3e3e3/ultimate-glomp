@@ -21,7 +21,8 @@ func on_update(_delta: float) -> void:
 	l.text += '\n' + 'can_reverse_coyote: ' + str($"../Falling"._can_reverse_coyote)
 	l.text += '\n' + 'vel: ' + str(player.velocity)
 	l.text += '\n' + 'direction: %s | last_direction: %s' % [character.direction, character.last_direction]
-	l.text += '\n' + 'jump_combo: ' + str(player.combo_jump.current_combo)
+	if player.has_node(^"ComboJump"):
+		l.text += '\n' + 'jump_combo: ' + str(player.get_node(^"ComboJump").current_combo)
 
 	super.on_update(_delta)
 

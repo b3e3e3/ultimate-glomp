@@ -1,13 +1,14 @@
-[gd_scene load_steps=31 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=33 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
+[ext_resource type="Script" uid="uid://bkq11pbfu554k" path="res://equipment/equipment.gd" id="2_5tmop"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
 [ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_n7ghd"]
 [ext_resource type="Script" uid="uid://c5uuk14tic07f" path="res://equipment/equip_inventory.gd" id="2_pbfsw"]
 [ext_resource type="Script" uid="uid://2mkoc7e487wg" path="res://character/player/state/idle.gd" id="3_b26j0"]
 [ext_resource type="PackedScene" uid="uid://4ur8modix6my" path="res://character/player/player_weapon_projectile.tscn" id="3_nvl01"]
+[ext_resource type="Script" uid="uid://cflf0f0h3etib" path="res://equipment/combo_pants.gd" id="4_5tmop"]
 [ext_resource type="Script" uid="uid://b16ywy7ggd0m" path="res://character/player/sprite.gd" id="4_606se"]
-[ext_resource type="Script" uid="uid://bjtfwvaa3krvv" path="res://character/player/combo_jump.gd" id="4_bwjto"]
 [ext_resource type="Script" uid="uid://dsjk5ljw0trgx" path="res://character/player/state/moving.gd" id="4_n7ghd"]
 [ext_resource type="Shader" uid="uid://ba30xefyxbqmj" path="res://rotatable_billboard.tres" id="4_op7ga"]
 [ext_resource type="Texture2D" uid="uid://dpg7wycj3ftp2" path="res://Untitled.png" id="4_u1c27"]
@@ -21,6 +22,33 @@
 [ext_resource type="Script" path="res://character/player/slide_manager.gd" id="16_pylmc"]
 [ext_resource type="Texture2D" uid="uid://qhbkquiln6bf" path="res://addons/kenney_particle_pack/smoke_06.png" id="18_q13i1"]
 
+[sub_resource type="Resource" id="Resource_7ahtn"]
+script = ExtResource("4_5tmop")
+name = "Combo Pants"
+adds = Dictionary[StringName, Variant]({
+&"accel_speed": 0.0,
+&"air_accel_speed": 0.0,
+&"air_decel_speed": 0.0,
+&"air_speed": 0.0,
+&"decel_speed": 0.0,
+&"jump_force": Vector3(0, 0, 0),
+&"jumps_after_climbing": 0,
+&"speed": 0.0,
+&"wall_slide_speed": 0.0
+})
+multipliers = Dictionary[StringName, float]({
+&"accel_speed": 1.0,
+&"air_accel_speed": 1.0,
+&"air_decel_speed": 1.0,
+&"air_speed": 1.0,
+&"decel_speed": 1.0,
+&"jump_force": 1.0,
+&"jumps_after_climbing": 1.0,
+&"speed": 1.0,
+&"wall_slide_speed": 1.0
+})
+metadata/_custom_type_script = "uid://cflf0f0h3etib"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q13i1"]
 render_priority = 0
 shader = ExtResource("4_op7ga")
@@ -30,7 +58,7 @@ radius = 0.16015625
 height = 0.48
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u1c27"]
-size = Vector3(0.48, 0.64, 0.48)
+size = Vector3(0.48, 0.28881836, 0.48)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_op7ga"]
 size = Vector3(0.32, 0.2, 0.32)
@@ -99,6 +127,7 @@ metadata/_edit_group_ = true
 
 [node name="EquipInventory" type="Node" parent="."]
 script = ExtResource("2_pbfsw")
+equipment = Array[ExtResource("2_5tmop")]([SubResource("Resource_7ahtn")])
 
 [node name="ProjectileSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
@@ -133,9 +162,6 @@ metadata/_edit_group_ = true
 shape = SubResource("BoxShape3D_op7ga")
 debug_color = Color(0.74509805, 0.6745098, 0, 0.41960785)
 
-[node name="ComboJump" type="Node" parent="."]
-script = ExtResource("4_bwjto")
-
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_dw050")
 metadata/_custom_type_script = "uid://01tdfipkjgo6"
@@ -148,6 +174,9 @@ metadata/_custom_type_script = "uid://2mkoc7e487wg"
 script = ExtResource("4_n7ghd")
 
 [node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("5_nvl01")
+
+[node name="CoyoteJumping" type="Node" parent="StateMachine"]
 script = ExtResource("5_nvl01")
 
 [node name="Falling" type="Node" parent="StateMachine"]
@@ -197,3 +226,4 @@ draw_pass_1 = SubResource("QuadMesh_5tmop")
 
 [connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="jumped" from="." to="Sprite" method="_on_player_jumped"]
+[connection signal="state_changed" from="StateMachine" to="Sprite" method="_on_state_machine_state_changed"]

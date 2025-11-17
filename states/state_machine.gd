@@ -1,6 +1,6 @@
 class_name StateMachine extends Node
 
-signal state_changed(previous_state: State, new_state: State)
+signal state_changed(new_state: State, previous_state: State)
 
 @export var initial_state: State
 @onready var state: State = (func() -> State:
@@ -32,8 +32,10 @@ func __transition_to_next_state(target_state: State, data: Dictionary = {}) -> v
 	assert(target_state != null, owner.name + ": Trying to transition to state " + target_state.name + " but it does not exist.")
 	# LimboConsole.info("[%s] State %s -> %s" % [owner.name, state.name, target_state.name])
 	var previous_state := state
-	state.on_exit()
-	state = target_state
-	state.on_enter(previous_state, data)
+	(func():
+		state.on_exit()
+		state = target_state
+		state.on_enter(previous_state, data)
 
-	state_changed.emit(previous_state, state)
+		state_changed.emit(state, previous_state)
+	).call_deferred()

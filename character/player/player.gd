@@ -8,8 +8,8 @@ signal attack_finished
 
 @onready var glomp_area: Area3D = $GlompArea
 @onready var climb_area: Area3D = $ClimbArea
+@onready var sprite: PlayerSprite = $Sprite
 
-@onready var combo_jump: ComboJump = $ComboJump
 
 var glomped_body: Node3D
 
@@ -76,3 +76,9 @@ func un_glomp() -> void:
 	# remove glomped body
 	unglomped.emit(glomped_body)
 	glomped_body = null
+
+func do_flip(dir: Vector3 = last_direction):
+	sprite.do_flip(dir)
+
+func cancel_flip():
+	sprite.cancel_flip()

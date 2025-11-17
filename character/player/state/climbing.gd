@@ -19,10 +19,6 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 	# disable our forced direction
 	controller.force_direction = Vector3.ZERO
 
-	# reset combo jump and cancel flip. TODO: don't reference sprite directly
-	player.combo_jump.reset()
-	player.get_node(^"Sprite").cancel_flip()
-
 	# start the slide timer
 	$SlideManager.should_slide = false
 
@@ -118,7 +114,6 @@ func __emit_slide_particles():
 
 func on_exit() -> void:
 	character.gravity_enabled = true
-	character.velocity.y = 0
 
 	$SlideManager.should_slide = false
 	if slide_particles:
