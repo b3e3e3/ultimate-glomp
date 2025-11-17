@@ -87,7 +87,12 @@ func get_jumps_after_climbing() -> int:
 
 	for e in equipment:
 		_jumps += e.adds.get(&"jumps_after_climbing", 0.0)
+
+	for e in equipment:
 		_jumps *= e.multipliers.get(&"jumps_after_climbing", 1.0)
+
+	# for e in equipment:
+		# TODO: overrides?
 
 	return _jumps
 
@@ -96,29 +101,54 @@ func get_speed() -> float:
 
 	for e in equipment:
 		_speed += e.adds.get(&"speed", 0.0)
+
+	for e in equipment:
 		_speed *= e.multipliers.get(&"speed", 1.0)
+
+	# for e in equipment:
+		# TODO: overrides?
 
 	return _speed
 
 func get_decel_speed() -> float:
-	var _decel := DECEL_SPEED
-	if not is_on_floor():
+	var _decel: float
+	var _key: StringName = &"decel_speed"
+
+	if is_on_floor():
+		_decel = DECEL_SPEED
+	else:
 		_decel = DECEL_SPEED_AIR
+		_key = &"air_decel_speed"
 
 	for e in equipment:
-		_decel += e.adds.get(&"decel_speed", 0.0)
-		_decel *= e.multipliers.get(&"decel_speed", 1.0)
+		_decel += e.adds.get(_key, 0.0)
+
+	for e in equipment:
+		_decel *= e.multipliers.get(_key, 1.0)
+
+	# for e in equipment:
+		# TODO: overrides?
 
 	return _decel
 
 func get_accel_speed() -> float:
-	var _accel := ACCEL_SPEED
-	if not is_on_floor():
+	var _accel: float
+	var _key: StringName = &"accel_speed"
+
+	if is_on_floor():
+		_accel = ACCEL_SPEED
+	else:
 		_accel = ACCEL_SPEED_AIR
+		_key = &"air_accel_speed"
 
 	for e in equipment:
-		_accel += e.adds.get(&"accel_speed", 0.0)
-		_accel *= e.multipliers.get(&"accel_speed", 1.0)
+		_accel += e.adds.get(_key, 0.0)
+
+	for e in equipment:
+		_accel *= e.multipliers.get(_key, 1.0)
+
+	# for e in equipment:
+		# TODO: overrides?
 
 	return _accel
 
@@ -127,7 +157,12 @@ func get_jump_force() -> Vector3:
 
 	for e in equipment:
 		_vel += e.adds.get(&"jump_force", Vector3.ZERO)
+
+	for e in equipment:
 		_vel *= e.multipliers.get(&"jump_force", 1.0)
+
+	# for e in equipment:
+		# TODO: overrides?
 
 	return _vel
 
@@ -136,6 +171,11 @@ func get_wall_slide_speed() -> float:
 
 	for e in equipment:
 		_speed += e.adds.get(&"wall_slide_speed", 0.0)
+
+	for e in equipment:
 		_speed *= e.multipliers.get(&"wall_slide_speed", 1.0)
+
+	# for e in equipment:
+		# TODO: overrides?
 
 	return _speed

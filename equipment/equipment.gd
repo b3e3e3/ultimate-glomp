@@ -10,11 +10,17 @@ class_name Equipment extends Resource
 
 
 var buff_types: Dictionary[StringName, Variant.Type] = {
-	&"jumps_after_climbing": TYPE_INT,
 	&"speed": TYPE_FLOAT,
 	&"decel_speed": TYPE_FLOAT,
 	&"accel_speed": TYPE_FLOAT,
+
+	&"air_speed": TYPE_FLOAT,
+	&"air_decel_speed": TYPE_FLOAT,
+	&"air_accel_speed": TYPE_FLOAT,
+
+	&"jumps_after_climbing": TYPE_INT,
 	&"jump_force": TYPE_VECTOR3,
+
 	&"wall_slide_speed": TYPE_FLOAT,
 }
 

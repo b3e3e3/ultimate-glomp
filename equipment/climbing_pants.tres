@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Equipment" load_steps=2 format=3 uid="uid://xqemwxmvpwge"]
+
+[ext_resource type="Script" uid="uid://bkq11pbfu554k" path="res://equipment/equipment.gd" id="1_balc8"]
+
+[resource]
+script = ExtResource("1_balc8")
+name = "Climbing Pants"
+adds = Dictionary[StringName, Variant]({
+&"jumps_after_climbing": 1
+})
+multipliers = Dictionary[StringName, float]({
+&"wall_slide_speed": 0.0
+})
+metadata/_custom_type_script = "uid://bkq11pbfu554k"

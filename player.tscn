@@ -1,7 +1,6 @@
-[gd_scene load_steps=32 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=30 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
-[ext_resource type="Script" uid="uid://bkq11pbfu554k" path="res://equipment/equipment.gd" id="2_5tmop"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
 [ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_n7ghd"]
 [ext_resource type="Script" uid="uid://2mkoc7e487wg" path="res://character/player/state/idle.gd" id="3_b26j0"]
@@ -18,19 +17,8 @@
 [ext_resource type="Script" uid="uid://d1dxygfyk3hb0" path="res://character/player/state/climbing.gd" id="9_b26j0"]
 [ext_resource type="Script" uid="uid://dgbihqkvw2qv0" path="res://character/player/state/attacking.gd" id="12_ivps1"]
 [ext_resource type="Texture2D" uid="uid://bnrq00ulmd3ux" path="res://addons/kenney_particle_pack/star_07.png" id="13_urp6f"]
-[ext_resource type="Script" uid="uid://djklemw5ko356" path="res://character/player/slide_manager.gd" id="16_pylmc"]
+[ext_resource type="Script" path="res://character/player/slide_manager.gd" id="16_pylmc"]
 [ext_resource type="Texture2D" uid="uid://qhbkquiln6bf" path="res://addons/kenney_particle_pack/smoke_06.png" id="18_q13i1"]
-
-[sub_resource type="Resource" id="Resource_pbfsw"]
-script = ExtResource("2_5tmop")
-name = "Climbing Pants"
-adds = Dictionary[StringName, Variant]({
-&"jumps_after_climbing": 1
-})
-multipliers = Dictionary[StringName, float]({
-&"wall_slide_speed": 0.0
-})
-metadata/_custom_type_script = "uid://bkq11pbfu554k"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q13i1"]
 render_priority = 0
@@ -104,8 +92,6 @@ script = ExtResource("1_1jxqw")
 ACCEL_SPEED = 0.1
 DECEL_SPEED = 1.2
 SPEED = 3.33
-WALL_SLIDE_SPEED = 2.0
-equipment = Array[ExtResource("2_5tmop")]([SubResource("Resource_pbfsw")])
 metadata/_edit_group_ = true
 
 [node name="ProjectileSpawner" type="Node3D" parent="."]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Equipment" load_steps=2 format=3 uid="uid://h67256tikg3g"]
+
+[ext_resource type="Script" uid="uid://bkq11pbfu554k" path="res://equipment/equipment.gd" id="1_61ttm"]
+
+[resource]
+script = ExtResource("1_61ttm")
+name = "Running Pants"
+adds = Dictionary[StringName, Variant]({
+&"air_accel_speed": 0.2,
+&"jump_force": Vector3(0, 1, 0),
+&"speed": 3.33
+})
+multipliers = Dictionary[StringName, float]({
+&"decel_speed": 0.01
+})
+metadata/_custom_type_script = "uid://bkq11pbfu554k"
