@@ -55,7 +55,7 @@ func on_physics_update(_delta: float) -> void:
 		character.direction.x *= -1
 
 	# jump off climbable
-	elif check_for_jumping(false): # 2nd condition is temp fix. TODO
+	elif check_for_jumping(false):
 		var _speed := character.get_speed()
 		var _dir := -character.last_direction.x
 
@@ -87,7 +87,7 @@ func on_physics_update(_delta: float) -> void:
 		})
 
 	# if we can climb the surface and we're trying to, move vertically
-	elif check_for_moving_vertical() and can_climb_like_ladder:# or character.velocity.y != 0:
+	elif check_for_moving_vertical() and can_climb_like_ladder:
 		# TODO: figure out how to get player to stop at top of climbable
 		var ver: float = controller.get_vertical_input() if not player.is_attacking else 0.0
 		character.vertical_move(ver, 2.0 if ver < 0 else 1.5, 9999)

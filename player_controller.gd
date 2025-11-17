@@ -45,7 +45,6 @@ func get_attack_input() -> bool:
 	return Input.is_action_just_pressed(&"attack")
 
 func get_aim_direction() -> Vector3:
-	# return Vector3.RIGHT # TODO
 	var v := character.global_position.direction_to(get_mouse_position())
 
 	return v

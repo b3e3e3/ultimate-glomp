@@ -44,7 +44,6 @@ func on_enter(_previous_state: State, data := {}) -> void:
 
 		get_tree().create_timer(ct).timeout.connect(func():
 			# prevent this timer from firing if the player lands before the timer expires
-			# TODO: still doesnt work. try climbing, jumping up the pole a bunch, and then trying to double jump
 			if not character.is_on_floor() or not character.is_on_wall():
 				can_coyote = false
 		, CONNECT_ONE_SHOT)

@@ -9,7 +9,6 @@ class_name PlayerIdleState extends PlayerState
 func on_enter(_previous_state: State, data := {}) -> void:
 	player.gravity_enabled = true
 	player.move_enabled = true
-	# TODO: DIRECT REFERENCE TO COMBOJUMP BAD!!!!
 
 	if data.get(&"reverse_coyote", false):
 		data.erase(&"reverse_coyote")

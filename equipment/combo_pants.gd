@@ -21,7 +21,7 @@ func initialize(item_owner: Character) -> void:
 
 	owner.add_child.call_deferred(combo_jump)
 
-	owner.get_node(^"StateMachine").state_changed.connect(_on_state_machine_state_changed) # TODO: maybe don't assume the character has a state machine
+	owner.get_node(^"StateMachine").state_changed.connect(_on_state_machine_state_changed) # TODO: direct reference! maybe don't assume the character has a state machine
 
 	owner.glomped.connect(_on_player_glomped)
 	combo_jump.combo_added.connect(_on_combo_added)
@@ -49,7 +49,7 @@ func _on_state_machine_state_changed(new_state: State, _previous_state: State) -
 					combo_jump.cancel_timer()
 
 				if _previous_state:
-					if combo_jump.is_comboing():# and combo_jump.progress():
+					if combo_jump.is_comboing():
 						owner.get_node(^"ComboParticles").emitting = true # TODO: direct reference!
 						owner.get_node(^"ComboParticles").amount_ratio = combo_jump.current_combo / 3.0
 						owner.get_node(^"ComboParticles").process_mode = Node.PROCESS_MODE_ALWAYS
