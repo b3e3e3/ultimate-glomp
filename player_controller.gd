@@ -8,16 +8,24 @@ var force_direction: Vector3 = Vector3.ZERO
 
 func _ready():
 	if character == null:
-		push_warning("Controller character is null, finding Player")
+		push_warning("Controller characdter is null, finding Player")
 		character = get_node(^"../Player")
 
-func control_direction():
+func control_horizontal_direction():
 	if force_direction:
 		character.direction = force_direction
 		return
 
 	var hor := get_horizontal_input()
 	character.direction.x = hor
+
+func control_vertical_direction():
+	if force_direction:
+		character.direction = force_direction
+		return
+
+	var ver := get_vertical_input()
+	character.direction.y = ver
 
 func get_horizontal_input() -> float:
 	var axis := Input.get_axis(&"move_left", &"move_right")
@@ -30,6 +38,9 @@ func get_vertical_input() -> float:
 	if axis != 0.0:
 		force_direction = Vector3.ZERO
 	return axis
+
+func get_multi_input() -> Vector2:
+	return Vector2(get_horizontal_input(), -get_vertical_input()).normalized()
 
 func just_pressed_horizontal():
 	return Input.is_action_just_pressed(&"move_left") || Input.is_action_just_pressed(&"move_right")
