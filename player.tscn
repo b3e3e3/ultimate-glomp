@@ -121,7 +121,7 @@ script = ExtResource("1_1jxqw")
 ACCEL_SPEED = 0.1
 ACCEL_SPEED_AIR = 0.2
 DECEL_SPEED = 1.2
-DECEL_SPEED_AIR = 0.1
+DECEL_SPEED_AIR = 0.2
 SPEED = 3.33
 SPEED_AIR = 4.0
 metadata/_edit_group_ = true
@@ -139,6 +139,7 @@ metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 [node name="Sprite" type="Sprite3D" parent="."]
 material_overlay = SubResource("ShaderMaterial_q13i1")
 shaded = true
+render_priority = 1
 texture = ExtResource("4_u1c27")
 script = ExtResource("4_606se")
 

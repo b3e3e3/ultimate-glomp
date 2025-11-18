@@ -20,6 +20,7 @@ metadata/_custom_type_script = "uid://dgnur1076hmgj"
 [node name="Sprite" type="Sprite3D" parent="."]
 billboard = 1
 shaded = true
+render_priority = 1
 texture = SubResource("CompressedTexture2D_2bod6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
