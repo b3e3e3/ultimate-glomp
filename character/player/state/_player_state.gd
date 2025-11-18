@@ -11,7 +11,7 @@ func _ready() -> void:
 	assert(player != null, "The PlayerState state type must be used only in the player scene. It needs the owner to be a Player node.")
 
 	controller = Global.current_level.player_controller
-	assert(player != null, "PlayerController is null.")
+	assert(controller != null, "PlayerController is null.")
 
 func on_update(_delta: float) -> void:
 	var l: Label = player.get_node(^"CanvasLayer/Label")
