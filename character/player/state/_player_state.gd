@@ -27,7 +27,7 @@ func on_update(_delta: float) -> void:
 	super.on_update(_delta)
 
 func on_physics_update(_delta: float) -> void:
-	controller.control_direction()
+	controller.control_horizontal_direction()
 
 ## Returns true if horizontal input is non-zero or the character is moving.
 func check_for_moving_horizontal() -> bool:

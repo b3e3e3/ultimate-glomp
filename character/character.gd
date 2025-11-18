@@ -50,7 +50,7 @@ func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-func move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed(), decel: float = get_decel_speed()) -> void:
+func horizontal_move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed(), decel: float = get_decel_speed()) -> void:
 	var delta := accel
 	var target := dir * speed
 
@@ -85,6 +85,13 @@ func is_landed() -> bool:
 func is_moving() -> bool:
 	return velocity.x != 0
 
+func get_stat_with_buffs(key: StringName, value: Variant):
+	var val = value
+
+	val += $EquipInventory.get_all_adds(key)
+	val *= $EquipInventory.get_all_multipliers(key)
+
+	return val
 
 
 func _get_air_variant_stat(grounded_key: StringName, air_key: StringName, grounded: Variant, air: Variant) -> Variant:
@@ -97,16 +104,14 @@ func _get_air_variant_stat(grounded_key: StringName, air_key: StringName, ground
 		value = air
 		_key = air_key
 
-	value += $EquipInventory.get_all_adds(_key)
-	value *= $EquipInventory.get_all_multipliers(_key)
+	value = get_stat_with_buffs(_key, value)
 
 	return value
 
 func get_jumps_after_climbing() -> int:
 	var _jumps := 0
 
-	_jumps += $EquipInventory.get_all_adds(&"jumps_after_climbing")
-	_jumps *= $EquipInventory.get_all_multipliers(&"jumps_after_climbing")
+	_jumps = get_stat_with_buffs(&"jumps_after_climbing", _jumps)
 
 	return _jumps
 
@@ -122,15 +127,13 @@ func get_accel_speed() -> float:
 func get_jump_force() -> Vector3:
 	var _vel := JUMP_VELOCITY
 
-	_vel += $EquipInventory.get_all_adds(&"jump_force")
-	_vel *= $EquipInventory.get_all_multipliers(&"jump_force")
+	_vel = get_stat_with_buffs(&"jump_force", _vel)
 
 	return _vel
 
 func get_wall_slide_speed() -> float:
 	var _speed := WALL_SLIDE_SPEED
 
-	_speed += $EquipInventory.get_all_adds(&"wall_slide_speed")
-	_speed *= $EquipInventory.get_all_multipliers(&"wall_slide_speed")
+	_speed = get_stat_with_buffs(&"wall_slide_speed", _speed)
 
 	return _speed

@@ -121,6 +121,7 @@ script = ExtResource("1_1jxqw")
 ACCEL_SPEED = 0.1
 ACCEL_SPEED_AIR = 0.2
 DECEL_SPEED = 1.2
+DECEL_SPEED_AIR = 0.1
 SPEED = 3.33
 SPEED_AIR = 4.0
 metadata/_edit_group_ = true
