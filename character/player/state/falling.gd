@@ -23,7 +23,6 @@ var _can_reverse_coyote: bool = false
 
 var climb_hopping: bool = false
 
-
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
 	character.move_enabled = true
@@ -34,9 +33,7 @@ func on_enter(_previous_state: State, data := {}) -> void:
 
 	character.remaining_jumps = data.get(&'jumps', 0)
 
-	_speed = data.get(&"air_move_speed", character.get_speed())
-	_accel = data.get(&"air_accel_speed", character.get_accel_speed())
-	_decel = data.get(&"air_decel_speed", character.get_decel_speed())
+	print("ONFLOUR? ", character.is_on_floor())
 
 	if can_coyote:
 		# disable coyote timer after <coyote_time> seconds
@@ -50,6 +47,10 @@ func on_enter(_previous_state: State, data := {}) -> void:
 
 func on_physics_update(delta: float) -> void:
 	super.on_physics_update(delta)
+
+	_speed = character.get_speed()
+	_accel = character.get_accel_speed()
+	_decel = character.get_decel_speed()
 
 	var hor := controller.get_horizontal_input()
 
@@ -84,4 +85,4 @@ func on_physics_update(delta: float) -> void:
 		# for some reason, this makes us jump way too far when jumping off from climbing
 		# without holding a direction down
 		if hor != 0:
-			player.move(hor, character.get_speed(), accel, _decel)
+			player.horizontal_move(hor, character.get_speed(), accel, _decel)
