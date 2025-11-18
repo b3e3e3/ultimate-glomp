@@ -8,20 +8,14 @@ class_name PlayerFallingState extends PlayerState
 @onready var climbing_state: State = $"../Climbing"
 @onready var attacking_state: State = $"../Attacking"
 
-# @export var air_move_speed: float = 3.0
-# @export var air_accel_speed: float = 0.15
-# @export var air_decel_speed: float = 0.03
 @export var coyote_time: float = 0.2
 @export var reverse_coyote_time: float = 0.2
-
-var _speed: float
-var _accel: float
-var _decel: float
 
 var can_coyote: bool = true
 var _can_reverse_coyote: bool = false
 
 var climb_hopping: bool = false
+
 
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
@@ -32,8 +26,6 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	climb_hopping = data.get(&'just_climbed', false)
 
 	character.remaining_jumps = data.get(&'jumps', 0)
-
-	print("ONFLOUR? ", character.is_on_floor())
 
 	if can_coyote:
 		# disable coyote timer after <coyote_time> seconds
@@ -48,9 +40,9 @@ func on_enter(_previous_state: State, data := {}) -> void:
 func on_physics_update(delta: float) -> void:
 	super.on_physics_update(delta)
 
-	_speed = character.get_speed()
-	_accel = character.get_accel_speed()
-	_decel = character.get_decel_speed()
+	var _speed = character.get_speed()
+	var _accel = character.get_accel_speed()
+	var _decel = character.get_decel_speed()
 
 	var hor := controller.get_horizontal_input()
 
@@ -80,9 +72,7 @@ func on_physics_update(delta: float) -> void:
 			, CONNECT_ONE_SHOT)
 
 	elif check_for_moving_horizontal():
-		var accel := _accel #if not climb_hopping else get_directional_acceleration(hor, _accel, _decel)
-
 		# for some reason, this makes us jump way too far when jumping off from climbing
 		# without holding a direction down
 		if hor != 0:
-			player.horizontal_move(hor, character.get_speed(), accel, _decel)
+			player.horizontal_move(hor, character.get_speed(), _accel, _decel)
