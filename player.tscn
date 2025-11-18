@@ -139,7 +139,6 @@ metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 [node name="Sprite" type="Sprite3D" parent="."]
 material_overlay = SubResource("ShaderMaterial_q13i1")
 shaded = true
-render_priority = 1
 texture = ExtResource("4_u1c27")
 script = ExtResource("4_606se")
 
