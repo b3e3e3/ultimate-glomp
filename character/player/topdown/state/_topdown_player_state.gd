@@ -30,5 +30,10 @@ func on_physics_update(_delta: float) -> void:
 	controller.control_horizontal_direction()
 	controller.control_vertical_direction()
 
+
 func check_for_moving() -> bool:
 	return controller.get_multi_input() != Vector2.ZERO or character.velocity.length() != 0
+
+## Returns true if the player is pressing the interact button.
+func check_for_interacting() -> bool:
+	return controller.get_interact_input()

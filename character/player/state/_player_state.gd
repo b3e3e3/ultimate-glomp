@@ -41,6 +41,11 @@ func check_for_jumping(must_be_landed: bool = true) -> bool:
 func check_for_glomping() -> bool:
 	return player.glomped_body or not player.get_glomped_bodies().is_empty()
 
+# TODO: Standardize interaction between player state and TD player state
+# ## Returns true if the player is pressing the interact button.
+# func check_for_interacting() -> bool:
+# 	return controller.get_interact_input()
+
 ## Returns true if the player is jumping while holding a glomped body.
 func check_for_throwing() -> bool:
 	return controller.get_jump_input() and player.glomped_body

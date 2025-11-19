@@ -48,6 +48,8 @@ func just_pressed_horizontal():
 func just_pressed_vertical():
 	return Input.is_action_just_pressed(&"move_up") || Input.is_action_just_pressed(&"move_down")
 
+func get_interact_input() -> bool:
+	return Input.is_action_just_pressed(&"interact")
 
 func get_jump_input() -> bool:
 	return Input.is_action_just_pressed(&"jump")

@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3igd3a7jqodm"]
+[gd_scene load_steps=10 format=3 uid="uid://b3igd3a7jqodm"]
 
 [ext_resource type="Script" uid="uid://dgnur1076hmgj" path="res://character/player/topdown_player.gd" id="1_kg0ws"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_jempq"]
 [ext_resource type="Script" uid="uid://d0kjjdsnvw5xd" path="res://character/player/topdown/state/idle.gd" id="3_jl2s0"]
 [ext_resource type="Script" uid="uid://1ull3e63npou" path="res://character/player/topdown/state/moving.gd" id="4_jl2s0"]
+[ext_resource type="Script" uid="uid://b8bde5re80571" path="res://character/player/state/interacting.gd" id="5_nt0ue"]
+[ext_resource type="Script" uid="uid://qr7l074g6ha3" path="res://interact/interact_area.gd" id="6_nt0ue"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2bod6"]
 load_path = "res://.godot/imported/Untitled.png-30da513a925d9064453decddf41ecbd4.s3tc.ctex"
@@ -11,6 +13,9 @@ load_path = "res://.godot/imported/Untitled.png-30da513a925d9064453decddf41ecbd4
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tmanm"]
 radius = 0.16015625
 height = 0.48
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jl2s0"]
+size = Vector3(0.64, 0, 0.64)
 
 [node name="TopDownPlayer" type="CharacterBody3D"]
 motion_mode = 1
@@ -25,9 +30,8 @@ texture = SubResource("CompressedTexture2D_2bod6")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_tmanm")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_jempq")
-initial_state = NodePath("")
 metadata/_custom_type_script = "uid://01tdfipkjgo6"
 
 [node name="Idle" type="Node" parent="StateMachine"]
@@ -37,3 +41,15 @@ metadata/_custom_type_script = "uid://d0kjjdsnvw5xd"
 [node name="Moving" type="Node" parent="StateMachine"]
 script = ExtResource("4_jl2s0")
 metadata/_custom_type_script = "uid://1ull3e63npou"
+
+[node name="Interacting" type="Node" parent="StateMachine" node_paths=PackedStringArray("interact_area")]
+script = ExtResource("5_nt0ue")
+interact_area = NodePath("../../InteractArea")
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("6_nt0ue")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("BoxShape3D_jl2s0")
