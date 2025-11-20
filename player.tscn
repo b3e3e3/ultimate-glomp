@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=36 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://bkq11pbfu554k" path="res://equipment/equipment.gd" id="2_5tmop"]
@@ -19,8 +19,10 @@
 [ext_resource type="Script" uid="uid://d1dxygfyk3hb0" path="res://character/player/state/climbing.gd" id="9_b26j0"]
 [ext_resource type="Script" uid="uid://dgbihqkvw2qv0" path="res://character/player/state/attacking.gd" id="12_ivps1"]
 [ext_resource type="Texture2D" uid="uid://bnrq00ulmd3ux" path="res://addons/kenney_particle_pack/star_07.png" id="13_urp6f"]
-[ext_resource type="Script" path="res://character/player/slide_manager.gd" id="16_pylmc"]
+[ext_resource type="Script" uid="uid://djklemw5ko356" path="res://character/player/slide_manager.gd" id="16_pylmc"]
 [ext_resource type="Texture2D" uid="uid://qhbkquiln6bf" path="res://addons/kenney_particle_pack/smoke_06.png" id="18_q13i1"]
+[ext_resource type="Script" uid="uid://b8bde5re80571" path="res://character/player/state/interacting.gd" id="20_7ahtn"]
+[ext_resource type="Script" uid="uid://qr7l074g6ha3" path="res://interact/interact_area.gd" id="23_7lmhl"]
 
 [sub_resource type="Resource" id="Resource_7ahtn"]
 script = ExtResource("4_5tmop")
@@ -114,6 +116,9 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_pbfsw")
 size = Vector2(0.5, 0.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_dx0e4"]
+size = Vector3(0.64, 0, 0.64)
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 3
@@ -200,6 +205,11 @@ delay_time = 0.1
 [node name="Attacking" type="Node" parent="StateMachine"]
 script = ExtResource("12_ivps1")
 
+[node name="Interacting" type="Node" parent="StateMachine" node_paths=PackedStringArray("interact_area")]
+script = ExtResource("20_7ahtn")
+interact_area = NodePath("../../InteractArea")
+metadata/_custom_type_script = "uid://b8bde5re80571"
+
 [node name="ComboParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0)
 emitting = false
@@ -224,6 +234,14 @@ randomness = 0.81
 visibility_aabb = AABB(-2.7377985, -2.6248107, -1, 5.0880213, 4.8618793, 2)
 process_material = SubResource("ParticleProcessMaterial_pylmc")
 draw_pass_1 = SubResource("QuadMesh_5tmop")
+
+[node name="InteractArea" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("23_7lmhl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("BoxShape3D_dx0e4")
 
 [connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="jumped" from="." to="Sprite" method="_on_player_jumped"]

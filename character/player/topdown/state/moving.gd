@@ -1,7 +1,7 @@
 class_name TDPlayerMovingState extends TDPlayerState
 
 @onready var idle_state: TDPlayerState = $"../Idle"
-@onready var interacting_state: TDPlayerState = $"../Interacting"
+@onready var interacting_state: PlayerState = $"../Interacting"
 
 var movement: Vector2
 

@@ -45,6 +45,7 @@ metadata/_custom_type_script = "uid://1ull3e63npou"
 [node name="Interacting" type="Node" parent="StateMachine" node_paths=PackedStringArray("interact_area")]
 script = ExtResource("5_nt0ue")
 interact_area = NodePath("../../InteractArea")
+metadata/_custom_type_script = "uid://b8bde5re80571"
 
 [node name="InteractArea" type="Area3D" parent="."]
 collision_layer = 16
@@ -53,3 +54,9 @@ script = ExtResource("6_nt0ue")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
 shape = SubResource("BoxShape3D_jl2s0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0

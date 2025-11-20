@@ -1,4 +1,4 @@
-class_name PlayerInteractingState extends TDPlayerState
+class_name PlayerInteractingState extends PlayerState
 
 @export var interact_area: InteractArea
 

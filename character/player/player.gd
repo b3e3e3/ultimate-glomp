@@ -6,6 +6,9 @@ signal unglomped(body: PhysicsBody3D)
 signal attack_started
 signal attack_finished
 
+# TODO: these things don't exist on topdown player.
+# they are never used, but maybe a way to utilize them without
+# having direct references would be better
 @onready var glomp_area: Area3D = $GlompArea
 @onready var climb_area: Area3D = $ClimbArea
 
@@ -18,6 +21,11 @@ var is_attacking: bool = false
 func _enter_tree() -> void:
 	super._enter_tree()
 	set_collision_mask_value(2, true) # enable glompable layer
+
+func _process(_delta: float) -> void:
+	# super._process(_delta)
+	__process_debug_hud()
+
 
 func get_climbable_bodies_in_proximity() -> Array[Node3D]:
 	return climb_area.get_overlapping_bodies()
@@ -75,3 +83,19 @@ func un_glomp() -> void:
 	# remove glomped body
 	unglomped.emit(glomped_body)
 	glomped_body = null
+
+
+func __process_debug_hud():
+	var l: Label = $"CanvasLayer/Label"
+	l.text = $StateMachine.state.name + '\n'
+	l.text += glomped_body.name as String if glomped_body else "No glomp"
+
+	if has_node(^"../Falling"):
+		l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
+		l.text += '\n' + 'can_reverse_coyote: ' + str($"../Falling"._can_reverse_coyote)
+
+	l.text += '\n' + 'vel: ' + str(velocity)
+	l.text += '\n' + 'direction: %s | last_direction: %s' % [direction, last_direction]
+
+	if has_node(^"ComboJump"):
+		l.text += '\n' + 'jump_combo: ' + str($ComboJump.current_combo)
