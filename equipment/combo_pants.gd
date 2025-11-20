@@ -1,12 +1,20 @@
 @tool
 class_name ComboPants extends Equipment
 
+@export var additional_force: Vector3:
+	get:
+		return combo_jump.additional_force
+	set(value):
+		combo_jump.additional_force = value
+
+
 var combo_jump: ComboJump
 
 var owner: Player = null
 
 
 func _on_combo_added(_combo: int):
+	print("Combo added! ", _combo)
 	adds.set(&"jump_force", combo_jump.get_jump_force())
 
 func _on_combo_timer_expired(_combo: int):
@@ -18,6 +26,7 @@ func initialize(item_owner: Character) -> void:
 
 	combo_jump = ComboJump.new()
 	combo_jump.name = &"ComboJump"
+	combo_jump.additional_force = additional_force
 
 	owner.add_child.call_deferred(combo_jump)
 

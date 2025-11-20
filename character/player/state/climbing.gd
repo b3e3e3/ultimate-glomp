@@ -11,6 +11,8 @@ class_name PlayerClimbingState extends PlayerState
 @export var side_swap_hold_time := 0.2
 
 
+const TEMP_SLIDE_SPEED: float = 3.0
+
 func on_enter(_previous_state: State, _data := {}) -> void:
 	# stop the character
 	character.gravity_enabled = false
@@ -31,6 +33,8 @@ func on_physics_update(_delta: float) -> void:
 	if not climb_body:
 		goto(falling_state)
 		return
+
+	var ver: float = controller.get_vertical_input() if not player.is_attacking else 0.0
 
 	# disbale slide particles
 	slide_particles.emitting = false
@@ -89,12 +93,15 @@ func on_physics_update(_delta: float) -> void:
 	# if we can climb the surface and we're trying to, move vertically
 	elif check_for_moving_vertical() and can_climb_like_ladder:
 		# TODO: figure out how to get player to stop at top of climbable
-		var ver: float = controller.get_vertical_input() if not player.is_attacking else 0.0
-		character.move_vertical(ver, 2.0 if ver < 0 else 1.5, 9999)
+		# TODO: standardized speed for this
+		character.move_vertical(ver, TEMP_SLIDE_SPEED if ver < 0 else 1.5, 9999)
 
 	# if we should slide and we can't climb, slide down
 	elif $SlideManager.should_slide and not can_climb_like_ladder:
-		character.move_vertical(-1, slide_speed, 9999.0 \
+		var _speed := slide_speed
+		if ver < 0:
+			_speed = TEMP_SLIDE_SPEED # TODO: standardized speed for moving while sliding
+		character.move_vertical(-1, _speed, 9999.0 \
 						if character.velocity.y != 0 else character.get_accel_speed()
 		)
 

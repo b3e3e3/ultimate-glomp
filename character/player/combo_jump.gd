@@ -9,6 +9,7 @@ signal timer_expired(combo: int)
 @export var current_combo: int = -1
 @export var cooldown_time: float = 0.1
 @export var combo_limit: int = 3
+@export var additional_force: Vector3 = Vector3.UP * 4.0
 
 
 @onready var timer: Timer = Timer.new()
@@ -37,13 +38,13 @@ func progress() -> bool:
 
 	if combo_limit_reached():
 		reset()
-		return false
+	else:
+		current_combo += 1
+		print("COMBO ADDED!")
 
-	current_combo += 1
 	combo_added.emit(current_combo)
-	print("COMBO ADDED!")
 
-	return true
+	return not combo_limit_reached()
 
 
 func is_comboing() -> bool:
@@ -62,4 +63,4 @@ func _on_character_jump():
 
 
 func get_jump_force() -> Vector3:
-	return (character.get_jump_force() / 3) * (max(0, current_combo - 1) as int)
+	return (additional_force / 3) * (max(0, current_combo - 1) as int)
