@@ -50,7 +50,7 @@ func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-func horizontal_move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed(), decel: float = get_decel_speed()) -> void:
+func move_horizontal(dir: float, speed: float = get_speed(), accel: float = get_accel_speed(), decel: float = get_decel_speed()) -> void:
 	var delta := accel
 	var target := dir * speed
 
@@ -60,7 +60,17 @@ func horizontal_move(dir: float, speed: float = get_speed(), accel: float = get_
 
 	velocity.x = move_toward(velocity.x, target, delta)
 
-func vertical_move(dir: float, speed: float = get_speed(), accel: float = get_accel_speed()) -> void:
+func move_multi(dir: Vector2, speed: float = get_speed(), accel: float = get_accel_speed(), decel: float = get_decel_speed()) -> void:
+	var delta := accel
+	var target := Vector3(dir.x, 0, dir.y) * speed
+
+	if not dir and velocity:
+		target = Vector3.ZERO
+		delta = decel
+
+	velocity = velocity.move_toward(target, delta)
+
+func move_vertical(dir: float, speed: float = get_speed(), accel: float = get_accel_speed()) -> void:
 	var target := dir * speed
 
 	if not dir and velocity.y:

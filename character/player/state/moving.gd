@@ -23,8 +23,8 @@ func on_physics_update(_delta: float) -> void:
 		goto(attacking_state)
 	elif check_for_glomping():
 		goto(glomping_state)
-	elif check_for_moving_horizontal():
-		player.horizontal_move(movement, character.get_speed(), get_directional_acceleration(movement))
+	elif check_for_moving():
+		player.move_horizontal(movement, character.get_speed(), get_directional_acceleration(movement))
 	else:
 		goto(idle_state)
 

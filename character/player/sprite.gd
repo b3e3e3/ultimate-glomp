@@ -29,4 +29,4 @@ func do_flip(dir):
 func _on_state_machine_state_changed(new_state: State, _previous_state: State) -> void:
 	match new_state.name:
 		&"Climbing":
-			player.cancel_flip()
+			cancel_flip()

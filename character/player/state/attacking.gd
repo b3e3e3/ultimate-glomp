@@ -20,6 +20,6 @@ func on_physics_update(delta: float) -> void:
 		goto(climbing_state)
 
 	if character.is_on_floor():
-		character.horizontal_move(0.0)
+		character.move_horizontal(0.0)
 	else:
-		character.horizontal_move(character.direction.x, character.get_speed(), character.get_accel_speed(), character.get_decel_speed())
+		character.move_horizontal(character.direction.x, character.get_speed(), character.get_accel_speed(), character.get_decel_speed())

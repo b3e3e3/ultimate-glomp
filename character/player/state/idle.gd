@@ -20,7 +20,7 @@ func on_physics_update(_delta: float) -> void:
 		goto(jumping_state)
 	elif check_for_glomping():
 		goto(glomping_state)
-	elif check_for_moving_horizontal():
+	elif check_for_moving():
 		goto(moving_state)
 	elif check_for_falling():
 		goto(falling_state)

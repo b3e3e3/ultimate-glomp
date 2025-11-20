@@ -90,17 +90,17 @@ func on_physics_update(_delta: float) -> void:
 	elif check_for_moving_vertical() and can_climb_like_ladder:
 		# TODO: figure out how to get player to stop at top of climbable
 		var ver: float = controller.get_vertical_input() if not player.is_attacking else 0.0
-		character.vertical_move(ver, 2.0 if ver < 0 else 1.5, 9999)
+		character.move_vertical(ver, 2.0 if ver < 0 else 1.5, 9999)
 
 	# if we should slide and we can't climb, slide down
 	elif $SlideManager.should_slide and not can_climb_like_ladder:
-		character.vertical_move(-1, slide_speed, 9999.0 \
+		character.move_vertical(-1, slide_speed, 9999.0 \
 						if character.velocity.y != 0 else character.get_accel_speed()
 		)
 
 	# if we shouldn't slide and aren't trying to move, but are moving, stop
 	elif character.velocity.y != 0:
-		character.vertical_move(0)
+		character.move_vertical(0, 0, 9999)
 
 
 	__emit_slide_particles()

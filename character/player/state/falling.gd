@@ -71,8 +71,8 @@ func on_physics_update(delta: float) -> void:
 				_can_reverse_coyote = false
 			, CONNECT_ONE_SHOT)
 
-	elif check_for_moving_horizontal():
+	elif check_for_moving():
 		# for some reason, this makes us jump way too far when jumping off from climbing
 		# without holding a direction down
 		if hor != 0:
-			player.horizontal_move(hor, character.get_speed(), _accel, _decel)
+			player.move_horizontal(hor, character.get_speed(), _accel, _decel)

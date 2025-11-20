@@ -12,3 +12,10 @@ func check_for_falling() -> bool:
 
 func check_for_landing() -> bool:
 	return character.is_on_floor() or character.is_landed()
+
+
+func get_directional_acceleration(movement: float, accel: float = character.get_accel_speed(), decel: float = character.get_decel_speed()) -> float:
+	if character.velocity.length_squared() != 0 \
+	and (movement) != sign(character.velocity.x):
+		return decel
+	return accel

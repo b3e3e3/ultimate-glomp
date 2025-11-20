@@ -1,13 +1,13 @@
 class_name PlayerState extends CharacterState
 
-var player: Player
+var player: Player:
+	get: return character as Player
 var controller: PlayerController
 
 
 func _ready() -> void:
 	await super._ready()
 
-	player = character as Player
 	assert(player != null, "The PlayerState state type must be used only in the player scene. It needs the owner to be a Player node.")
 
 	controller = Global.current_level.player_controller
@@ -29,8 +29,9 @@ func on_update(_delta: float) -> void:
 func on_physics_update(_delta: float) -> void:
 	controller.control_horizontal_direction()
 
+
 ## Returns true if horizontal input is non-zero or the character is moving.
-func check_for_moving_horizontal() -> bool:
+func check_for_moving() -> bool:
 	return controller.get_horizontal_input() or character.is_moving()
 
 ## Returns true if the jump button is pressed and the character is landed.
@@ -41,10 +42,9 @@ func check_for_jumping(must_be_landed: bool = true) -> bool:
 func check_for_glomping() -> bool:
 	return player.glomped_body or not player.get_glomped_bodies().is_empty()
 
-# TODO: Standardize interaction between player state and TD player state
-# ## Returns true if the player is pressing the interact button.
-# func check_for_interacting() -> bool:
-# 	return controller.get_interact_input()
+## Returns true if the player is pressing the interact button.
+func check_for_interacting() -> bool:
+	return controller.get_interact_input()
 
 ## Returns true if the player is jumping while holding a glomped body.
 func check_for_throwing() -> bool:
@@ -59,8 +59,7 @@ func check_for_climbing() -> bool:
 
 	var first := bodies[0]
 
-	return character.is_on_wall() \
-		and character.velocity.x != 0
+	return character.is_on_wall()
 
 ## Returns true if the player is trying to move vertically.
 func check_for_moving_vertical() -> bool:
@@ -86,9 +85,3 @@ func check_for_swapping(time: float) -> bool:
 				and character.velocity.length() == 0
 
 	return false
-
-func get_directional_acceleration(movement: float, accel: float = character.get_accel_speed(), decel: float = character.get_decel_speed()) -> float:
-	if character.velocity.length_squared() != 0 \
-	and (movement) != sign(character.velocity.x):
-		return decel
-	return accel
