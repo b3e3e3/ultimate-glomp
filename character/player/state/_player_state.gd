@@ -52,7 +52,15 @@ func check_for_throwing() -> bool:
 
 ## Returns true if the player is grabbing onto a wall, and there is a climbable wall nearby.
 func check_for_climbing() -> bool:
-	return character.is_on_wall() and not player.get_climbable_bodies_in_proximity().is_empty()
+	var bodies := player.get_climbable_bodies_in_proximity()
+
+	if bodies.is_empty():
+		return false
+
+	var first := bodies[0]
+
+	return character.is_on_wall() \
+		and character.velocity.x != 0
 
 ## Returns true if the player is trying to move vertically.
 func check_for_moving_vertical() -> bool:
