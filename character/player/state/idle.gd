@@ -16,6 +16,10 @@ func on_enter(_previous_state: State, data := {}) -> void:
 		print("REVERSE COYOTE")
 		goto(jumping_state)
 
+func on_update(_delta: float) -> void:
+	if check_for_interacting():
+		goto(interacting_state)
+
 func on_physics_update(_delta: float) -> void:
 	if check_for_jumping():
 		goto(jumping_state)
@@ -27,7 +31,5 @@ func on_physics_update(_delta: float) -> void:
 		goto(falling_state)
 	elif check_for_attacking():
 		goto(attacking_state)
-	elif check_for_interacting():
-		goto(interacting_state)
 
 	super.on_physics_update(_delta)

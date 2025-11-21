@@ -13,6 +13,10 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 	player.gravity_enabled = true
 	player.move_enabled = true
 
+func on_update(_delta: float) -> void:
+	if check_for_interacting():
+		goto(interacting_state)
+
 func on_physics_update(_delta: float) -> void:
 	movement = controller.get_horizontal_input()
 
@@ -26,8 +30,6 @@ func on_physics_update(_delta: float) -> void:
 		goto(glomping_state)
 	elif check_for_moving():
 		player.move_horizontal(movement, character.get_speed(), get_directional_acceleration(movement))
-	elif check_for_interacting():
-		goto(interacting_state)
 	else:
 		goto(idle_state)
 

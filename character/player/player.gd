@@ -97,7 +97,8 @@ func __process_debug_hud():
 	l.text += '\n' + 'vel: ' + str(velocity)
 	l.text += '\n' + 'direction: %s | last_direction: %s' % [direction, last_direction]
 
-	for e in equip_inventory.equipment:
-		var text := e.debug_text()
-		if text == "": continue
-		l.text += '\n' + text
+	if equip_inventory:
+		for e in equip_inventory.equipment:
+			var text := e.debug_text()
+			if text == "": continue
+			l.text += '\n' + text

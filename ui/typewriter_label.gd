@@ -15,7 +15,7 @@ func start_typewriter(message: String = text) -> void:
 		text = message
 
 	if not is_typewriter_finished():
-		Global.Global.create_timer(default_speed).timeout.connect(func():
+		Global.create_timer(default_speed).timeout.connect(func():
 			visible_characters += 1
 
 			# var line_count := label.get_visible_line_count()

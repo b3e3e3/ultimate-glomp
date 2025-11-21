@@ -1,11 +1,13 @@
 class_name TDPlayerIdleState extends TDPlayerState
 
-@onready var moving_state: TDPlayerState = $"../Moving"
-@onready var interacting_state: PlayerState = $"../Interacting"
+@onready var moving_state: State = $"../Moving"
+@onready var interacting_state: State = $"../Interacting"
 
 
-func on_update(_delta: float) -> void:
+func on_physics_update(_delta: float) -> void:
 	if check_for_moving():
 		goto(moving_state)
-	elif check_for_interacting():
+
+func on_update(_delta: float) -> void:
+	if check_for_interacting():
 		goto(interacting_state)

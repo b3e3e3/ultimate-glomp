@@ -15,10 +15,16 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 		print("No interaction found")
 		goto(idle_state)
 
+	character.move_enabled = false
+	character.gravity_enabled = false
+
 func on_exit() -> void:
 	interact_area.started.disconnect(_on_interaction_started)
 	interact_area.finished.disconnect(_on_interaction_finished)
 	interact_area.stepped.disconnect(_on_interaction_stepped)
+
+	character.move_enabled = true
+	character.gravity_enabled = true
 
 func on_update(_delta: float) -> void:
 	if check_for_interacting() and interact_area.current_interaction:

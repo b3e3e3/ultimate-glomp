@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b4sqxrqilk3yi"]
+[gd_scene load_steps=37 format=3 uid="uid://b4sqxrqilk3yi"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_rjrbw"]
 [ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="6_44b12"]
 [ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/test_msg_interaction.gd" id="7_0fpt2"]
+[ext_resource type="FontFile" uid="uid://dhh2ymkrlkluo" path="res://fonts/CursedScriptDemo-Bold.ttf" id="8_tctsc"]
+[ext_resource type="FontFile" uid="uid://dywmb2u01jfek" path="res://fonts/CursedScriptDemo.ttf" id="9_ai2o8"]
+[ext_resource type="Script" uid="uid://ddt3x6c27j3nv" path="res://ui/typewriter_label.gd" id="10_luwg1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvmsc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -104,7 +107,15 @@ messages = Array[String](["oh hey man", "whats guanan with u"])
 metadata/_custom_type_script = "uid://bp75ylxcq7yed"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tctsc"]
-size = Vector3(0.64, 0.64, 0.64)
+size = Vector3(0.72, 0.72, 0.72)
+
+[sub_resource type="Theme" id="Theme_nmhe3"]
+default_font = ExtResource("8_tctsc")
+RichTextLabel/constants/line_separation = -24
+RichTextLabel/constants/paragraph_separation = -24
+RichTextLabel/font_sizes/normal_font_size = 72
+RichTextLabel/fonts/bold_font = ExtResource("8_tctsc")
+RichTextLabel/fonts/normal_font = ExtResource("9_ai2o8")
 
 [node name="Level" type="Node3D" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1_rvmsc")
@@ -211,7 +222,7 @@ size = 13.304401
 script = ExtResource("5_rjrbw")
 
 [node name="Freakin Guy" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.787872, 4.7639565, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.787872, 0.5066564, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Freakin Guy"]
 shape = SubResource("CapsuleShape3D_2md1f")
@@ -228,5 +239,25 @@ interaction = SubResource("Resource_igx0j")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Freakin Guy/InteractTriggerArea"]
 shape = SubResource("BoxShape3D_tctsc")
+debug_color = Color(0.99999994, 0.008553123, 0.06928867, 0.41960785)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TypewriterLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.1640625
+anchor_top = 0.049382716
+anchor_right = 0.8359375
+anchor_bottom = 0.40123457
+theme = SubResource("Theme_nmhe3")
+bbcode_enabled = true
+text = "Hello world!
+Hello world!
+Hello world!"
+scroll_active = false
+scroll_following_visible_characters = true
+visible_characters_behavior = 1
+script = ExtResource("10_luwg1")
+metadata/_edit_use_anchors_ = true
 
 [editable path="Enemy2"]

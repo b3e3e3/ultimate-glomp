@@ -38,6 +38,10 @@ func on_enter(_previous_state: State, data := {}) -> void:
 				can_coyote = false
 		, CONNECT_ONE_SHOT)
 
+func on_update(_delta: float) -> void:
+	if check_for_interacting():
+		goto(interacting_state)
+
 func on_physics_update(delta: float) -> void:
 	super.on_physics_update(delta)
 
@@ -53,8 +57,7 @@ func on_physics_update(delta: float) -> void:
 		})
 	elif check_for_attacking() and not check_for_glomping():
 		goto(attacking_state)
-	elif check_for_interacting():
-		goto(interacting_state)
+
 	elif check_for_climbing():
 		goto(climbing_state)
 
