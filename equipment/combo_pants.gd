@@ -1,21 +1,15 @@
 @tool
 class_name ComboPants extends Equipment
 
-@export var additional_force: Vector3:
-	get:
-		return combo_jump.additional_force
-	set(value):
-		combo_jump.additional_force = value
+@export var additional_force: Vector3 = Vector3.UP * 4.0
+@export var cooldown_time: float = 0.1
+@export var combo_limit: int = 3
 
-
-var combo_jump: ComboJump
-
+var current_combo: int = -1
 var owner: Player = null
 
+var timer: Timer = Timer.new()
 
-func _on_combo_added(_combo: int):
-	print("Combo added! ", _combo)
-	adds.set(&"jump_force", combo_jump.get_jump_force())
 
 func _on_combo_timer_expired(_combo: int):
 	adds.set(&"jump_force", Vector3.ZERO)
@@ -24,43 +18,78 @@ func initialize(item_owner: Character) -> void:
 	print("Initializing combo pants! Owner: ", item_owner.name)
 	owner = item_owner
 
-	combo_jump = ComboJump.new()
-	combo_jump.name = &"ComboJump"
-	combo_jump.additional_force = additional_force
-
-	owner.add_child.call_deferred(combo_jump)
+	owner.add_child(timer)
+	timer.timeout.connect(_on_timeout)
 
 	owner.get_node(^"StateMachine").state_changed.connect(_on_state_machine_state_changed) # TODO: direct reference! maybe don't assume the character has a state machine
 
 	owner.glomped.connect(_on_player_glomped)
-	combo_jump.combo_added.connect(_on_combo_added)
-	combo_jump.timer_expired.connect(_on_combo_timer_expired)
 
 
 func _on_player_glomped(_body: PhysicsBody3D) -> void:
-	combo_jump.reset()
+	reset()
 
 func _on_state_machine_state_changed(new_state: State, _previous_state: State) -> void:
 	print(new_state.name)
 	match new_state.name:
 		&"Climbing":
 			# reset combo jump and cancel flip.
-			combo_jump.reset()
+			reset()
 		&"Jumping":
-			combo_jump.cancel_timer()
-			if combo_jump.current_combo == 3:
+			cancel_timer()
+			if current_combo == 3:
 				owner.get_node(^"Sprite").do_flip(owner.last_direction) # TODO: direct reference!
 		&"Idle":
-			combo_jump.progress()
+			progress()
 			if new_state is PlayerState:
 				if new_state.check_for_glomping():
-					combo_jump.reset()
-					combo_jump.cancel_timer()
+					reset()
+					cancel_timer()
 
 				if _previous_state:
-					if combo_jump.is_comboing():
+					if is_comboing():
 						owner.get_node(^"ComboParticles").emitting = true # TODO: direct reference!
-						owner.get_node(^"ComboParticles").amount_ratio = combo_jump.current_combo / 3.0
+						owner.get_node(^"ComboParticles").amount_ratio = current_combo / 3.0
 						owner.get_node(^"ComboParticles").process_mode = Node.PROCESS_MODE_ALWAYS
 		&"Throwing":
-			combo_jump.progress() # TODO: do we want this? progress combo jump when throwing the object
+			progress() # TODO: do we want this? progress combo jump when throwing the object
+
+
+
+
+func combo_limit_reached() -> bool:
+	return current_combo >= combo_limit
+
+func reset():
+	current_combo = -1
+
+func cancel_timer():
+	timer.stop()
+
+func progress() -> bool:
+	timer.start(cooldown_time)
+
+	if combo_limit_reached():
+		reset()
+	else:
+		current_combo += 1
+		print("COMBO ADDED!")
+
+	print("Combo added! ", current_combo)
+	print("Force: ", get_jump_force())
+	adds.set(&"jump_force", get_jump_force())
+
+	return not combo_limit_reached()
+
+
+func is_comboing() -> bool:
+	return current_combo > 0
+
+func _on_timeout():
+	cancel_timer()
+	reset()
+
+	adds.set(&"jump_force", Vector3.ZERO)
+
+func get_jump_force() -> Vector3:
+	return (additional_force / combo_limit) * (max(0, current_combo - 1) as int)
