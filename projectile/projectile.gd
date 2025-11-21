@@ -80,7 +80,7 @@ func on_hit_finished() -> void:
 
 	spinning_out = true
 
-	await get_tree().create_timer(2.0).timeout
+	await Global.create_timer(2.0).timeout
 
 	finished.emit()
 	queue_free()

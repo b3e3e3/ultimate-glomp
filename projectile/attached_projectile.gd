@@ -15,7 +15,7 @@ func on_hit_finished() -> void:
 
 func _ready() -> void:
 	super._ready()
-	await get_tree().create_timer(0.25).timeout
+	await Global.create_timer(0.25).timeout
 	if not retracting:
 		on_hit_finished()
 

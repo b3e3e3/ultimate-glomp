@@ -8,6 +8,8 @@ class_name Equipment extends Resource
 @export var adds: Dictionary[StringName, Variant] = {}
 @export var multipliers: Dictionary[StringName, float] = {}
 
+var owner: Character = null
+
 
 static var BuffTypes: Dictionary[StringName, Variant.Type] = {
 	&"speed": TYPE_FLOAT,
@@ -42,4 +44,5 @@ func _init() -> void:
 		if not multipliers.has(buff_name):
 			multipliers[buff_name] = 1.0
 
-func initialize(_owner: Character) -> void: pass
+func initialize(item_owner: Character) -> void:
+	self.owner = item_owner

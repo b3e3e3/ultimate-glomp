@@ -34,10 +34,16 @@ var direction: Vector3:
 
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var equip_inventory: EquipInventory = $EquipInventory
+@onready var state_machine: StateMachine = $StateMachine
 
 
 func _enter_tree() -> void:
 	set_collision_mask_value(1, true) # enable ground layer
+
+func _ready() -> void:
+	assert(collision_shape, "Node \"CollisionShape3D\" not found. Please add it or rename it to \"CollisionShape3D.\"")
+	assert(state_machine, "Node \"StateMachine\" not found. Please add it or rename it to \"StateMachine.\"")
+	# assert(equip_inventory, "Node \"EquipInventory\" not found. Please add it or rename it to \"EquipInventory.\"")
 
 func _physics_process(delta: float) -> void:
 	if gravity_enabled:

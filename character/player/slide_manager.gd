@@ -10,5 +10,5 @@ var should_slide: bool:
 		_should_slide = value
 		print("Should slide? ", value)
 		if value == false:
-			await get_tree().create_timer(delay_time).timeout
+			await Global.create_timer(delay_time).timeout
 			_should_slide = true

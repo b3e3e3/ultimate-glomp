@@ -126,6 +126,6 @@ func on_exit() -> void:
 	if slide_particles:
 		slide_particles.emitting = false
 
-	get_tree().create_timer(0.3).timeout.connect(func():
+	Global.create_timer(0.3).timeout.connect(func():
 		character.collision_shape.disabled= false
 	, CONNECT_ONE_SHOT)

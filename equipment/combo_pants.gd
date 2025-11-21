@@ -6,7 +6,6 @@ class_name ComboPants extends Equipment
 @export var combo_limit: int = 3
 
 var current_combo: int = -1
-var owner: Player = null
 
 var timer: Timer = Timer.new()
 
@@ -15,13 +14,13 @@ func _on_combo_timer_expired(_combo: int):
 	adds.set(&"jump_force", Vector3.ZERO)
 
 func initialize(item_owner: Character) -> void:
+	super.initialize(item_owner)
 	print("Initializing combo pants! Owner: ", item_owner.name)
-	owner = item_owner
 
 	owner.add_child(timer)
 	timer.timeout.connect(_on_timeout)
 
-	owner.get_node(^"StateMachine").state_changed.connect(_on_state_machine_state_changed) # TODO: direct reference! maybe don't assume the character has a state machine
+	owner.state_machine.state_changed.connect(_on_state_machine_state_changed) # TODO: direct reference! maybe don't assume the character has a state machine
 
 	owner.glomped.connect(_on_player_glomped)
 

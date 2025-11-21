@@ -15,7 +15,7 @@ func _ready() -> void:
 
 # func on_update(_delta: float) -> void:
 # 	var l: Label = player.get_node(^"CanvasLayer/Label")
-# 	l.text = player.get_node(^"StateMachine").state.name + '\n'
+# 	l.text = player.state_machine.state.name + '\n'
 # 	l.text += player.glomped_body.name as String if player.glomped_body else "No glomp"
 # 	l.text += '\n' + 'can_coyote: ' + str($"../Falling".can_coyote)
 # 	l.text += '\n' + 'can_reverse_coyote: ' + str($"../Falling"._can_reverse_coyote)
@@ -78,7 +78,7 @@ func check_for_swapping(time: float) -> bool:
 	# if we are trying to move in our current direction, start a timer to swap sides
 	if character.direction.x == hor and hor != 0 \
 	and controller.just_pressed_horizontal():
-		await get_tree().create_timer(time).timeout
+		await Global.create_timer(time).timeout
 
 		# if we are still trying to swap and still not moving, we can swap
 		return controller.get_horizontal_input() != 0 \

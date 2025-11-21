@@ -12,7 +12,7 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 	player.process_mode = PROCESS_MODE_DISABLED
 	player.glomped_body.call(&"get_thrown", player)
 
-	await get_tree().create_timer(1.0).timeout
+	await Global.create_timer(1.0).timeout
 
 	goto(jump_state)
 

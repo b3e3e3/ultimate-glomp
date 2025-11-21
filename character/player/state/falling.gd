@@ -32,7 +32,7 @@ func on_enter(_previous_state: State, data := {}) -> void:
 		# disable coyote timer after <coyote_time> seconds
 		var ct: float = data.get(&'coyote_time', coyote_time)
 
-		get_tree().create_timer(ct).timeout.connect(func():
+		Global.create_timer(ct).timeout.connect(func():
 			# prevent this timer from firing if the player lands before the timer expires
 			if not character.is_on_floor() or not character.is_on_wall():
 				can_coyote = false
@@ -70,7 +70,7 @@ func on_physics_update(delta: float) -> void:
 
 		elif not _can_reverse_coyote:
 			_can_reverse_coyote = true
-			get_tree().create_timer(reverse_coyote_time).timeout.connect(func():
+			Global.create_timer(reverse_coyote_time).timeout.connect(func():
 				_can_reverse_coyote = false
 			, CONNECT_ONE_SHOT)
 
