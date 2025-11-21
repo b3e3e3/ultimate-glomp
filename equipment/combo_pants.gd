@@ -92,3 +92,6 @@ func _on_timeout():
 
 func get_jump_force() -> Vector3:
 	return (additional_force / combo_limit) * (max(0, current_combo - 1) as int)
+
+func debug_text() -> String:
+	return "Jump combo: " + str(current_combo) + " / " + str(combo_limit)

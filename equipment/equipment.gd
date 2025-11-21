@@ -48,3 +48,5 @@ func initialize(item_owner: Character) -> void:
 	self.owner = item_owner
 	if not self.owner.is_node_ready():
 		await self.owner.ready
+
+func debug_text() -> String: return ""
