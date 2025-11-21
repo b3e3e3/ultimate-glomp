@@ -3,6 +3,11 @@ extends CharacterBody3D
 
 signal jumped
 
+signal attack_started
+signal attack_finished
+
+signal glomped(body: PhysicsBody3D)
+signal unglomped(body: PhysicsBody3D)
 
 @export var ACCEL_SPEED: float = 3.0
 @export var ACCEL_SPEED_AIR: float =  3.0
@@ -37,13 +42,9 @@ var direction: Vector3:
 @onready var equip_inventory: EquipInventory = $EquipInventory
 
 
+# hooks
 func _enter_tree() -> void:
 	set_collision_mask_value(1, true) # enable ground layer
-
-# func _ready() -> void:
-# 	assert(collision_shape, "Node \"CollisionShape3D\" not found. Please add it or rename it to \"CollisionShape3D.\"")
-# 	assert(state_machine, "Node \"StateMachine\" not found. Please add it or rename it to \"StateMachine.\"")
-#	assert(equip_inventory, "Node \"EquipInventory\" not found. Please add it or rename it to \"EquipInventory.\"")
 
 func _physics_process(delta: float) -> void:
 	if gravity_enabled:
@@ -52,6 +53,8 @@ func _physics_process(delta: float) -> void:
 	if move_enabled:
 		move_and_slide()
 
+
+# movement
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -66,6 +69,14 @@ func move_horizontal(dir: float, speed: float = get_speed(), accel: float = get_
 
 	velocity.x = move_toward(velocity.x, target, delta)
 
+func move_vertical(dir: float, speed: float = get_speed(), accel: float = get_accel_speed()) -> void:
+	var target := dir * speed
+
+	if not dir and velocity.y:
+		target = 0
+
+	velocity.y = move_toward(velocity.y, target, accel)
+
 func move_multi(dir: Vector2, speed: float = get_speed(), accel: float = get_accel_speed(), decel: float = get_decel_speed()) -> void:
 	var delta := accel
 	var target := Vector3(dir.x, 0, dir.y) * speed
@@ -75,14 +86,6 @@ func move_multi(dir: Vector2, speed: float = get_speed(), accel: float = get_acc
 		delta = decel
 
 	velocity = velocity.move_toward(target, delta)
-
-func move_vertical(dir: float, speed: float = get_speed(), accel: float = get_accel_speed()) -> void:
-	var target := dir * speed
-
-	if not dir and velocity.y:
-		target = 0
-
-	velocity.y = move_toward(velocity.y, target, accel)
 
 func jump(force: Vector3 = JUMP_VELOCITY) -> void:
 	print("Jumping with force: ", force)
@@ -95,12 +98,16 @@ func jump(force: Vector3 = JUMP_VELOCITY) -> void:
 	if not is_zero_approx(force.x):
 		velocity.x = force.x
 
+
+# checks
 func is_landed() -> bool:
 	return is_on_floor() or velocity.y == 0
 
 func is_moving() -> bool:
 	return velocity.x != 0
 
+
+# stats
 func get_stat_with_buffs(key: StringName, value: Variant):
 	var val = value
 
@@ -108,21 +115,6 @@ func get_stat_with_buffs(key: StringName, value: Variant):
 	val *= $EquipInventory.get_all_multipliers(key)
 
 	return val
-
-
-func _get_air_variant_stat(grounded_key: StringName, air_key: StringName, grounded: Variant, air: Variant) -> Variant:
-	var value: float
-	var _key: StringName = grounded_key
-
-	if is_on_floor():
-		value = grounded
-	else:
-		value = air
-		_key = air_key
-
-	value = get_stat_with_buffs(_key, value)
-
-	return value
 
 func get_jumps_after_climbing() -> int:
 	var _jumps := 0
@@ -153,3 +145,17 @@ func get_wall_slide_speed() -> float:
 	_speed = get_stat_with_buffs(&"wall_slide_speed", _speed)
 
 	return _speed
+
+func _get_air_variant_stat(grounded_key: StringName, air_key: StringName, grounded: Variant, air: Variant) -> Variant:
+	var value: float
+	var _key: StringName = grounded_key
+
+	if is_on_floor():
+		value = grounded
+	else:
+		value = air
+		_key = air_key
+
+	value = get_stat_with_buffs(_key, value)
+
+	return value

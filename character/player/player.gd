@@ -1,23 +1,17 @@
 class_name Player extends Character
 
-signal glomped(body: PhysicsBody3D)
-signal unglomped(body: PhysicsBody3D)
-
-signal attack_started
-signal attack_finished
-
 # TODO: these things don't exist on topdown player.
 # they are never used, but maybe a way to utilize them without
 # having direct references would be better
 @onready var glomp_area: Area3D = $GlompArea
 @onready var climb_area: Area3D = $ClimbArea
 
-
 var glomped_body: Node3D
 
 var is_attacking: bool = false
 
 
+# hooks
 func _enter_tree() -> void:
 	super._enter_tree()
 	set_collision_mask_value(2, true) # enable glompable layer
@@ -27,12 +21,15 @@ func _process(_delta: float) -> void:
 	__process_debug_hud()
 
 
+# collisions
 func get_climbable_bodies_in_proximity() -> Array[Node3D]:
 	return climb_area.get_overlapping_bodies()
 
 func get_glomped_bodies() -> Array[Node3D]:
 	return glomp_area.get_overlapping_bodies()
 
+
+# actions
 func attack(aim_direction: Vector3 = self.direction):
 	if is_attacking: return
 
@@ -46,6 +43,8 @@ func attack(aim_direction: Vector3 = self.direction):
 		attack_finished.emit()
 	), CONNECT_ONE_SHOT)
 
+
+# glomping
 func glomp_on(body: PhysicsBody3D) -> void:
 	# acquire glomped body
 	assert(body.is_in_group(&"Glompable"))
@@ -85,6 +84,7 @@ func un_glomp() -> void:
 	glomped_body = null
 
 
+# debug
 func __process_debug_hud():
 	var l: Label = $"CanvasLayer/Label"
 	l.text = state_machine.state.name + '\n'
