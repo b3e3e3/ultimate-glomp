@@ -14,7 +14,7 @@ func _on_combo_timer_expired(_combo: int):
 	adds.set(&"jump_force", Vector3.ZERO)
 
 func initialize(item_owner: Character) -> void:
-	super.initialize(item_owner)
+	await super.initialize(item_owner)
 	print("Initializing combo pants! Owner: ", item_owner.name)
 
 	owner.add_child(timer)
