@@ -1,10 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://b4sqxrqilk3yi"]
+[gd_scene load_steps=33 format=3 uid="uid://b4sqxrqilk3yi"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_rvmsc"]
 [ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="4_rvmsc"]
-[ext_resource type="Script" path="res://player_camera.gd" id="5_rjrbw"]
+[ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_rjrbw"]
+[ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="6_44b12"]
+[ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/test_msg_interaction.gd" id="7_0fpt2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvmsc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -86,6 +88,23 @@ colors = PackedColorArray(1, 0, 0, 1, 0, 1, 1, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ypj6x"]
 gradient = SubResource("Gradient_rjrbw")
 width = 32
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2md1f"]
+radius = 0.16
+height = 0.48
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rjrbw"]
+gradient = SubResource("Gradient_rjrbw")
+width = 32
+height = 48
+
+[sub_resource type="Resource" id="Resource_igx0j"]
+script = ExtResource("7_0fpt2")
+messages = Array[String](["oh hey man", "whats guanan with u"])
+metadata/_custom_type_script = "uid://bp75ylxcq7yed"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tctsc"]
+size = Vector3(0.64, 0.64, 0.64)
 
 [node name="Level" type="Node3D" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1_rvmsc")
@@ -190,5 +209,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 2.5583334, 3.68
 current = true
 size = 13.304401
 script = ExtResource("5_rjrbw")
+
+[node name="Freakin Guy" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.787872, 4.7639565, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Freakin Guy"]
+shape = SubResource("CapsuleShape3D_2md1f")
+
+[node name="Sprite" type="Sprite3D" parent="Freakin Guy"]
+billboard = 1
+texture = SubResource("GradientTexture2D_rjrbw")
+
+[node name="InteractTriggerArea" type="Area3D" parent="Freakin Guy"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("6_44b12")
+interaction = SubResource("Resource_igx0j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Freakin Guy/InteractTriggerArea"]
+shape = SubResource("BoxShape3D_tctsc")
 
 [editable path="Enemy2"]

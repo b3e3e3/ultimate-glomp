@@ -5,6 +5,7 @@ class_name PlayerMovingState extends PlayerState
 @onready var jumping_state: State = $"../Jumping"
 @onready var glomping_state: State = $"../Glomping"
 @onready var attacking_state: State = $"../Attacking"
+@onready var interacting_state: State = $"../Interacting"
 
 var movement: float = 0.0
 
@@ -25,6 +26,8 @@ func on_physics_update(_delta: float) -> void:
 		goto(glomping_state)
 	elif check_for_moving():
 		player.move_horizontal(movement, character.get_speed(), get_directional_acceleration(movement))
+	elif check_for_interacting():
+		goto(interacting_state)
 	else:
 		goto(idle_state)
 
