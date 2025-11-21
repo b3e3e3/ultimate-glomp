@@ -1,13 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://5a426kydcant"]
+[gd_scene load_steps=13 format=3 uid="uid://5a426kydcant"]
 
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_xkc80"]
 [ext_resource type="PackedScene" uid="uid://b3igd3a7jqodm" path="res://character/player/topdown/top_down_player.tscn" id="2_l4rn0"]
 [ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="4_peklp"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="4_xkc80"]
 [ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/test_msg_interaction.gd" id="5_peklp"]
-[ext_resource type="FontFile" uid="uid://dhh2ymkrlkluo" path="res://fonts/CursedScriptDemo-Bold.ttf" id="6_e6t1c"]
-[ext_resource type="FontFile" uid="uid://dywmb2u01jfek" path="res://fonts/CursedScriptDemo.ttf" id="7_wauep"]
-[ext_resource type="Script" uid="uid://ddt3x6c27j3nv" path="res://ui/typewriter_label.gd" id="8_wauep"]
 
 [sub_resource type="Gradient" id="Gradient_16mkr"]
 colors = PackedColorArray(0.08590173, 0.023329917, 0, 1, 0.31644037, 0.22125904, 0.12794405, 1)
@@ -35,14 +32,6 @@ metadata/_custom_type_script = "uid://bp75ylxcq7yed"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4n3rb"]
 size = Vector3(0.64, 0, 0.64)
-
-[sub_resource type="Theme" id="Theme_2bod6"]
-default_font = ExtResource("6_e6t1c")
-RichTextLabel/constants/line_separation = -24
-RichTextLabel/constants/paragraph_separation = -24
-RichTextLabel/font_sizes/normal_font_size = 72
-RichTextLabel/fonts/bold_font = ExtResource("6_e6t1c")
-RichTextLabel/fonts/normal_font = ExtResource("7_wauep")
 
 [node name="Level" type="Node3D" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1_xkc80")
@@ -91,22 +80,3 @@ interaction = SubResource("Resource_4n3rb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Person/InteractTriggerArea"]
 shape = SubResource("BoxShape3D_4n3rb")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TypewriterLabel" type="RichTextLabel" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.1640625
-anchor_top = 0.049382716
-anchor_right = 0.8359375
-anchor_bottom = 0.40123457
-theme = SubResource("Theme_2bod6")
-bbcode_enabled = true
-text = "Hello world!
-Hello world!
-Hello world!"
-scroll_active = false
-scroll_following_visible_characters = true
-visible_characters_behavior = 1
-script = ExtResource("8_wauep")
-metadata/_edit_use_anchors_ = true

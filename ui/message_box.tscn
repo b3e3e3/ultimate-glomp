@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://duudlxykimp30"]
+
+[ext_resource type="Texture2D" uid="uid://cj4dya31o8epj" path="res://equipment/assets/textbox.png" id="1_otacr"]
+[ext_resource type="Script" uid="uid://c7jktvjd1h2c4" path="res://ui/message_box.gd" id="1_ucgcf"]
+[ext_resource type="FontFile" uid="uid://dhh2ymkrlkluo" path="res://fonts/CursedScriptDemo-Bold.ttf" id="2_dnhui"]
+[ext_resource type="FontFile" uid="uid://dywmb2u01jfek" path="res://fonts/CursedScriptDemo.ttf" id="3_ucgcf"]
+[ext_resource type="Script" uid="uid://ddt3x6c27j3nv" path="res://ui/typewriter_label.gd" id="4_rb4f6"]
+
+[sub_resource type="Theme" id="Theme_hnhlf"]
+default_font = ExtResource("2_dnhui")
+RichTextLabel/constants/line_separation = -12
+RichTextLabel/constants/paragraph_separation = -24
+RichTextLabel/font_sizes/normal_font_size = 72
+RichTextLabel/fonts/bold_font = ExtResource("2_dnhui")
+RichTextLabel/fonts/normal_font = ExtResource("3_ucgcf")
+
+[node name="CenterContainer" type="CenterContainer" node_paths=PackedStringArray("label")]
+anchors_preset = -1
+anchor_right = 0.41666666
+anchor_bottom = 0.27160493
+grow_horizontal = 2
+grow_vertical = 2
+use_top_left = true
+script = ExtResource("1_ucgcf")
+label = NodePath("NinePatchRect/MarginContainer/TypewriterLabel")
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(480, 176)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_otacr")
+patch_margin_left = 11
+patch_margin_top = 12
+patch_margin_right = 11
+patch_margin_bottom = 12
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 12
+
+[node name="TypewriterLabel" type="RichTextLabel" parent="NinePatchRect/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_hnhlf")
+theme_override_colors/default_color = Color(0.22352941, 0.19215687, 0.29411766, 1)
+theme_override_colors/font_shadow_color = Color(0.1882353, 0.17254902, 0.18039216, 0.36078432)
+theme_override_constants/shadow_outline_size = 1
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "Whatever you do, don't spill the beans. Whatever you do, don't spill the beans"
+scroll_active = false
+scroll_following_visible_characters = true
+visible_characters_behavior = 1
+script = ExtResource("4_rb4f6")

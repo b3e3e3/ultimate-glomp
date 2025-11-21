@@ -4,6 +4,9 @@ class_name TDPlayerIdleState extends TDPlayerState
 @onready var interacting_state: State = $"../Interacting"
 
 
+func on_enter(_previous_state: State, _data := {}) -> void:
+	player.move_enabled = true
+
 func on_physics_update(_delta: float) -> void:
 	if check_for_moving():
 		goto(moving_state)

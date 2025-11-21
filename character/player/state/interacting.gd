@@ -23,9 +23,6 @@ func on_exit() -> void:
 	interact_area.finished.disconnect(_on_interaction_finished)
 	interact_area.stepped.disconnect(_on_interaction_stepped)
 
-	character.move_enabled = true
-	character.gravity_enabled = true
-
 func on_update(_delta: float) -> void:
 	if check_for_interacting() and interact_area.current_interaction:
 		interact_area.step.call_deferred()

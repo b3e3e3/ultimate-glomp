@@ -21,10 +21,10 @@ signal unglomped(body: PhysicsBody3D)
 @export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
 @export var WALL_SLIDE_SPEED: float = 1.0
 
-var remaining_jumps: int = 0
+@export var gravity_enabled: bool = true
+@export var move_enabled: bool = true
 
-var gravity_enabled: bool = true
-var move_enabled: bool = true
+var remaining_jumps: int = 0
 
 var _direction: Vector3 = Vector3.RIGHT
 

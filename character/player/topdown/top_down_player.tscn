@@ -20,6 +20,7 @@ size = Vector3(0.64, 0, 0.64)
 [node name="TopDownPlayer" type="CharacterBody3D"]
 motion_mode = 1
 script = ExtResource("1_kg0ws")
+gravity_enabled = false
 metadata/_custom_type_script = "uid://dgnur1076hmgj"
 
 [node name="Sprite" type="Sprite3D" parent="."]

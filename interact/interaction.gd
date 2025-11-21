@@ -27,3 +27,5 @@ func on_start() -> void: pass
 func on_step() -> void: finish()
 func on_update(_delta: float) -> void: pass
 func on_finish() -> void: pass
+
+func initialize(_owner: Node3D): pass
