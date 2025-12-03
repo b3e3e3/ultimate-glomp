@@ -10,7 +10,7 @@ func on_enter(_previous_state: State, data := {}) -> void:
 		data.set(&'just_jumped', true)
 
 	var force: Vector3 = data.get(&'jump_force', character.get_jump_force())
-	print(force)
+	# print("FWORCE: ",force)
 
 	character.jump(force)
 

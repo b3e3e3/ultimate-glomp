@@ -64,6 +64,9 @@ func on_physics_update(delta: float) -> void:
 	elif check_for_throwing():
 		goto(throwing_state)
 
+	elif check_for_auto_throw():
+		goto(throwing_state)
+
 	elif controller.get_jump_input():
 		if can_coyote:
 			goto(coyote_jumping_state)

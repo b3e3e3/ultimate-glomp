@@ -7,6 +7,10 @@ var tween: Tween = null
 # func _on_player_jumped() -> void:
 # func _on_combo_jump_jumped(current_combo: int) -> void:
 
+
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 func cancel_flip():
 	if not tween: return
 

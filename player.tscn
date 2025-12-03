@@ -26,9 +26,6 @@
 
 [sub_resource type="Resource" id="Resource_7ahtn"]
 script = ExtResource("4_5tmop")
-additional_force = null
-cooldown_time = null
-combo_limit = null
 name = "Combo Pants"
 adds = Dictionary[StringName, Variant]({
 &"accel_speed": 0.0,

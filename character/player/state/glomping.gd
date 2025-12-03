@@ -2,6 +2,7 @@ class_name PlayerGlompingState extends PlayerState
 
 @onready var idle_state: State = $"../Idle"
 @onready var jumping_state: State = $"../Jumping"
+@onready var throwing_state: State = $"../Throwing"
 
 var is_jumping := false
 
@@ -22,12 +23,7 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 func on_physics_update(_delta: float) -> void:
 	if check_for_jumping():
 		if player.glomped_body:
-			goto(jumping_state,
-			# {
-			# 	&"air_move_speed": 100000.0,
-			# 	&"air_accel_speed": 100000.0,
-			# }
-			)
+			goto(jumping_state)
 
 	super.on_physics_update(_delta)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b4sqxrqilk3yi"]
+[gd_scene load_steps=36 format=3 uid="uid://b4sqxrqilk3yi"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_rjrbw"]
 [ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="6_44b12"]
 [ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/test_msg_interaction.gd" id="7_0fpt2"]
+[ext_resource type="Script" uid="uid://cfuyelbqhwm4x" path="res://items/item_object.gd" id="8_0fpt2"]
+[ext_resource type="Resource" uid="uid://ywusm5o2vksf" path="res://items/berry.tres" id="9_igx0j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvmsc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -105,6 +107,9 @@ metadata/_custom_type_script = "uid://bp75ylxcq7yed"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tctsc"]
 size = Vector3(0.72, 0.72, 0.72)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_igx0j"]
+size = Vector3(0.32, 0.32, 0.32)
 
 [node name="Level" type="Node3D" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1_rvmsc")
@@ -231,5 +236,20 @@ shape = SubResource("BoxShape3D_tctsc")
 debug_color = Color(0.99999994, 0.008553123, 0.06928867, 0.41960785)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ItemObject" type="RigidBody3D" parent="." groups=["Glompable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("8_0fpt2")
+item_resource = ExtResource("9_igx0j")
+metadata/_custom_type_script = "uid://cfuyelbqhwm4x"
+metadata/auto_throw = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemObject"]
+shape = SubResource("BoxShape3D_igx0j")
+
+[node name="GlompPoint" type="Node3D" parent="ItemObject"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
 
 [editable path="Enemy2"]

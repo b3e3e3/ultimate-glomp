@@ -85,3 +85,6 @@ func check_for_swapping(time: float) -> bool:
 				and character.velocity.length() == 0
 
 	return false
+
+func check_for_auto_throw() -> bool:
+	return player.glomped_body and player.glomped_body.has_meta(&"auto_throw") and character.velocity.y < 0

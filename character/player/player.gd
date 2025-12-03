@@ -7,7 +7,6 @@ class_name Player extends Character
 @onready var climb_area: Area3D = $ClimbArea
 
 var glomped_body: Node3D
-
 var is_attacking: bool = false
 
 
@@ -54,7 +53,8 @@ func glomp_on(body: PhysicsBody3D) -> void:
 	velocity = Vector3.ZERO
 
 	# move the player body to the glomped body's glomp point
-	global_position = body.get_node(^"GlompPoint").global_position
+	var point := body.get_node(^"GlompPoint")
+	global_position = point.global_position
 
 	if body.has_method(&"get_glomped"):
 		body.call(&"get_glomped", self)

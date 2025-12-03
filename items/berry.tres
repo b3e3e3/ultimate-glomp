@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://ywusm5o2vksf"]
+
+[ext_resource type="Script" uid="uid://cs8r76v542cvh" path="res://items/item_resource.gd" id="1_pu6kj"]
+[ext_resource type="Script" uid="uid://bae1hwx4irog3" path="res://items/actions/stat_change_action.gd" id="1_tv1d7"]
+[ext_resource type="Texture2D" uid="uid://frrmanqrsgdx" path="res://items/IconSet.png" id="2_n0tcq"]
+
+[sub_resource type="Resource" id="Resource_n0tcq"]
+script = ExtResource("1_tv1d7")
+adds = Dictionary[StringName, Variant]({
+&"chump": Color(1, 0, 0, 1)
+})
+metadata/_custom_type_script = "uid://bae1hwx4irog3"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv1d7"]
+atlas = ExtResource("2_n0tcq")
+region = Rect2(448, 512, 32, 32)
+
+[resource]
+script = ExtResource("1_pu6kj")
+icon_texture = SubResource("AtlasTexture_tv1d7")
+display_name = "Berry"
+description = "marahcmrcmrcprpamcrharmp"
+action = SubResource("Resource_n0tcq")
+metadata/_custom_type_script = "uid://cs8r76v542cvh"
