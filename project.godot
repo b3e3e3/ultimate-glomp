@@ -11,19 +11,19 @@ config_version=5
 [application]
 
 config/name="ultimate glomp"
-run/main_scene="uid://b4sqxrqilk3yi"
+run/main_scene="uid://c3cel231jmsnx"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://_global.gd"
-LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 Commands="*res://_commands.gd"
+LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/limbo_console/plugin.cfg")
+enabled=PackedStringArray("res://addons/func_godot/plugin.cfg", "res://addons/limbo_console/plugin.cfg")
 
 [global_group]
 
@@ -97,7 +97,8 @@ limbo_console_search_history={
 2d_physics/layer_4="enemy"
 3d_physics/layer_4="enemy"
 2d_physics/layer_5="climbable"
-3d_physics/layer_5="interact"
+3d_physics/layer_5="climbable"
+3d_physics/layer_6="interact"
 2d_physics/layer_7="projectile"
 3d_physics/layer_7="projectile"
 

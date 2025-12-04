@@ -226,8 +226,8 @@ billboard = 1
 texture = SubResource("GradientTexture2D_rjrbw")
 
 [node name="InteractTriggerArea" type="Area3D" parent="Freakin Guy"]
-collision_layer = 16
-collision_mask = 16
+collision_layer = 32
+collision_mask = 32
 script = ExtResource("6_44b12")
 interaction = SubResource("Resource_igx0j")
 

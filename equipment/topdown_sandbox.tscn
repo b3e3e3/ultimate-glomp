@@ -73,8 +73,8 @@ texture = SubResource("GradientTexture2D_e6t1c")
 shape = SubResource("CapsuleShape3D_wauep")
 
 [node name="InteractTriggerArea" type="Area3D" parent="Person"]
-collision_layer = 16
-collision_mask = 16
+collision_layer = 32
+collision_mask = 32
 script = ExtResource("4_peklp")
 interaction = SubResource("Resource_4n3rb")
 

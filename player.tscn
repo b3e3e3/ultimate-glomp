@@ -237,7 +237,7 @@ draw_pass_1 = SubResource("QuadMesh_5tmop")
 
 [node name="InteractArea" type="Area3D" parent="."]
 collision_layer = 16
-collision_mask = 16
+collision_mask = 32
 script = ExtResource("23_7lmhl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]

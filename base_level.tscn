@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=4 uid="uid://c3cel231jmsnx"]
+
+[ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_eesb3"]
+[ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_xjg0i"]
+[ext_resource type="Resource" uid="uid://cekfl7kq3tyho" path="res://trenchbroom/GlompDev_settings.tres" id="2_eesb3"]
+[ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="2_ykwpl"]
+[ext_resource type="Material" uid="uid://dtxrsvjo250y6" path="res://trenchbroom/textures/Horror_Brick_08-256x256.tres" id="3_3o4py"]
+[ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="3_fxpm7"]
+[ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_i6nmd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvmsc"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_rjrbw"]
+sky_material = SubResource("ProceduralSkyMaterial_rvmsc")
+
+[sub_resource type="Environment" id="Environment_ypj6x"]
+background_mode = 2
+sky = SubResource("Sky_rjrbw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2elnx"]
+_surfaces = [{
+"aabb": AABB(-2.000122, -0.5, -2.000122, 6.000135, 4, 4.000122),
+"attribute_data": PackedByteArray("////PgAAAD4AAAC/AAAAPgAAgL8AAEA/AAAAAAAAQD8AAAA/AACAv/7//z4AAAAAAADAvgAAAAAAAMC+AACAv6j5/74oFO09APu/vi+fPT+c+/8+ls6OP////z4CAAA+zf//vgAAAD4A//++AAgAPgAAAD+A/o8/AAAAv/8BAD8AAAC/AAAAvwACAD8AAAC/AAIAPwACAD8AAAC/AAAAPv///74MAAA+wQDAPkQAQD8AAsA+AABAPwABAD8AAAA+AAAAv6gIAD4AAAC/XP+PPwD6vz4AAEA/AAAAPwQAAD4CAAC/BAAAPgAAAAAAAJA/AACAPwAAkD8="),
+"format": 34359742487,
+"index_count": 45,
+"index_data": PackedByteArray("AAABAAIAAAACAAMABAAFAAYABAAGAAcACAAJAAoACwAMAA0ACwANAA4ADwAQABEADwARABIAEwAUABUAEwAVABYAEwAWABcAGAAZABoAGwAcAB0AGwAdAB4A"),
+"material": ExtResource("3_3o4py"),
+"name": "Horror_Brick_08-256x256",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 31,
+"vertex_data": PackedByteArray("////vwAAAL////+/AAAAQAAAAL////+/AACAQAAAAEAAAMC/AAAAAAAAAEAAAMC/AACAQAAAYEAAAABAAAAAAAAAYED+//8/AAAAAAAAAEAAAMC/AACAQAAAAEAAAMC/qf7/v1D1/76o+f+/AAAAuQD8/z8A+7+/Ej0Auf77X0Cc+/8/////v/z//77///8/AAAAwAAAAL/N//+/AP7/vwDw/74A//+/AADAuAD9X0AAAABA/wEAwAAAAL8AAABAAAAAQAAAAL8AAABAAAAAQAAAAL8AAgDAAAIAwAAAAL8AAgDA////PwAAAL8AAABAAwAAQOj//77///8/GwCAQEQAAEDBAMC/AACAQAAAAEAAAsC/AAAAQAAAAL8AAQDAvAEAQLDu/74AAABAAACAQLf+X0AAAABAAACAQAAAAEAA+r+/AAAAQPj//74AAABAAgAAwPj//74AAABAAAAAAAAAYEAAAABAAACAQAAAYEAAAABAqer//wAA/z+p6v//AAD/P6nq//8AAP8/qer//wAA/z9lpv///3//v2Wm////f/+/Zab///9//79lpv///3//v8YxG8f/f/8/xjEbx/9//z/GMRvH/3//P6oqqqr/f/8/qiqqqv9//z+qKqqq/3//P6oqqqr/f/8//38AAP//////fwAA//////9/AAD//////38AAP////8bxxxH//8AABvHHEf//wAAG8ccR///AAAbxxxH//8AABvHHEf//wAAqcqqWv//AACpyqpa//8AAKnKqlr//wAA/3//f////z//f/9/////P/9//3////8//3//f////z8=")
+}]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bkkah"]
+points = PackedVector3Array(2, -0.5000001, 2, 2.0000002, -0.5, 2, 4, 3.5000002, 2, 2, -0.5, 2, -2, -0.5, 2, 0, 3.5000002, 2, 1.4500436e-07, 3.5, 2, 1.7906716e-07, 3.5, 2, 2, -0.5, 2, 3.999999, 1.9999992, -1.5000002, 4, 2.0000002, -1.4999999, 2.0000002, -0.5, -2, -2, -0.5, -1.9999996, -2, -0.5, -2, -2, -0.5, -1.9999999, 2.3357036e-07, 3.5000002, 1.9999995, -2, -0.4999996, -2, 0, 2, -1.5)
+
+[node name="Level" type="Node3D" node_paths=PackedStringArray("player_controller")]
+script = ExtResource("1_xjg0i")
+player_controller = NodePath("PlayerController")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ypj6x")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, 0.48870987, -0.83871853, 0.24023713, 0.105653904, 0.33022892, 0.93796915, 0, 0, 0)
+shadow_enabled = true
+
+[node name="FuncGodotMap" type="Node3D" parent="."]
+script = ExtResource("1_eesb3")
+local_map_file = "uid://dtgfxscwhuths"
+map_settings = ExtResource("2_eesb3")
+metadata/_custom_type_script = "uid://cwu5cf7a0awcd"
+
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap"]
+collision_mask = 0
+
+[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_0_worldspawn"]
+mesh = SubResource("ArrayMesh_2elnx")
+
+[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
+shape = SubResource("ConvexPolygonShape3D_bkkah")
+
+[node name="PlayerController" type="Node" parent="."]
+script = ExtResource("2_ykwpl")
+
+[node name="Player" parent="." instance=ExtResource("3_fxpm7")]
+transform = Transform3D(0.99999964, 0.0008726645, 0, -0.0008726645, 0.99999964, 0, 0, 0, 1, 0, 3.79844, 0)
+DECEL_SPEED = 50.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+
+[node name="Label" type="Label" parent="Player/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 2.5583334, 3.6888437)
+current = true
+size = 13.304401
+script = ExtResource("5_i6nmd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
