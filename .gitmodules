@@ -1,0 +1,3 @@
+[submodule "trenchbroom"]
+	path = trenchbroom
+	url = git@github.com:b3e3e3/glompdev-tb.git
