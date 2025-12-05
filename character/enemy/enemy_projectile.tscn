@@ -3,11 +3,12 @@
 [ext_resource type="Script" uid="uid://gyf3tokkb5j1" path="res://character/enemy/enemy_projectile.gd" id="1_53853"]
 [ext_resource type="PackedScene" uid="uid://c6adqd7qbqx24" path="res://particles/smack_particles.tscn" id="2_b8s3k"]
 
-[sub_resource type="Gradient" id="Gradient_53853"]
+[sub_resource type="Gradient" id="Gradient_b8s3k"]
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_b8s3k"]
-gradient = SubResource("Gradient_53853")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pysk0"]
+gradient = SubResource("Gradient_b8s3k")
 width = 32
+height = 48
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_53853"]
 size = Vector3(0.32, 0.48, 0.32)
@@ -24,8 +25,7 @@ speed = 10.0
 metadata/_custom_type_script = "uid://bt1vup4573skj"
 
 [node name="Sprite" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 48, 0, 0, 0, 1, 0, 0, 0)
-texture = SubResource("GradientTexture1D_b8s3k")
+texture = SubResource("GradientTexture2D_pysk0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_53853")
