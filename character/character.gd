@@ -46,6 +46,7 @@ var direction: Vector3:
 func _enter_tree() -> void:
 	set_collision_mask_value(1, true) # enable ground layer
 
+
 func _physics_process(delta: float) -> void:
 	if gravity_enabled:
 		apply_gravity(delta)
@@ -53,7 +54,14 @@ func _physics_process(delta: float) -> void:
 	if move_enabled:
 		move_and_slide()
 
+	var target_rot: float = 0
 
+	if is_on_floor():
+		target_rot = -get_floor_angle()
+	elif is_on_wall(): # TODO: wall normals
+		pass
+
+	global_rotation.z = move_toward(global_rotation.z, target_rot, delta * 10)
 # movement
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
