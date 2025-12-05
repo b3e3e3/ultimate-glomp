@@ -9,17 +9,18 @@
 radius = 0.16
 height = 0.48
 
-[sub_resource type="Gradient" id="Gradient_53853"]
+[sub_resource type="Gradient" id="Gradient_46mkj"]
 colors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_46mkj"]
-gradient = SubResource("Gradient_53853")
+gradient = SubResource("Gradient_46mkj")
 width = 32
 height = 48
 
 [node name="Enemy" type="CharacterBody3D" groups=["Glompable", "Throwable"]]
 collision_layer = 10
 collision_mask = 69
+floor_max_angle = 0.9599311
 script = ExtResource("1_2md1f")
 metadata/_edit_group_ = true
 
