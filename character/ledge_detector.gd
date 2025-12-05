@@ -38,4 +38,4 @@ func _physics_process(_delta: float) -> void:
 
 	get_collision_point()
 
-	$Marker.global_position = _last_collision_point
+	# $Marker.global_position = _last_collision_point
