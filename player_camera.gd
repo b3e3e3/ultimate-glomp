@@ -1,4 +1,4 @@
-extends Camera3D
+class_name PlayerCamera extends Camera3D
 
 @export var target: Node3D
 

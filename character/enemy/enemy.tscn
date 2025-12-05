@@ -12,9 +12,10 @@ height = 0.48
 [sub_resource type="Gradient" id="Gradient_53853"]
 colors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2md1f"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_46mkj"]
 gradient = SubResource("Gradient_53853")
 width = 32
+height = 48
 
 [node name="Enemy" type="CharacterBody3D" groups=["Glompable", "Throwable"]]
 collision_layer = 10
@@ -38,9 +39,8 @@ metadata/glomp_protected = true
 shape = SubResource("CapsuleShape3D_2md1f")
 
 [node name="Sprite" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 48, 0, 0, 0, 1, 0, 0, 0)
 billboard = 1
-texture = SubResource("GradientTexture1D_2md1f")
+texture = SubResource("GradientTexture2D_46mkj")
 
 [connection signal="hit" from="." to="ProjectileSpawner" method="_on_hit"]
 [connection signal="thrown" from="." to="ProjectileSpawner" method="_on_thrown"]

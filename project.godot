@@ -101,6 +101,7 @@ limbo_console_search_history={
 3d_physics/layer_6="interact"
 2d_physics/layer_7="projectile"
 3d_physics/layer_7="projectile"
+3d_physics/layer_8="ledge"
 
 [rendering]
 

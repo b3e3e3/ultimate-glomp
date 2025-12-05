@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=40 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://bkq11pbfu554k" path="res://equipment/equipment.gd" id="2_5tmop"]
 [ext_resource type="Script" uid="uid://01tdfipkjgo6" path="res://states/state_machine.gd" id="2_dw050"]
+[ext_resource type="Script" uid="uid://b5f4wilkujp23" path="res://character/ledge_detector.gd" id="2_dx0e4"]
 [ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_n7ghd"]
 [ext_resource type="Script" uid="uid://c5uuk14tic07f" path="res://equipment/equip_inventory.gd" id="2_pbfsw"]
 [ext_resource type="Script" uid="uid://2mkoc7e487wg" path="res://character/player/state/idle.gd" id="3_b26j0"]
@@ -22,7 +23,15 @@
 [ext_resource type="Script" uid="uid://djklemw5ko356" path="res://character/player/slide_manager.gd" id="16_pylmc"]
 [ext_resource type="Texture2D" uid="uid://qhbkquiln6bf" path="res://addons/kenney_particle_pack/smoke_06.png" id="18_q13i1"]
 [ext_resource type="Script" uid="uid://b8bde5re80571" path="res://character/player/state/interacting.gd" id="20_7ahtn"]
+[ext_resource type="Script" uid="uid://c3uvgyfciagb1" path="res://character/player/state/ledge_grab.gd" id="22_jm5j8"]
 [ext_resource type="Script" uid="uid://qr7l074g6ha3" path="res://interact/interact_area.gd" id="23_7lmhl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jm5j8"]
+size = Vector3(0.64, 0, 0.64)
+
+[sub_resource type="SphereMesh" id="SphereMesh_dx0e4"]
+radius = 0.1
+height = 0.2
 
 [sub_resource type="Resource" id="Resource_7ahtn"]
 script = ExtResource("4_5tmop")
@@ -55,9 +64,8 @@ metadata/_custom_type_script = "uid://cflf0f0h3etib"
 render_priority = 0
 shader = ExtResource("4_op7ga")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_op7ga"]
-radius = 0.16015625
-height = 0.48
+[sub_resource type="BoxShape3D" id="BoxShape3D_7lmhl"]
+size = Vector3(0.32, 0.48, 0.32)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u1c27"]
 size = Vector3(0.48, 0.28881836, 0.48)
@@ -122,14 +130,32 @@ size = Vector3(0.72, 0.72, 0.72)
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 3
+axis_lock_linear_z = true
+floor_max_angle = 0.9599311
 script = ExtResource("1_1jxqw")
 ACCEL_SPEED = 0.1
 ACCEL_SPEED_AIR = 0.2
-DECEL_SPEED = 1.2
+DECEL_SPEED = 50.0
 DECEL_SPEED_AIR = 0.2
 SPEED = 3.33
 SPEED_AIR = 4.0
 metadata/_edit_group_ = true
+
+[node name="LedgeDetector" type="Node3D" parent="."]
+script = ExtResource("2_dx0e4")
+
+[node name="PeripheryCast" type="ShapeCast3D" parent="LedgeDetector"]
+shape = SubResource("BoxShape3D_jm5j8")
+target_position = Vector3(0, 0, 0)
+collision_mask = 129
+
+[node name="LedgeCast" type="RayCast3D" parent="LedgeDetector"]
+target_position = Vector3(0, -5, 0)
+collision_mask = 129
+hit_from_inside = true
+
+[node name="Marker" type="MeshInstance3D" parent="LedgeDetector"]
+mesh = SubResource("SphereMesh_dx0e4")
 
 [node name="EquipInventory" type="Node" parent="."]
 script = ExtResource("2_pbfsw")
@@ -148,7 +174,7 @@ texture = ExtResource("4_u1c27")
 script = ExtResource("4_606se")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_op7ga")
+shape = SubResource("BoxShape3D_7lmhl")
 
 [node name="ClimbArea" type="Area3D" parent="."]
 collision_layer = 0
@@ -210,6 +236,10 @@ script = ExtResource("20_7ahtn")
 interact_area = NodePath("../../InteractArea")
 metadata/_custom_type_script = "uid://b8bde5re80571"
 
+[node name="LedgeGrabState" type="Node" parent="StateMachine"]
+script = ExtResource("22_jm5j8")
+metadata/_custom_type_script = "uid://c3uvgyfciagb1"
+
 [node name="ComboParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0)
 emitting = false
@@ -243,6 +273,12 @@ script = ExtResource("23_7lmhl")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
 shape = SubResource("BoxShape3D_dx0e4")
 debug_color = Color(0.99999994, 0.008553123, 0.06928867, 0.41960785)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="jumped" from="." to="Sprite" method="_on_player_jumped"]

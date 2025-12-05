@@ -88,3 +88,6 @@ func check_for_swapping(time: float) -> bool:
 
 func check_for_auto_throw() -> bool:
 	return player.glomped_body and player.glomped_body.has_meta(&"auto_throw") and character.velocity.y < 0
+
+func check_for_ledge_grab() -> bool:
+	return player.ledge_detector.is_on_ledge

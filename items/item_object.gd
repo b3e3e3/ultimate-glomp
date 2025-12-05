@@ -11,8 +11,12 @@ signal thrown(by: Character)
 @export var item_resource: ItemResource
 
 
-func _ready() -> void:
+func _func_godot_apply_properties(entity_properties: Dictionary):
+	item_resource = load("res://items/" + entity_properties["item_name"] + ".tres")
 	sprite.texture = item_resource.icon_texture
+
+func _ready() -> void:
+	# sprite.texture = item_resource.icon_texture
 	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	add_child(sprite)
 

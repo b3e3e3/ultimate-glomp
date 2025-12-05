@@ -5,6 +5,7 @@ class_name Player extends Character
 # having direct references would be better
 @onready var glomp_area: Area3D = $GlompArea
 @onready var climb_area: Area3D = $ClimbArea
+@onready var ledge_detector: LedgeDetector = $LedgeDetector
 
 var glomped_body: Node3D
 var is_attacking: bool = false

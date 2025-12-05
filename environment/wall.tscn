@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b62ryo7j2npl1"]
+
+[ext_resource type="Script" uid="uid://rgkemxecrobb" path="res://environment/wall.gd" id="1_ekpwe"]
+
+[node name="Wall" type="StaticBody3D" groups=["Climbable", "Slideable"]]
+collision_layer = 17
+script = ExtResource("1_ekpwe")
+metadata/_edit_group_ = true

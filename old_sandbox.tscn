@@ -1,13 +1,14 @@
-[gd_scene load_steps=36 format=3 uid="uid://b4sqxrqilk3yi"]
+[gd_scene load_steps=41 format=3 uid="uid://b4sqxrqilk3yi"]
 
 [ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="1_cojph"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="1_p7lbm"]
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_rvmsc"]
+[ext_resource type="PackedScene" uid="uid://b62ryo7j2npl1" path="res://environment/wall.tscn" id="3_bcj43"]
 [ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="4_rvmsc"]
 [ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_rjrbw"]
 [ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="6_44b12"]
 [ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/test_msg_interaction.gd" id="7_0fpt2"]
-[ext_resource type="Script" uid="uid://cfuyelbqhwm4x" path="res://items/item_object.gd" id="8_0fpt2"]
+[ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/item_object.tscn" id="8_78e30"]
 [ext_resource type="Resource" uid="uid://ywusm5o2vksf" path="res://items/berry.tres" id="9_igx0j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvmsc"]
@@ -64,6 +65,24 @@ albedo_texture = SubResource("GradientTexture2D_0fpt2")
 material = SubResource("StandardMaterial3D_rvmsc")
 size = Vector3(0.5, 6.67, 0.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_bcj43"]
+size = Vector3(0.5, 6.67, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_gbsf6"]
+colors = PackedColorArray(0, 0.975293, 0.39971256, 1, 0.67587477, 0.49745536, 0.7503111, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mbkmm"]
+gradient = SubResource("Gradient_gbsf6")
+width = 50
+height = 667
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fw2fn"]
+albedo_texture = SubResource("GradientTexture2D_mbkmm")
+
+[sub_resource type="BoxMesh" id="BoxMesh_fimiu"]
+material = SubResource("StandardMaterial3D_fw2fn")
+size = Vector3(0.5, 6.67, 0.5)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ypj6x"]
 size = Vector3(0.15, 5.02, 0.15)
 
@@ -108,12 +127,8 @@ metadata/_custom_type_script = "uid://bp75ylxcq7yed"
 [sub_resource type="BoxShape3D" id="BoxShape3D_tctsc"]
 size = Vector3(0.72, 0.72, 0.72)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_igx0j"]
-size = Vector3(0.32, 0.32, 0.32)
-
-[node name="Level" type="Node3D" node_paths=PackedStringArray("player_controller")]
+[node name="Level" type="Node3D"]
 script = ExtResource("1_rvmsc")
-player_controller = NodePath("PlayerController")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ypj6x")
@@ -145,15 +160,15 @@ shape = SubResource("RectangleShape2D_3h184")
 [node name="Sprite2D" type="Sprite2D" parent="Platform"]
 texture = SubResource("GradientTexture2D_rvmsc")
 
-[node name="Wall" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
+[node name="Wall2" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.48, 2.78, 0)
 collision_layer = 17
 metadata/_edit_group_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
 shape = SubResource("BoxShape3D_rjrbw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
 mesh = SubResource("BoxMesh_44b12")
 
 [node name="Wall3" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
@@ -167,16 +182,14 @@ shape = SubResource("BoxShape3D_rjrbw")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
 mesh = SubResource("BoxMesh_44b12")
 
-[node name="Wall2" type="StaticBody3D" parent="." groups=["Climbable", "Slideable"]]
+[node name="Wall" parent="." instance=ExtResource("3_bcj43")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.52, 2.78, 0)
-collision_layer = 17
-metadata/_edit_group_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
-shape = SubResource("BoxShape3D_rjrbw")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+shape = SubResource("BoxShape3D_bcj43")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
-mesh = SubResource("BoxMesh_44b12")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+mesh = SubResource("BoxMesh_fimiu")
 
 [node name="Pole" type="StaticBody3D" parent="." groups=["ClimbSwappable", "Climbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4, 2.5505395, 0)
@@ -192,11 +205,10 @@ mesh = SubResource("CylinderMesh_igx0j")
 
 [node name="Player" parent="." instance=ExtResource("1_cojph")]
 transform = Transform3D(0.99999964, 0.0008726645, 0, -0.0008726645, 0.99999964, 0, 0, 0, 1, 0, 1.7893027, 0)
-DECEL_SPEED = 50.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+[node name="CanvasLayer2" type="CanvasLayer" parent="Player"]
 
-[node name="Label" type="Label" parent="Player/CanvasLayer"]
+[node name="Label" type="Label" parent="Player/CanvasLayer2"]
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -209,11 +221,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.36, 4.84, 0)
 [node name="Sprite" parent="Enemy2" index="4"]
 texture = SubResource("GradientTexture1D_ypj6x")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 2.5583334, 3.6888437)
 current = true
 size = 13.304401
 script = ExtResource("5_rjrbw")
+target = NodePath("../@CharacterBody3D@141954")
 
 [node name="Freakin Guy" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.787872, 0.5066564, 0)
@@ -237,19 +250,12 @@ debug_color = Color(0.99999994, 0.008553123, 0.06928867, 0.41960785)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ItemObject" type="RigidBody3D" parent="." groups=["Glompable"]]
+[node name="ItemObject" parent="." instance=ExtResource("8_78e30")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-collision_layer = 2
-collision_mask = 5
-script = ExtResource("8_0fpt2")
 item_resource = ExtResource("9_igx0j")
-metadata/_custom_type_script = "uid://cfuyelbqhwm4x"
-metadata/auto_throw = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemObject"]
-shape = SubResource("BoxShape3D_igx0j")
+[connection signal="glomped" from="@CharacterBody3D@141954" to="@CharacterBody3D@141954/StateMachine/Idle" method="_on_player_glomped"]
+[connection signal="jumped" from="@CharacterBody3D@141954" to="@CharacterBody3D@141954/Sprite" method="_on_player_jumped"]
 
-[node name="GlompPoint" type="Node3D" parent="ItemObject"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
-
+[editable path="Wall"]
 [editable path="Enemy2"]

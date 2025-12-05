@@ -1,14 +1,28 @@
+@tool
 class_name Level extends Node3D
 
-# @export var player_prefab: PackedScene = preload("res://player.tscn")
-@export var player_controller: PlayerController
+@export var player_prefab: PackedScene = preload("res://player.tscn")
 
 @onready var hud_canvas := CanvasLayer.new()
 
+var player: Player
+var player_controller: PlayerController
 
 func _enter_tree() -> void:
 	Global.current_level = self
 
 func _ready() -> void:
+	var start_point := get_node(^"FuncGodotMap/SPAWN_PLAYER")
+
+	player = player_prefab.instantiate()
+	player_controller = PlayerController.new(player)
+
+	add_child(player_controller)
+	add_child(player)
+
+	if start_point:
+		player.position = start_point.position
+		player.rotation = start_point.rotation
+
 	hud_canvas.name = &"HUDCanvasLayer"
 	add_child(hud_canvas)

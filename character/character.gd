@@ -37,9 +37,9 @@ var direction: Vector3:
 		last_direction.x = value.x if value.x != 0 else last_direction.x
 		last_direction.y = value.y if value.y != 0 else last_direction.y
 
-@onready var state_machine: StateMachine = $StateMachine
-@onready var collision_shape: CollisionShape3D = $CollisionShape3D
-@onready var equip_inventory: EquipInventory = $EquipInventory
+@onready var state_machine: StateMachine = get_node(^"StateMachine")
+@onready var collision_shape: CollisionShape3D = get_node(^"CollisionShape3D")
+@onready var equip_inventory: EquipInventory = get_node(^"EquipInventory")
 
 
 # hooks

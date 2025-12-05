@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://yx2r1xmguupe"]
+
+[ext_resource type="Script" uid="uid://cfuyelbqhwm4x" path="res://items/item_object.gd" id="1_yqtgv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_igx0j"]
+size = Vector3(0.32, 0.32, 0.32)
+
+[node name="ItemObject" type="RigidBody3D" groups=["Glompable"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_yqtgv")
+metadata/_custom_type_script = "uid://cfuyelbqhwm4x"
+metadata/auto_throw = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_igx0j")
+
+[node name="GlompPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)

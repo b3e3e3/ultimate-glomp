@@ -2,16 +2,23 @@ class_name PlayerController extends Node
 
 @export var character: Character
 
-@onready var camera: Camera3D = $"../Camera3D"
+@onready var camera: PlayerCamera = $"../Camera3D"
 
 var force_direction: Vector3 = Vector3.ZERO
+
+
+func _init(character_to_control: Character):
+	self.character = character_to_control
 
 func _ready():
 	if character == null:
 		push_warning("Controller characdter is null, finding Player")
 		character = get_node(^"../Player")
 
+	camera.target = character
+
 func control_horizontal_direction():
+	if not character: return
 	if force_direction:
 		character.direction = force_direction
 		return
@@ -20,6 +27,7 @@ func control_horizontal_direction():
 	character.direction.x = hor
 
 func control_vertical_direction():
+	if not character: return
 	if force_direction:
 		character.direction = force_direction
 		return
@@ -58,6 +66,7 @@ func get_attack_input() -> bool:
 	return Input.is_action_just_pressed(&"attack")
 
 func get_aim_direction() -> Vector3:
+	if not character: return Vector3.ZERO
 	var v := character.global_position.direction_to(get_mouse_position())
 
 	return v
