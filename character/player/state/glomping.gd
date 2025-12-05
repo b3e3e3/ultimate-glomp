@@ -12,6 +12,7 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 		var bodies := player.get_glomped_bodies()
 
 		if not bodies.is_empty():
+			player.global_rotation.z = bodies[0].global_rotation.z
 			player.glomp_on(bodies[0])
 		else:
 			goto(idle_state)

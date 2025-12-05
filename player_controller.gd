@@ -2,7 +2,7 @@ class_name PlayerController extends Node
 
 @export var character: Character
 
-@onready var camera: PlayerCamera = $"../Camera3D"
+@onready var camera: PlayerCamera = $"../Camera"
 
 var force_direction: Vector3 = Vector3.ZERO
 

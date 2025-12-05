@@ -17,8 +17,8 @@ func _ready() -> void:
 	player = player_prefab.instantiate()
 	player_controller = PlayerController.new(player)
 
-	add_child(player_controller)
 	add_child(player)
+	add_child(player_controller)
 
 	if start_point:
 		player.position = start_point.position

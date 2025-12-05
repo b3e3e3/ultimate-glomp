@@ -144,15 +144,16 @@ metadata/_edit_group_ = true
 
 [node name="LedgeDetector" type="Node3D" parent="."]
 script = ExtResource("2_dx0e4")
+ledge_distance = 1.0
 
 [node name="PeripheryCast" type="ShapeCast3D" parent="LedgeDetector"]
 shape = SubResource("BoxShape3D_jm5j8")
 target_position = Vector3(0, 0, 0)
-collision_mask = 129
+collision_mask = 128
 
 [node name="LedgeCast" type="RayCast3D" parent="LedgeDetector"]
 target_position = Vector3(0, -5, 0)
-collision_mask = 129
+collision_mask = 128
 hit_from_inside = true
 
 [node name="Marker" type="MeshInstance3D" parent="LedgeDetector"]

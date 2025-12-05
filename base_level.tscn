@@ -121,28 +121,27 @@ mesh = SubResource("ArrayMesh_i6nmd")
 shape = SubResource("ConvexPolygonShape3D_upirv")
 
 [node name="entity_2_spawn_item" parent="FuncGodotMap" instance=ExtResource("6_xjg0i")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.125, 2.875, 0.125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.125, 2.875, 0.125)
 item_resource = ExtResource("9_n4s56")
 
-[node name="entity_3_env_wall" type="StaticBody3D" parent="FuncGodotMap"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3750075, 2.1249914, -5.7578087e-05)
-collision_layer = 129
-script = ExtResource("5_bkkah")
-is_climbable = false
-
-[node name="entity_3_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_3_env_wall"]
-mesh = SubResource("ArrayMesh_7lcpk")
-
-[node name="entity_3_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_3_env_wall"]
-shape = SubResource("ConvexPolygonShape3D_lbjvu")
-
-[node name="entity_4_spawn_enemy" parent="FuncGodotMap" instance=ExtResource("4_83eob")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.125, 2.9375, 0.125)
+[node name="entity_3_spawn_enemy" parent="FuncGodotMap" instance=ExtResource("4_83eob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.125, 2.9375, 0.125)
 
 [node name="SPAWN_PLAYER" type="Node3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.625, 1.4375, 0.125)
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+[node name="entity_5_env_platform" type="StaticBody3D" parent="FuncGodotMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3750075, 2.1249914, -5.7578087e-05)
+collision_layer = 129
+script = ExtResource("5_bkkah")
+
+[node name="entity_5_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_5_env_platform"]
+mesh = SubResource("ArrayMesh_7lcpk")
+
+[node name="entity_5_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_5_env_platform"]
+shape = SubResource("ConvexPolygonShape3D_lbjvu")
+
+[node name="Camera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 3.5153847, 3.6888437)
 current = true
 size = 13.304401

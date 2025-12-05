@@ -1,13 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://dr4ihbcr24q34"]
+[gd_scene load_steps=10 format=3 uid="uid://dr4ihbcr24q34"]
 
 [ext_resource type="Script" uid="uid://dccbvvcfrufu" path="res://character/enemy/enemy.gd" id="1_2md1f"]
 [ext_resource type="Script" uid="uid://bvr66sg8l5ano" path="res://projectile/projectile_spawner.gd" id="2_46mkj"]
 [ext_resource type="Script" uid="uid://c5uuk14tic07f" path="res://equipment/equip_inventory.gd" id="2_pgf0a"]
 [ext_resource type="PackedScene" uid="uid://col4yavuv2tw2" path="res://character/enemy/enemy_projectile.tscn" id="3_pgf0a"]
+[ext_resource type="Shader" uid="uid://ba30xefyxbqmj" path="res://rotatable_billboard.tres" id="5_pgf0a"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2md1f"]
 radius = 0.16
 height = 0.48
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q13i1"]
+render_priority = 0
+shader = ExtResource("5_pgf0a")
 
 [sub_resource type="Gradient" id="Gradient_46mkj"]
 colors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1)
@@ -40,7 +45,8 @@ metadata/glomp_protected = true
 shape = SubResource("CapsuleShape3D_2md1f")
 
 [node name="Sprite" type="Sprite3D" parent="."]
-billboard = 1
+material_overlay = SubResource("ShaderMaterial_q13i1")
+shaded = true
 texture = SubResource("GradientTexture2D_46mkj")
 
 [connection signal="hit" from="." to="ProjectileSpawner" method="_on_hit"]

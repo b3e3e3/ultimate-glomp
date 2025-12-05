@@ -226,7 +226,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 2.5583334, 3.68
 current = true
 size = 13.304401
 script = ExtResource("5_rjrbw")
-target = NodePath("../@CharacterBody3D@141954")
+target = NodePath("../@CharacterBody3D@21403")
 
 [node name="Freakin Guy" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.787872, 0.5066564, 0)
@@ -254,8 +254,8 @@ debug_color = Color(0.99999994, 0.008553123, 0.06928867, 0.41960785)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 item_resource = ExtResource("9_igx0j")
 
-[connection signal="glomped" from="@CharacterBody3D@141954" to="@CharacterBody3D@141954/StateMachine/Idle" method="_on_player_glomped"]
-[connection signal="jumped" from="@CharacterBody3D@141954" to="@CharacterBody3D@141954/Sprite" method="_on_player_jumped"]
+[connection signal="glomped" from="@CharacterBody3D@21403" to="@CharacterBody3D@21403/StateMachine/Idle" method="_on_player_glomped"]
+[connection signal="jumped" from="@CharacterBody3D@21403" to="@CharacterBody3D@21403/Sprite" method="_on_player_jumped"]
 
 [editable path="Wall"]
 [editable path="Enemy2"]
