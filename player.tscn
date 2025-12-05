@@ -27,7 +27,7 @@
 [ext_resource type="Script" uid="uid://qr7l074g6ha3" path="res://interact/interact_area.gd" id="23_7lmhl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jm5j8"]
-size = Vector3(0.64, 0, 0.64)
+size = Vector3(1, 0.24, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_dx0e4"]
 radius = 0.1
@@ -220,6 +220,10 @@ script = ExtResource("7_urp6f")
 [node name="Throwing" type="Node" parent="StateMachine"]
 script = ExtResource("8_dw050")
 
+[node name="LedgeGrab" type="Node" parent="StateMachine"]
+script = ExtResource("22_jm5j8")
+metadata/_custom_type_script = "uid://c3uvgyfciagb1"
+
 [node name="Climbing" type="Node" parent="StateMachine"]
 script = ExtResource("9_b26j0")
 metadata/_custom_type_script = "uid://d1dxygfyk3hb0"
@@ -235,10 +239,6 @@ script = ExtResource("12_ivps1")
 script = ExtResource("20_7ahtn")
 interact_area = NodePath("../../InteractArea")
 metadata/_custom_type_script = "uid://b8bde5re80571"
-
-[node name="LedgeGrabState" type="Node" parent="StateMachine"]
-script = ExtResource("22_jm5j8")
-metadata/_custom_type_script = "uid://c3uvgyfciagb1"
 
 [node name="ComboParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0)

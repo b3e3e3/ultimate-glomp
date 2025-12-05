@@ -8,6 +8,7 @@ class_name PlayerFallingState extends PlayerState
 @onready var climbing_state: State = $"../Climbing"
 @onready var attacking_state: State = $"../Attacking"
 @onready var interacting_state: State = $"../Interacting"
+@onready var ledge_grab_state: State = $"../LedgeGrab"
 
 @export var coyote_time: float = 0.2
 @export var reverse_coyote_time: float = 0.2
@@ -57,6 +58,10 @@ func on_physics_update(delta: float) -> void:
 		})
 	elif check_for_attacking() and not check_for_glomping():
 		goto(attacking_state)
+
+	elif check_for_ledge_grab():
+		print("LETS GRAB")
+		goto(ledge_grab_state)
 
 	elif check_for_climbing():
 		goto(climbing_state)
