@@ -11,6 +11,7 @@ var player_controller: PlayerController
 func _enter_tree() -> void:
 	Global.current_level = self
 
+
 func _ready() -> void:
 	var start_point := get_node(^"FuncGodotMap/SPAWN_PLAYER")
 

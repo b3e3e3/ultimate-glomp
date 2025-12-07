@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://dx1rbdywce4n7"]
+
+[ext_resource type="Script" uid="uid://cs8r76v542cvh" path="res://items/item_resource.gd" id="1_uath0"]
+[ext_resource type="Texture2D" uid="uid://frrmanqrsgdx" path="res://items/IconSet.png" id="1_w0krt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv1d7"]
+atlas = ExtResource("1_w0krt")
+region = Rect2(96, 384, 32, 32)
+
+[resource]
+script = ExtResource("1_uath0")
+icon_texture = SubResource("AtlasTexture_tv1d7")
+display_name = "Door Key"
+max_stack = 1
+metadata/_custom_type_script = "uid://cs8r76v542cvh"

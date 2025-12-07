@@ -16,7 +16,7 @@ func _func_godot_apply_properties(entity_properties: Dictionary):
 	sprite.texture = item_resource.icon_texture
 
 func _ready() -> void:
-	# sprite.texture = item_resource.icon_texture
+	sprite.texture = item_resource.icon_texture
 	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	add_child(sprite)
 

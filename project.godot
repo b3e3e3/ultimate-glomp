@@ -88,6 +88,8 @@ limbo_console_search_history={
 
 [layer_names]
 
+3d_render/layer_1="environment"
+3d_render/layer_2="hightlights"
 2d_physics/layer_1="ground"
 3d_physics/layer_1="ground"
 2d_physics/layer_2="glompable"
