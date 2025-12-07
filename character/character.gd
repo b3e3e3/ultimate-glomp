@@ -40,6 +40,7 @@ var direction: Vector3:
 @onready var state_machine: StateMachine = get_node(^"StateMachine")
 @onready var collision_shape: CollisionShape3D = get_node(^"CollisionShape3D")
 @onready var equip_inventory: EquipInventory = get_node(^"EquipInventory")
+@onready var floor_cast: RayCast3D = $FloorCast as RayCast3D
 
 
 # hooks
@@ -56,8 +57,8 @@ func _physics_process(delta: float) -> void:
 
 	var target_rot: float = 0
 
-	if is_on_floor():
-		target_rot = -get_floor_angle()
+	if is_on_floor() and floor_cast.is_colliding():
+		target_rot = -floor_cast.get_collision_normal().x
 	elif is_on_wall(): # TODO: wall normals
 		pass
 
