@@ -5,7 +5,7 @@ class_name ItemObject extends RigidBody3D
 signal thrown(by: Character)
 
 
-@onready var sprite: Sprite3D = Sprite3D.new()
+@onready var sprite: Sprite3D = $Sprite3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 @export var item_resource: ItemResource
@@ -16,9 +16,10 @@ func _func_godot_apply_properties(entity_properties: Dictionary):
 	sprite.texture = item_resource.icon_texture
 
 func _ready() -> void:
-	sprite.texture = item_resource.icon_texture
-	sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	add_child(sprite)
+	if not Engine.is_editor_hint():
+		sprite.texture = item_resource.icon_texture
+	# sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	# add_child(sprite)
 
 func get_thrown(by: Character):
 	process_mode = PROCESS_MODE_INHERIT
