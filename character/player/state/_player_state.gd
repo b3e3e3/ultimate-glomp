@@ -90,5 +90,6 @@ func check_for_auto_throw() -> bool:
 	return player.glomped_body and player.glomped_body.has_meta(&"auto_throw") and character.velocity.y < 0
 
 func check_for_ledge_grab() -> bool:
-	return false# print(character.is_on_floor(), character.is_on_wall())
+	var area: Area3D = player.ledge_grab_area
+	return character.is_on_wall() and area.has_overlapping_areas()
 	# return player.ledge_detector.is_on_ledge and character.is_on_wall()

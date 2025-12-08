@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv7oyxt0i7jg5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i6nmd"]
+size = Vector3(0.32, 0.32, 2.4)
+
+[node name="LedgeGrab" type="Area3D"]
+collision_layer = 128
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_i6nmd")
+debug_color = Color(1, 0, 0, 1)

@@ -5,10 +5,14 @@ class_name LedgeGrabState extends PlayerState
 @onready var jump_state: State = $"../Jumping"
 @onready var falling_state: State = $"../Falling"
 
+@onready var area: Area3D
+
 
 func on_enter(previous_state: State, data := {}) -> void:
 	character.collision_shape.disabled = true
 	character.velocity = Vector3.ZERO
+
+	if not area: area = player.ledge_grab_area
 
 	# var point := player.ledge_detector.get_collision_point()
 	# var dist = (character.collision_shape.shape.size.x) * point.direction_to(character.global_position).x
@@ -17,16 +21,21 @@ func on_enter(previous_state: State, data := {}) -> void:
 	# character.global_position.x = new_pos.x
 	# character.global_position.y = new_pos.y
 
+	var point := area.get_overlapping_areas()[0].global_position
+
+	character.global_position.x = point.x
+	character.global_position.y = point.y
+
 	character.move_enabled = false
 	character.gravity_enabled = false
 
 
-# func on_exit() -> void:
-# 	character.collision_shape.disabled = false
+func on_exit() -> void:
+	character.collision_shape.disabled = false
 
-# 	player.ledge_detector.disabled = true
-# 	await get_tree().create_timer(grab_cooldown).timeout
-# 	player.ledge_detector.disabled = false
+	area.get_node(^"CollisionShape3D").disabled = true
+	await get_tree().create_timer(grab_cooldown).timeout
+	area.get_node(^"CollisionShape3D").disabled = false
 
 func on_physics_update(_delta: float) -> void:
 	if check_for_jumping():

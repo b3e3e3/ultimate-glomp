@@ -29,12 +29,17 @@ func on_physics_update(_delta: float) -> void:
 	var bodies := player.get_climbable_bodies_in_proximity()
 	var climb_body := bodies[0] if not bodies.is_empty() else null
 
+	var ver: float = controller.get_vertical_input() if not player.is_attacking else 0.0
+
 	# if we don't actually have something to climb, don't
 	if not climb_body:
-		goto(falling_state)
+		if ver > 0:
+			goto(jumping_state, {
+				&"jump_force": Vector3.UP * 3.2,
+			})
+		else:
+			goto(falling_state)
 		return
-
-	var ver: float = controller.get_vertical_input() if not player.is_attacking else 0.0
 
 	# disbale slide particles
 	slide_particles.emitting = false
@@ -86,9 +91,12 @@ func on_physics_update(_delta: float) -> void:
 
 	# landing on floor
 	elif character.is_on_floor():
-		goto(idle_state, {
-			&'just_climbed': true,
-		})
+		if ver > 0:
+			goto(jumping_state)
+		else:
+			goto(idle_state, {
+				&'just_climbed': true,
+			})
 
 	# if we can climb the surface and we're trying to, move vertically
 	elif check_for_moving_vertical() and can_climb_like_ladder:

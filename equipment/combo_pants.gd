@@ -31,7 +31,7 @@ func _on_player_glomped(_body: PhysicsBody3D) -> void:
 func _on_state_machine_state_changed(new_state: State, _previous_state: State) -> void:
 	print(new_state.name)
 	match new_state.name:
-		&"Climbing":
+		&"Climbing", &"LedgeGrab":
 			# reset combo jump and cancel flip.
 			reset()
 		&"Jumping":
