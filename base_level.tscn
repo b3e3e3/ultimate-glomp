@@ -258,7 +258,6 @@ shape = SubResource("ConcavePolygonShape3D_4cbnv")
 
 [node name="entity_3_env_wall" type="StaticBody3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.562506, 3.1875, -7.6293945e-06)
-collision_layer = 17
 script = ExtResource("5_bkkah")
 is_climbable = false
 
@@ -327,7 +326,7 @@ mesh = SubResource("ArrayMesh_ujcwo")
 shape = SubResource("ConcavePolygonShape3D_eqqtn")
 
 [node name="entity_11_struct_door" parent="FuncGodotMap" instance=ExtResource("16_lbjvu")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.625, 0, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.75, 0, 0)
 
 [node name="entity_12_spawn_item" parent="FuncGodotMap" instance=ExtResource("6_xjg0i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0.5, 0)

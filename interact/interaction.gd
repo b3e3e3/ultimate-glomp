@@ -7,7 +7,8 @@ signal updated
 
 @export var item_guards: Array[ItemResource]
 @export var flag_guards: Array[StringName]
-
+@export var guard_success_action: GameAction
+@export var guard_failure_action: GameAction
 
 func start() -> void:
 	var player := Global.current_level.player
@@ -15,9 +16,13 @@ func start() -> void:
 	for item in item_guards:
 		if not item in player.item_inventory.items:
 			print("PLAYER DOES NOT HAVE", item.display_name, "!")
+			if guard_failure_action:
+				guard_failure_action.execute(player)
 			finish()
 			return
 		else:
+			if guard_success_action:
+				guard_success_action.execute(player)
 			item.use(player)
 
 	for item in flag_guards:

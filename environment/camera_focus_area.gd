@@ -10,6 +10,5 @@ func _ready() -> void:
 	add_child(camera)
 
 func _process(_delta):
-	print(camera_rot)
 	camera.position = camera_pos
 	camera.rotation_degrees = camera_rot

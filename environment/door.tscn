@@ -1,11 +1,22 @@
-[gd_scene load_steps=18 format=3 uid="uid://bmxc2k266lx7v"]
+[gd_scene load_steps=21 format=3 uid="uid://bmxc2k266lx7v"]
 
 [ext_resource type="Material" uid="uid://c8it57lopwtlv" path="res://trenchbroom/textures/Wood_07-256x256.tres" id="1_05hnu"]
 [ext_resource type="Script" uid="uid://dftsmffs0nvs5" path="res://environment/door.gd" id="1_are4n"]
 [ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="2_jehm5"]
 [ext_resource type="Script" uid="uid://cs8r76v542cvh" path="res://items/item_resource.gd" id="3_7d46d"]
 [ext_resource type="Script" uid="uid://bgfufrv5qnx68" path="res://interact/wait_for_signal_interaction.gd" id="3_275g2"]
+[ext_resource type="Script" uid="uid://bavqpqa1tu0om" path="res://items/actions/toast_action.gd" id="3_ll1ap"]
 [ext_resource type="Resource" uid="uid://dx1rbdywce4n7" path="res://items/key1.tres" id="4_ll1ap"]
+
+[sub_resource type="Resource" id="Resource_6xqf3"]
+script = ExtResource("3_ll1ap")
+message = "That door is locked!"
+metadata/_custom_type_script = "uid://bavqpqa1tu0om"
+
+[sub_resource type="Resource" id="Resource_ll1ap"]
+script = ExtResource("3_ll1ap")
+message = "Unlocked the door."
+metadata/_custom_type_script = "uid://bavqpqa1tu0om"
 
 [sub_resource type="Resource" id="Resource_mubsm"]
 script = ExtResource("3_275g2")
@@ -13,6 +24,8 @@ signal_to_await = &"animation_finished"
 target_path = NodePath("../AnimationPlayer")
 timeout = 2.0
 item_guards = Array[ExtResource("3_7d46d")]([ExtResource("4_ll1ap")])
+guard_success_action = SubResource("Resource_ll1ap")
+guard_failure_action = SubResource("Resource_6xqf3")
 metadata/_custom_type_script = "uid://bgfufrv5qnx68"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_are4n"]

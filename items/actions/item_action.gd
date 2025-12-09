@@ -1,4 +1,4 @@
-class_name ItemAction extends Resource
+class_name GameAction extends Resource
 
 
-func execute(_character: Character): pass
+func execute(_character: Character = null): pass

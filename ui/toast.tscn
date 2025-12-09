@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://d11kakayfreg2"]
+
+[ext_resource type="Script" uid="uid://cln3j8hd7ywoe" path="res://ui/toast.gd" id="1_03iju"]
+[ext_resource type="Texture2D" uid="uid://cj4dya31o8epj" path="res://equipment/assets/textbox.png" id="2_03iju"]
+[ext_resource type="Theme" uid="uid://dq4nntds66bix" path="res://addons/limbo_console/res/default_theme.tres" id="3_5tuun"]
+[ext_resource type="FontFile" uid="uid://dhh2ymkrlkluo" path="res://fonts/CursedScriptDemo-Bold.ttf" id="3_40mtv"]
+[ext_resource type="FontFile" uid="uid://dywmb2u01jfek" path="res://fonts/CursedScriptDemo.ttf" id="4_5tuun"]
+
+[sub_resource type="Theme" id="Theme_hnhlf"]
+default_font = ExtResource("3_40mtv")
+RichTextLabel/constants/line_separation = -12
+RichTextLabel/constants/paragraph_separation = -24
+RichTextLabel/font_sizes/normal_font_size = 72
+RichTextLabel/fonts/bold_font = ExtResource("3_40mtv")
+RichTextLabel/fonts/normal_font = ExtResource("4_5tuun")
+
+[node name="CenterContainer" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 472.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_03iju")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(480, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_03iju")
+patch_margin_left = 11
+patch_margin_top = 12
+patch_margin_right = 11
+patch_margin_bottom = 12
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_5tuun")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_hnhlf")
+theme_override_colors/default_color = Color(0.22352941, 0.19215687, 0.29411766, 1)
+theme_override_colors/font_shadow_color = Color(0.1882353, 0.17254902, 0.18039216, 0.36078432)
+theme_override_constants/shadow_outline_size = 1
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "That door is locked AHHHHHHH"
+scroll_active = false
+scroll_following_visible_characters = true
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters_behavior = 1

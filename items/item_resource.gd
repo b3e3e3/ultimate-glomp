@@ -6,7 +6,7 @@ class_name ItemResource extends Resource
 @export_range(1, 999) var max_stack: int = 99
 @export_multiline var description: String = "An item"
 
-@export var action: ItemAction
+@export var action: GameAction
 
 
 func is_stackable() -> bool: return max_stack > 1

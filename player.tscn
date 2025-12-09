@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=37 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://bkq11pbfu554k" path="res://equipment/equipment.gd" id="2_5tmop"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://cflf0f0h3etib" path="res://equipment/combo_pants.gd" id="4_5tmop"]
 [ext_resource type="Script" uid="uid://b16ywy7ggd0m" path="res://character/player/sprite.gd" id="4_606se"]
 [ext_resource type="Script" uid="uid://dsjk5ljw0trgx" path="res://character/player/state/moving.gd" id="4_n7ghd"]
-[ext_resource type="Shader" uid="uid://ba30xefyxbqmj" path="res://rotatable_billboard.tres" id="4_op7ga"]
 [ext_resource type="Texture2D" uid="uid://dpg7wycj3ftp2" path="res://Untitled.png" id="4_u1c27"]
 [ext_resource type="Script" uid="uid://bq53gcgs65d8t" path="res://character/player/state/jumping.gd" id="5_nvl01"]
 [ext_resource type="Script" uid="uid://odl2jpl1wkoo" path="res://character/player/state/falling.gd" id="6_ivps1"]
@@ -52,10 +51,6 @@ multipliers = Dictionary[StringName, float]({
 &"wall_slide_speed": 1.0
 })
 metadata/_custom_type_script = "uid://cflf0f0h3etib"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q13i1"]
-render_priority = 0
-shader = ExtResource("4_op7ga")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7lmhl"]
 size = Vector3(0.32, 0.48, 0.32)
@@ -155,7 +150,7 @@ metadata/_custom_type_script = "uid://bvr66sg8l5ano"
 target_position = Vector3(0, -0.5, 0)
 
 [node name="Sprite" type="Sprite3D" parent="."]
-material_overlay = SubResource("ShaderMaterial_q13i1")
+billboard = 1
 shaded = true
 texture = ExtResource("4_u1c27")
 script = ExtResource("4_606se")
