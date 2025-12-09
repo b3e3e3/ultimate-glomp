@@ -19,9 +19,8 @@ func _process(delta: float) -> void:
 	if $Area3D.has_overlapping_areas():
 		var areas = $Area3D.get_overlapping_areas()
 		var area: Area3D = areas[0]
-		var cam: Camera3D = area.get_node(^"Camera3D")
-		targ_pos = cam.global_transform.origin
-		targ_rot = cam.global_rotation
+		targ_pos = area.camera.global_transform.origin
+		targ_rot = area.camera.global_rotation
 
 	global_position = position.move_toward(targ_pos, delta * 5)
 	global_rotation = global_rotation.move_toward(targ_rot, delta * 1)

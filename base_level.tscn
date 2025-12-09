@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://c3cel231jmsnx"]
+[gd_scene load_steps=45 format=4 uid="uid://c3cel231jmsnx"]
 
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_eesb3"]
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_xjg0i"]
@@ -17,6 +17,7 @@
 [ext_resource type="Material" uid="uid://dd7hls085iu4h" path="res://trenchbroom/textures/Weave_01-256x256.tres" id="14_7lcpk"]
 [ext_resource type="PackedScene" uid="uid://bmxc2k266lx7v" path="res://environment/door.tscn" id="16_lbjvu"]
 [ext_resource type="Resource" uid="uid://ywusm5o2vksf" path="res://items/berry.tres" id="16_n4s56"]
+[ext_resource type="Script" uid="uid://bibv4usl2j5gl" path="res://environment/camera_focus_area.gd" id="17_c118e"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fxpm7"]
 panorama = ExtResource("2_fxpm7")
@@ -190,9 +191,10 @@ _surfaces = [{
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_eqqtn"]
 data = PackedVector3Array(0.0625, -1.2812498, -0.0625, 0.0625, 1.21875, -0.0625, 0, 1.21875, -0.0625, 0.0625, -1.2812498, -0.0625, 0, 1.21875, -0.0625, 0, -1.4062498, -0.0625, 0, -1.4062498, 0.0625, 0, -1.4062498, -0.062438965, 0, 1.21875, -0.062438965, 0, -1.4062498, 0.0625, 0, 1.21875, -0.062438965, 0, 1.21875, 0.0625, 0, 1.21875, 0.0625, 0, 1.21875, -0.062438965, 0.0625, 1.21875, -0.062438965, 0, 1.21875, 0.0625, 0.0625, 1.21875, -0.062438965, 0.0625, 1.21875, 0.0625, 0, -1.40625, 0.0625, 0.0625, -1.28125, 0.0625, 0.0625, -1.28125, -0.062438965, 0, -1.40625, 0.0625, 0.0625, -1.28125, -0.062438965, 0, -1.40625, -0.062438965, 0.0625, 1.21875, 0.0625, 0.0625, 1.21875, -0.062438965, 0.0625, -1.2812498, -0.062438965, 0.0625, 1.21875, 0.0625, 0.0625, -1.2812498, -0.062438965, 0.0625, -1.2812498, 0.0625, 0.0625, -1.2812498, 0.0625, 0, -1.4062498, 0.0625, 0, 1.21875, 0.0625, 0.0625, -1.2812498, 0.0625, 0, 1.21875, 0.0625, 0.0625, 1.21875, 0.0625, 0, 1.40625, -0.0625, -0.0625, 1.40625, -0.0625, 0, 1.21875, -0.0625, 0, 1.40625, -0.0625, 0, 1.21875, -0.0625, 0.0625, 1.21875, -0.0625, -3.0517578e-05, 1.21875, 0.0625, -3.0517578e-05, 1.21875, -0.062438965, -0.06253052, 1.40625, -0.062438965, -3.0517578e-05, 1.21875, 0.0625, -0.06253052, 1.40625, -0.062438965, -0.06253052, 1.40625, 0.0625, 6.1035156e-05, 1.21875, 0.0625, 0.06249976, 1.21875, 0.0625, 0.06249976, 1.21875, -0.062438965, 6.1035156e-05, 1.21875, 0.0625, 0.06249976, 1.21875, -0.062438965, 6.1035156e-05, 1.21875, -0.062438965, -0.0625, 1.40625, 0.0625, -0.0625, 1.40625, -0.062438965, 0, 1.40625, -0.062438965, -0.0625, 1.40625, 0.0625, 0, 1.40625, -0.062438965, 0, 1.40625, 0.0625, 3.0517578e-05, 1.40625, 0.0625, 3.0517578e-05, 1.40625, -0.062438965, 0.06253052, 1.21875, -0.062438965, 3.0517578e-05, 1.40625, 0.0625, 0.06253052, 1.21875, -0.062438965, 0.06253052, 1.21875, 0.0625, 0.0625, 1.21875, 0.0625, 0, 1.21875, 0.0625, -0.0625, 1.40625, 0.0625, 0.0625, 1.21875, 0.0625, -0.0625, 1.40625, 0.0625, 0, 1.40625, 0.0625)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lbjvu"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0fmsj"]
+points = PackedVector3Array(0.4375, 0.5625, 1.1250305, 0.4375, -0.5625, 1.1250305, -0.4375, 0.5625, 1.1250305, -0.4375, -0.5625, 1.1250305, 0.4375, 0.5625, -1.1249695, 0.4375, -0.5625, -1.1249695, -0.4375, 0.5625, -1.1249695, -0.4375, -0.5625, -1.1249695)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ujcwo"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_lbjvu"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_xjg0i")
@@ -331,6 +333,17 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.62
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0.5, 0)
 item_resource = ExtResource("16_n4s56")
 
+[node name="entity_13_util_camera_area" type="Area3D" parent="FuncGodotMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5625, 0.9375, -3.0517578e-05)
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("17_c118e")
+camera_pos = Vector3(1, 0.5, 2)
+camera_rot = Vector3(-9, 15, 0)
+
+[node name="entity_13_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_13_util_camera_area"]
+shape = SubResource("ConvexPolygonShape3D_0fmsj")
+
 [node name="Camera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 3.5153847, 3.6888437)
 visible = false
@@ -352,17 +365,6 @@ shape = SubResource("BoxShape3D_lbjvu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.186166, 1.1099203, 0.31268227)
 visible = false
 layers = 2
-
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6198206, 0.8826468, 0)
-collision_layer = 256
-collision_mask = 256
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("BoxShape3D_ujcwo")
-
-[node name="Camera3D" type="Camera3D" parent="Area3D"]
-transform = Transform3D(0.9659258, -0.04048822, 0.25563255, 0, 0.98768836, 0.15643448, -0.25881904, -0.1511041, 0.9540337, 1, 0.5, 2)
 
 [connection signal="build_complete" from="FuncGodotMap" to="." method="_on_func_godot_map_build_complete"]
 [connection signal="glomped" from="Player" to="Player/StateMachine/Idle" method="_on_player_glomped"]
