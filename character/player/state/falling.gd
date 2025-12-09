@@ -18,6 +18,7 @@ var _can_reverse_coyote: bool = false
 
 var climb_hopping: bool = false
 
+var _just_jumped: bool = false
 
 func on_enter(_previous_state: State, data := {}) -> void:
 	character.gravity_enabled = true
@@ -26,6 +27,8 @@ func on_enter(_previous_state: State, data := {}) -> void:
 	can_coyote = not data.get(&'just_jumped') if data.has(&'just_jumped') else true
 	_can_reverse_coyote = false
 	climb_hopping = data.get(&'just_climbed', false)
+
+	_just_jumped = data.get(&'just_jumped', false)
 
 	character.remaining_jumps = data.get(&'jumps', 0)
 
@@ -54,7 +57,8 @@ func on_physics_update(delta: float) -> void:
 
 	if check_for_landing():
 		goto(idle_state, {
-			&"reverse_coyote": _can_reverse_coyote
+			&"reverse_coyote": _can_reverse_coyote,
+			&"just_jumped": _just_jumped,
 		})
 	elif check_for_attacking() and not check_for_glomping():
 		goto(attacking_state)

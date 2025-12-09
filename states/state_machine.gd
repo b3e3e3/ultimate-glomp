@@ -1,6 +1,6 @@
 class_name StateMachine extends Node
 
-signal state_changed(new_state: State, previous_state: State)
+signal state_changed(new_state: State, previous_state: State, data: Dictionary)
 
 @export var initial_state: State
 @onready var state: State = (func() -> State:
@@ -37,5 +37,5 @@ func __transition_to_next_state(target_state: State, data: Dictionary = {}) -> v
 		state = target_state
 		state.on_enter(previous_state, data)
 
-		state_changed.emit(state, previous_state)
+		state_changed.emit(state, previous_state, data)
 	).call_deferred()

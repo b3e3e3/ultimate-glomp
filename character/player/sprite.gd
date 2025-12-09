@@ -30,7 +30,7 @@ func do_flip(dir):
 	tween = null
 
 
-func _on_state_machine_state_changed(new_state: State, _previous_state: State) -> void:
+func _on_state_machine_state_changed(new_state: State, _previous_state: State, data: Dictionary) -> void:
 	match new_state.name:
 		&"Climbing":
 			cancel_flip()

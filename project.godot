@@ -25,6 +25,11 @@ LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg", "res://addons/limbo_console/plugin.cfg")
 
+[func_godot]
+
+default_inverse_scale_factor=2.0
+model_point_class_save_path="trenchbroom/models"
+
 [global_group]
 
 Throwable=""
@@ -104,6 +109,7 @@ limbo_console_search_history={
 2d_physics/layer_7="projectile"
 3d_physics/layer_7="projectile"
 3d_physics/layer_8="ledge"
+3d_physics/layer_9="camera"
 
 [rendering]
 

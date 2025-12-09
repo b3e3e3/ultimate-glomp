@@ -40,6 +40,7 @@ var direction: Vector3:
 @onready var state_machine: StateMachine = $StateMachine
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var equip_inventory: EquipInventory = $EquipInventory
+@onready var item_inventory: ItemInventory = $ItemInventory
 @onready var floor_cast: RayCast3D = $FloorCast as RayCast3D
 
 

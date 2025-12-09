@@ -27,6 +27,8 @@ func get_thrown(by: Character):
 	reparent(by.get_parent())
 	collision_shape.reparent(self)
 
+	item_resource.pick_up(by)
+
 	# delete self and emit thrown signal
 	queue_free()
 	thrown.emit(by)

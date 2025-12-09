@@ -12,5 +12,17 @@ func _process(delta: float) -> void:
 	if not target:
 		return
 
-	position = target.position + Vector3(0, 1, 3.5)
+	var targ_pos := target.position + Vector3(0, 1, 3.5)
+	var targ_rot := Vector3.ZERO
+
+	$Area3D.global_position = target.global_position
+	if $Area3D.has_overlapping_areas():
+		var areas = $Area3D.get_overlapping_areas()
+		var area: Area3D = areas[0]
+		var cam: Camera3D = area.get_node(^"Camera3D")
+		targ_pos = cam.global_transform.origin
+		targ_rot = cam.global_rotation
+
+	global_position = position.move_toward(targ_pos, delta * 5)
+	global_rotation = global_rotation.move_toward(targ_rot, delta * 1)
 	# look_at(target.position)
