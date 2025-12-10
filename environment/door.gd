@@ -1,5 +1,7 @@
 extends Node3D
 
+signal finished
+
 enum DoorState {
 	CLOSED,
 	OPEN,
@@ -16,16 +18,24 @@ func _ready() -> void:
 			anim_player.play(&"close")
 		DoorState.OPEN:
 			anim_player.play(&"open")
-	anim_player.seek(anim_player.current_animation_length)
+	anim_player.animation_finished.connect(func(_anim):
+		print("Finched")
+		finished.emit()
+	)
+	anim_player.advance(anim_player.current_animation_length) # advance not seek so anim finished signal fires
 
 func open() -> void:
-	if state == DoorState.OPEN: return
+	if state == DoorState.OPEN:
+		finished.emit.call_deferred()
+		return
 
 	state = DoorState.OPEN
 	anim_player.play(&"open")
 
 func close() -> void:
-	if state == DoorState.CLOSED: return
+	if state == DoorState.CLOSED:
+		finished.emit.call_deferred()
+		return
 
 	state = DoorState.CLOSED
 	anim_player.play(&"close")

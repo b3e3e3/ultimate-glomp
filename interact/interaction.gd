@@ -5,12 +5,19 @@ signal stepped
 signal finished
 signal updated
 
+var _start_count: int = 0
+
+@export var one_shot: bool = false
 @export var item_guards: Array[ItemResource]
 @export var flag_guards: Array[StringName]
 @export var guard_success_action: GameAction
 @export var guard_failure_action: GameAction
 
 func start() -> void:
+	if one_shot and _start_count > 0:
+		finish()
+		return
+
 	var player := Global.current_level.player
 
 	for item in item_guards:
@@ -30,6 +37,8 @@ func start() -> void:
 
 	on_start()
 	started.emit()
+
+	_start_count += 1
 
 func step() -> void:
 	on_step()

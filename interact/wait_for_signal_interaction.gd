@@ -23,11 +23,11 @@ func on_step(): pass
 func on_start():
 	complete = false
 
-	target.connect(signal_to_await, func(_anim_name):
+	target.connect(signal_to_await, func():
 		complete = true
 		finish()
 		print("YAYYAYAYAY")
-	)
+		, CONNECT_ONE_SHOT)
 
 	await owner.get_tree().create_timer(timeout).timeout
 
