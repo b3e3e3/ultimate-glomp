@@ -115,3 +115,4 @@ limbo_console_search_history={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+occlusion_culling/use_occlusion_culling=true
