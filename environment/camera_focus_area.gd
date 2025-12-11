@@ -12,3 +12,7 @@ func _ready() -> void:
 func _process(_delta):
 	camera.position = camera_pos
 	camera.rotation_degrees = camera_rot
+
+
+func _on_interact_area_finished(_interaction: Interaction, success: bool) -> void:
+	if success: queue_free()

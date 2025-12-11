@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://yx2r1xmguupe"]
+[gd_scene load_steps=4 format=3 uid="uid://yx2r1xmguupe"]
 
 [ext_resource type="Script" uid="uid://cfuyelbqhwm4x" path="res://items/item_object.gd" id="1_yqtgv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_igx0j"]
 size = Vector3(0.32, 0.32, 0.32)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_v18xv"]
+size = Vector3(0.48, 0.48, 0.48)
+
 [node name="ItemObject" type="RigidBody3D" groups=["Glompable"]]
-collision_layer = 2
-collision_mask = 5
+collision_layer = 0
 script = ExtResource("1_yqtgv")
 metadata/_custom_type_script = "uid://cfuyelbqhwm4x"
 metadata/auto_throw = true
@@ -20,3 +22,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 billboard = 1
+
+[node name="PickupArea" type="Area3D" parent="."]
+collision_layer = 512
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
+shape = SubResource("BoxShape3D_v18xv")
+debug_color = Color(0.30357626, 0.62806666, 0, 0.41960785)
+debug_fill = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

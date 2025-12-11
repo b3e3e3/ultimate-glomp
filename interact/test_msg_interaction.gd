@@ -36,6 +36,6 @@ func on_step() -> void:
 	else:
 		box.skip()
 
-func on_finish() -> void:
+func on_finish(_success: bool) -> void:
 	await box.finish()
 	box = null

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="WaitForSignalInteraction" load_steps=7 format=3 uid="uid://ds6i7071qtehr"]
+
+[ext_resource type="Script" uid="uid://bavqpqa1tu0om" path="res://items/actions/toast_action.gd" id="1_u6jml"]
+[ext_resource type="Script" uid="uid://cs8r76v542cvh" path="res://items/item_resource.gd" id="2_spc6r"]
+[ext_resource type="Resource" uid="uid://dx1rbdywce4n7" path="res://items/key1.tres" id="3_2q3gc"]
+[ext_resource type="Script" uid="uid://bgfufrv5qnx68" path="res://interact/wait_for_signal_interaction.gd" id="4_8nvia"]
+
+[sub_resource type="Resource" id="Resource_6xqf3"]
+script = ExtResource("1_u6jml")
+message = "That door is locked!"
+metadata/_custom_type_script = "uid://bavqpqa1tu0om"
+
+[sub_resource type="Resource" id="Resource_ll1ap"]
+script = ExtResource("1_u6jml")
+message = "Unlocked the door."
+metadata/_custom_type_script = "uid://bavqpqa1tu0om"
+
+[resource]
+script = ExtResource("4_8nvia")
+signal_to_await = &"finished"
+target_path = NodePath("..")
+timeout = 2.0
+one_shot = true
+item_guards = Array[ExtResource("2_spc6r")]([ExtResource("3_2q3gc")])
+guard_success_action = SubResource("Resource_ll1ap")
+guard_failure_action = SubResource("Resource_6xqf3")
+metadata/_custom_type_script = "uid://bgfufrv5qnx68"

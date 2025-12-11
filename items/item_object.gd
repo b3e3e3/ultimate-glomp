@@ -18,8 +18,14 @@ func _func_godot_apply_properties(entity_properties: Dictionary):
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		sprite.texture = item_resource.icon_texture
+
+	if item_resource.glompable:
+		set_collision_layer_value(2, true)
+
+	item_resource.used.connect(_on_item_used)
 	# sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	# add_child(sprite)
+
 
 func get_thrown(by: Character):
 	process_mode = PROCESS_MODE_INHERIT
@@ -34,6 +40,16 @@ func get_thrown(by: Character):
 	thrown.emit(by)
 
 func get_glomped(by: Character):
+	if not item_resource.glompable: return
 	reparent(by)
 	collision_shape.reparent(by)
 	process_mode = PROCESS_MODE_DISABLED
+
+
+func _on_pickup_area_body_entered(body: Node3D) -> void:
+	print("GUH")
+	if item_resource.use_on_touch and body is Character:
+		item_resource.use(body as Character)
+
+func _on_item_used() -> void:
+	queue_free()

@@ -2,7 +2,7 @@ class_name InteractionTrigger extends Node3D
 
 signal started(interaction: Interaction)
 signal stepped(interaction: Interaction)
-signal finished(interaction: Interaction)
+signal finished(interaction: Interaction, success: bool)
 signal updated(interaction: Interaction)
 
 @export var interaction: Interaction
@@ -31,8 +31,8 @@ func _on_interaction_started():
 func _on_interaction_stepped():
 	stepped.emit(interaction)
 
-func _on_interaction_finished():
-	finished.emit(interaction)
+func _on_interaction_finished(success: bool):
+	finished.emit(interaction, success)
 
 func _on_interaction_updated():
 	updated.emit(interaction)

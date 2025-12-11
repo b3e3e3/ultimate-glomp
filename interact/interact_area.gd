@@ -59,7 +59,7 @@ func _on_interaction_started():
 func _on_interaction_stepped():
 	stepped.emit(current_interaction)
 
-func _on_interaction_finished():
+func _on_interaction_finished(_success: bool):
 	finished.emit(current_interaction)
 	current_interaction = null
 

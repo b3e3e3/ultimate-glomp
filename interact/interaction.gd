@@ -2,7 +2,7 @@ class_name Interaction extends Resource
 
 signal started
 signal stepped
-signal finished
+signal finished(success: bool)
 signal updated
 
 var _start_count: int = 0
@@ -15,7 +15,7 @@ var _start_count: int = 0
 
 func start() -> void:
 	if one_shot and _start_count > 0:
-		finish()
+		finish(false)
 		return
 
 	var player := Global.current_level.player
@@ -25,7 +25,7 @@ func start() -> void:
 			print("PLAYER DOES NOT HAVE", item.display_name, "!")
 			if guard_failure_action:
 				guard_failure_action.execute(player)
-			finish()
+			finish(false)
 			return
 		else:
 			if guard_success_action:
@@ -48,14 +48,14 @@ func update(delta: float) -> void:
 	on_update(delta)
 	updated.emit()
 
-func finish() -> void:
-	on_finish()
-	finished.emit()
+func finish(success: bool = true) -> void:
+	on_finish(success)
+	finished.emit(success)
 
 
 func on_start() -> void: step()
 func on_step() -> void: finish()
 func on_update(_delta: float) -> void: pass
-func on_finish() -> void: pass
+func on_finish(_success: bool) -> void: pass
 
 func initialize(_owner: Node3D): pass

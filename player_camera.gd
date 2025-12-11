@@ -16,8 +16,8 @@ func _process(delta: float) -> void:
 
 	$Area3D.global_position = target.global_position
 
-	if $Area3D.has_overlapping_areas():
-		var areas = $Area3D.get_overlapping_areas()
+	var areas = $Area3D.get_overlapping_areas()
+	if areas.size() > 0:
 		var area: Area3D = areas[0]
 
 		global_position = position.move_toward(area.camera.global_transform.origin, delta * 5)

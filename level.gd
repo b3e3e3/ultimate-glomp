@@ -27,3 +27,8 @@ func _ready() -> void:
 
 	hud_canvas.name = &"HUDCanvasLayer"
 	add_child(hud_canvas)
+
+
+func _on_func_godot_map_build_complete() -> void:
+	pass # var map := $FuncGodotMap as FuncGodotMap
+	# for child in map.get_children():

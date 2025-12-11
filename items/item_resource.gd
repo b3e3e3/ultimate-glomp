@@ -1,5 +1,9 @@
 class_name ItemResource extends Resource
 
+signal used
+
+@export var glompable: bool = true
+@export var use_on_touch: bool = false
 @export var use_on_pickup: bool = false
 @export var icon_texture: Texture2D
 @export var display_name: String = "Item"
@@ -14,6 +18,7 @@ func is_stackable() -> bool: return max_stack > 1
 func use(character: Character) -> void:
 	if not action: return
 	action.execute(character)
+	used.emit()
 
 func pick_up(character: Character) -> void:
 	if use_on_pickup:
