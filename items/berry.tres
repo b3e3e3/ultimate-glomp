@@ -18,8 +18,9 @@ region = Rect2(448, 512, 32, 32)
 [resource]
 script = ExtResource("1_pu6kj")
 glompable = false
-use_on_touch = true
+pickup_on_touch = true
 use_on_pickup = true
+consume_on_use = true
 icon_texture = SubResource("AtlasTexture_tv1d7")
 display_name = "Berry"
 description = "marahcmrcmrcprpamcrharmp"

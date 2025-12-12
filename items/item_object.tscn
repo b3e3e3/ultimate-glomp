@@ -6,10 +6,11 @@
 size = Vector3(0.32, 0.32, 0.32)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v18xv"]
-size = Vector3(0.48, 0.48, 0.48)
+size = Vector3(0.32, 0.32, 0.32)
 
-[node name="ItemObject" type="RigidBody3D" groups=["Glompable"]]
+[node name="ItemObject" type="RigidBody3D" groups=["Glompable", "Throwable"]]
 collision_layer = 0
+gravity_scale = 0.0
 script = ExtResource("1_yqtgv")
 metadata/_custom_type_script = "uid://cfuyelbqhwm4x"
 metadata/auto_throw = true

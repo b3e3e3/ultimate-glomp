@@ -16,6 +16,10 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 	player.process_mode = PROCESS_MODE_DISABLED
 	player.glomped_body.call(&"get_thrown", player)
 
+	player.un_glomp()
+
+	print("Get thrownnnn")
+
 	await Global.create_timer(0.4).timeout
 	if is_auto_throw:
 		goto(falling_state)

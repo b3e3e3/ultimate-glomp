@@ -59,7 +59,7 @@ func check_for_climbing() -> bool:
 
 	var first := bodies[0]
 
-	return character.is_on_wall()
+	return character.is_on_wall() and not player.glomped_body
 
 ## Returns true if the player is trying to move vertically.
 func check_for_moving_vertical() -> bool:

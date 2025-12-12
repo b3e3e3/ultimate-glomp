@@ -63,23 +63,24 @@ func glomp_on(body: PhysicsBody3D) -> void:
 	glomped.emit(body)
 
 func un_glomp() -> void:
-	return
+	print("UNNNNGLOMPPPP")
 	# # move the glomped body back into the world
 	# reparent(glomped_body.get_parent()) # TODO: find a better parent?
 
+	# TODO: THIS DOESNT WORK IN 3D!!!
 	# # default distance
-	var dist := 0.64
+	# var dist := 0.64
 
-	# # calculate distance between player and glomped body to decide how far to send the player up
-	if glomped_body:
-		var player_rect: Rect2 = collision_shape.shape.get_rect()
-		var body_rect: Rect2 = glomped_body.get_node(^"CollisionShape3D").shape.get_rect()
+	# # # calculate distance between player and glomped body to decide how far to send the player up
+	# if glomped_body:
+	# 	var player_rect: Rect2 = collision_shape.shape.get_rect()
+	# 	var body_rect: Rect2 = glomped_body.get_node(^"CollisionShape3D").shape.get_rect()
 
-		dist = body_rect.position.distance_to(player_rect.position) + player_rect.size.y / 2
-	else: push_warning("No glomped body to unglomp")
+	# 	dist = body_rect.position.distance_to(player_rect.position) + player_rect.size.y / 2
+	# else: push_warning("No glomped body to unglomp")
 
-	# apply distance to player position
-	global_position += Vector3.UP * dist
+	# # apply distance to player position
+	# global_position += Vector3.UP * dist
 
 	# remove glomped body
 	unglomped.emit(glomped_body)

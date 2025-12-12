@@ -9,6 +9,7 @@ region = Rect2(96, 384, 32, 32)
 
 [resource]
 script = ExtResource("1_uath0")
+consume_on_use = true
 icon_texture = SubResource("AtlasTexture_tv1d7")
 display_name = "Door Key"
 max_stack = 1

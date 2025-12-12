@@ -31,5 +31,5 @@ func on_physics_update(_delta: float) -> void:
 func on_exit() -> void:
 	player.process_mode = PROCESS_MODE_INHERIT
 
-	if not player.glomped_body.is_in_group(&"Throwable"):
-		player.un_glomp()
+	# if not player.glomped_body.is_in_group(&"Throwable"):
+	# 	player.un_glomp()

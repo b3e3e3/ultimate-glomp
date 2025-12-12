@@ -49,6 +49,9 @@ material_overlay = SubResource("ShaderMaterial_q13i1")
 shaded = true
 texture = SubResource("GradientTexture2D_46mkj")
 
+[node name="FloorCast" type="RayCast3D" parent="."]
+target_position = Vector3(0, -0.5, 0)
+
 [connection signal="hit" from="." to="ProjectileSpawner" method="_on_hit"]
 [connection signal="thrown" from="." to="ProjectileSpawner" method="_on_thrown"]
 [connection signal="projectile_spawned" from="ProjectileSpawner" to="." method="_on_projectile_spawned"]

@@ -21,7 +21,14 @@ func start() -> void:
 	var player := Global.current_level.player
 
 	for item in item_guards:
-		if not item in player.item_inventory.items:
+		var idx := player.item_inventory.items.find_custom(func(i):
+			return i.resource in item_guards
+		)
+		var has_item := idx > -1
+
+		print("Has item? ", has_item, idx)
+
+		if not has_item:
 			print("PLAYER DOES NOT HAVE", item.display_name, "!")
 			if guard_failure_action:
 				guard_failure_action.execute(player)
@@ -30,7 +37,7 @@ func start() -> void:
 		else:
 			if guard_success_action:
 				guard_success_action.execute(player)
-			item.use(player)
+			player.item_inventory.items[idx].use(player)
 
 	for item in flag_guards:
 		continue # TODO: flag guards
