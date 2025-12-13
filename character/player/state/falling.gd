@@ -92,5 +92,8 @@ func on_physics_update(delta: float) -> void:
 	elif check_for_moving():
 		# for some reason, this makes us jump way too far when jumping off from climbing
 		# without holding a direction down
-		if hor != 0:
-			player.move_horizontal(hor, character.get_speed(), _accel, _decel)
+		if character.direction.x != 0:
+			player.move_horizontal(character.direction.x, character.get_speed(), _accel, _decel)
+
+# func on_exit() -> void:
+# 	controller.force_direction = Vector3.ZERO

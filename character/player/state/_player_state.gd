@@ -32,7 +32,7 @@ func on_physics_update(_delta: float) -> void:
 
 ## Returns true if horizontal input is non-zero or the character is moving.
 func check_for_moving() -> bool:
-	return controller.get_horizontal_input() or character.is_moving()
+	return controller.force_direction or controller.get_horizontal_input() or character.is_moving()
 
 ## Returns true if the jump button is pressed and the character is landed.
 func check_for_jumping(must_be_landed: bool = true) -> bool:

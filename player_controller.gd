@@ -38,13 +38,13 @@ func control_vertical_direction():
 func get_horizontal_input() -> float:
 	var axis := Input.get_axis(&"move_left", &"move_right")
 	if axis != 0.0:
-		force_direction = Vector3.ZERO
+		force_direction.x = Vector3.ZERO.x
 	return axis
 
 func get_vertical_input() -> float:
 	var axis := Input.get_axis(&"move_down", &"move_up")
 	if axis != 0.0:
-		force_direction = Vector3.ZERO
+		force_direction.y = Vector3.ZERO.y
 	return axis
 
 func get_multi_input() -> Vector2:

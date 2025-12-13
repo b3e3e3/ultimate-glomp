@@ -17,6 +17,7 @@ func _ready() -> void:
 
 	player = player_prefab.instantiate()
 	player_controller = PlayerController.new(player)
+	player_controller.name = &"PlayerController"
 
 	add_child(player)
 	add_child(player_controller)

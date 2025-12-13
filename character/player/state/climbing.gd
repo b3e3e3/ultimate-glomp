@@ -10,8 +10,8 @@ class_name PlayerClimbingState extends PlayerState
 @export var jump_off_force = Vector3(0, 4.0, 0)
 @export var side_swap_hold_time := 0.2
 
-
 const TEMP_SLIDE_SPEED: float = 3.0
+
 
 func on_enter(_previous_state: State, _data := {}) -> void:
 	# stop the character
@@ -19,7 +19,7 @@ func on_enter(_previous_state: State, _data := {}) -> void:
 	character.velocity = Vector3.ZERO
 
 	# disable our forced direction
-	controller.force_direction = Vector3.ZERO
+	# controller.force_direction = Vector3.ZERO
 
 	# start the slide timer
 	$SlideManager.should_slide = false
@@ -68,10 +68,17 @@ func on_physics_update(_delta: float) -> void:
 		var _speed := character.get_speed()
 		var _dir := -character.last_direction.x
 
-		if not hor:
-			controller.force_direction = -character.last_direction
-		else:
+		if sign(hor) != sign(_dir):
 			_speed *= 0.5
+			controller.force_direction = character.last_direction
+			# _dir = dcontroller.force_direction.x
+
+		# if not hor:
+		# 	controller.force_direction = character.last_direction
+		# else:
+		# if hor:
+		# 	_speed *= 0.5
+
 
 		_speed = minf(_speed, 8.0)
 
@@ -99,7 +106,7 @@ func on_physics_update(_delta: float) -> void:
 			})
 
 	# if we can climb the surface and we're trying to, move vertically
-	elif check_for_moving_vertical() and can_climb_like_ladder:
+	elif can_climb_like_ladder:
 		# TODO: figure out how to get player to stop at top of climbable
 		# TODO: standardized speed for this
 		character.move_vertical(ver, TEMP_SLIDE_SPEED if ver < 0 else 1.5, 9999)
@@ -114,8 +121,8 @@ func on_physics_update(_delta: float) -> void:
 		)
 
 	# if we shouldn't slide and aren't trying to move, but are moving, stop
-	elif character.velocity.y != 0:
-		character.move_vertical(0, 0, 9999)
+	# elif character.velocity.y != 0:
+	# 	character.move_vertical(0, 0, 9999)
 
 
 	__emit_slide_particles()
@@ -135,5 +142,6 @@ func on_exit() -> void:
 		slide_particles.emitting = false
 
 	Global.create_timer(0.3).timeout.connect(func():
-		character.collision_shape.disabled= false
+		character.collision_shape.disabled = false
+		controller.force_direction = Vector3.ZERO # TODO: should this be cancelled?
 	, CONNECT_ONE_SHOT)

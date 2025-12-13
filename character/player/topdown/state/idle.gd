@@ -6,6 +6,7 @@ class_name TDPlayerIdleState extends TDPlayerState
 
 func on_enter(_previous_state: State, _data := {}) -> void:
 	player.move_enabled = true
+	print("WAWA")
 
 func on_physics_update(_delta: float) -> void:
 	if check_for_moving():

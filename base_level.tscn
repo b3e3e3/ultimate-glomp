@@ -642,7 +642,7 @@ mesh = SubResource("ArrayMesh_m7uwa")
 occluder = SubResource("ArrayOccluder3D_45mlx")
 
 [node name="entity_17_spawn_item" parent="FuncGodotMap" instance=ExtResource("6_xjg0i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 5.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.625, 5.5, 0)
 resource = ExtResource("16_n4s56")
 
 [node name="entity_18_func_detail_illusionary" type="Node3D" parent="FuncGodotMap"]

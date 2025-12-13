@@ -99,6 +99,8 @@ func __process_debug_hud():
 
 	l.text += '\n' + 'vel: ' + str(velocity)
 	l.text += '\n' + 'direction: %s | last_direction: %s' % [direction, last_direction]
+	if get_parent().has_node("PlayerController"):
+		l.text += '\n' + 'force_direction: %s' % [$"../PlayerController".force_direction]
 
 	if equip_inventory:
 		for e in equip_inventory.equipment:
