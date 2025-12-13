@@ -1,6 +1,8 @@
 class_name PlayerSprite extends Sprite3D
 
-@onready var player: Player = owner
+@export var lock_rotation: bool = false
+
+@onready var sprite: Sprite2D = $SubViewport/Sprite2D
 
 var tween: Tween = null
 
@@ -25,7 +27,7 @@ func do_flip(dir):
 	tween = create_tween()
 	tween\
 		.set_ease(Tween.EASE_OUT)\
-		.tween_property(self, ^"rotation_degrees", self.rotation_degrees + (Vector3.FORWARD * angle), 0.5)
+		.tween_property(sprite, ^"rotation_degrees", sprite.rotation_degrees + angle, 0.5)
 	await tween.finished
 	tween = null
 
@@ -34,3 +36,7 @@ func _on_state_machine_state_changed(new_state: State, _previous_state: State, d
 	match new_state.name:
 		&"Climbing":
 			cancel_flip()
+
+func _physics_process(delta: float) -> void:
+	if not tween and not lock_rotation:
+		sprite.rotation_degrees = -owner.rotation_degrees.z

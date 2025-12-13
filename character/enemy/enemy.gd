@@ -28,4 +28,4 @@ func get_glomped(by: Character):
 	process_mode = PROCESS_MODE_DISABLED
 
 func _on_projectile_spawned(projectile: Projectile):
-	projectile.get_node(^"Sprite").texture = $Sprite.texture
+	projectile.get_node(^"Sprite/SubViewport/Sprite2D").texture = $"Sprite/SubViewport/Sprite2D".texture # TODO: better way of setting sprite
