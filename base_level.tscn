@@ -408,8 +408,10 @@ _surfaces = [{
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lbjvu"]
 
-[node name="Level" type="Node3D"]
+[node name="Level" type="Node3D" node_paths=PackedStringArray("player", "player_controller")]
 script = ExtResource("1_xjg0i")
+player = NodePath("Player")
+player_controller = NodePath("PlayerController")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ypj6x")

@@ -27,9 +27,8 @@ script = ExtResource("1_sb12i")
 player = NodePath("Player")
 player_controller = NodePath("PlayerController")
 
-[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("character")]
+[node name="PlayerController" type="Node" parent="."]
 script = ExtResource("2_gbhdq")
-character = NodePath("")
 metadata/_custom_type_script = "uid://ctivwyfwka2ys"
 
 [node name="Player" parent="." instance=ExtResource("2_f7g2b")]

@@ -9,6 +9,9 @@ var tween: Tween = null
 # func _on_player_jumped() -> void:
 # func _on_combo_jump_jumped(current_combo: int) -> void:
 
+func set_sprite(tex: Texture):
+	$SubViewport/Sprite2D.texture = tex
+	self.texture = $SubViewport.get_texture()
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS

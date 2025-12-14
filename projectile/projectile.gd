@@ -3,7 +3,7 @@ class_name Projectile extends RigidBody3D
 signal finished
 
 @onready var launched_from: Vector3 = self.global_position
-@onready var sprite: Sprite2D = $Sprite/SubViewport/Sprite2D
+@onready var sprite: PlayerSprite = $Sprite
 
 @export var hitting_particles: PackedScene
 
@@ -45,7 +45,7 @@ func _ready() -> void:
 	max_contacts_reported = 1
 
 func _physics_process(delta: float) -> void:
-	sprite.rotation_degrees += delta * get_spin_speed()
+	sprite.sprite.rotation_degrees += delta * get_spin_speed()
 
 	if not _direction.is_equal_approx(target_direction) and not spinning_out:
 		_direction = _direction.slerp(target_direction, delta * 50)
