@@ -1,7 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://4ur8modix6my"]
+[gd_scene load_steps=9 format=3 uid="uid://4ur8modix6my"]
 
 [ext_resource type="Script" uid="uid://b0ij04hfb1hg4" path="res://projectile/attached_projectile.gd" id="1_1iiy4"]
 [ext_resource type="PackedScene" uid="uid://c6adqd7qbqx24" path="res://particles/smack_particles.tscn" id="2_m0lmd"]
+[ext_resource type="Script" uid="uid://b16ywy7ggd0m" path="res://character/player/sprite.gd" id="3_mamps"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_05vh3"]
+size = Vector3(0.24, 0.24, 0.24)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6p6vq"]
+viewport_path = NodePath("Sprite/SubViewport")
 
 [sub_resource type="Gradient" id="Gradient_1iiy4"]
 colors = PackedColorArray(1, 0, 0.7254902, 1, 0.735357, 0.735357, 0.3740006, 1)
@@ -14,9 +21,6 @@ width = 24
 height = 24
 noise = SubResource("FastNoiseLite_1iiy4")
 color_ramp = SubResource("Gradient_1iiy4")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_05vh3"]
-size = Vector3(0.24, 0.24, 0.24)
 
 [node name="PlayerWeaponProjectile" type="RigidBody3D"]
 collision_layer = 64
@@ -32,8 +36,19 @@ visible = false
 points = PackedVector2Array(0, 0, 0, 0)
 width = 4.0
 
-[node name="Sprite" type="Sprite3D" parent="."]
-texture = SubResource("NoiseTexture2D_m0lmd")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_05vh3")
+
+[node name="Sprite" type="Sprite3D" parent="."]
+billboard = 1
+shaded = true
+texture = SubResource("ViewportTexture_6p6vq")
+script = ExtResource("3_mamps")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite"]
+transparent_bg = true
+size = Vector2i(64, 64)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite/SubViewport"]
+position = Vector2(32, 32)
+texture = SubResource("NoiseTexture2D_m0lmd")

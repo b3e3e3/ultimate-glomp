@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://psxctyqkm4qk"]
+
+[ext_resource type="PackedScene" uid="uid://q12uqa5al8w" path="res://levels/level_1.blend" id="1_1c2mv"]
+[ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_sb12i"]
+[ext_resource type="PackedScene" uid="uid://c1wv0ies7lixs" path="res://player.tscn" id="2_f7g2b"]
+[ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="2_gbhdq"]
+[ext_resource type="Texture2D" uid="uid://b7j3da8udn0r" path="res://trenchbroom/textures/Elements_01-256x256.png" id="4_gbhdq"]
+[ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_y646j"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lnbra"]
+panorama = ExtResource("4_gbhdq")
+
+[sub_resource type="Sky" id="Sky_rjrbw"]
+sky_material = SubResource("PanoramaSkyMaterial_lnbra")
+
+[sub_resource type="Environment" id="Environment_6emce"]
+background_mode = 2
+sky = SubResource("Sky_rjrbw")
+sky_custom_fov = 99.9
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lowby"]
+
+[node name="TestLevel" type="Node3D" node_paths=PackedStringArray("player", "player_controller")]
+script = ExtResource("1_sb12i")
+player = NodePath("Player")
+player_controller = NodePath("PlayerController")
+
+[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("2_gbhdq")
+character = NodePath("")
+metadata/_custom_type_script = "uid://ctivwyfwka2ys"
+
+[node name="Player" parent="." instance=ExtResource("2_f7g2b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)
+
+[node name="level_1" parent="." instance=ExtResource("1_1c2mv")]
+transform = Transform3D(5.9624403e-09, 0, -0.5, 0, 0.5, 0, 0.5, 0, 5.9624403e-09, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6emce")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.61240256, -0.5259043, -0.5902439, 0.48870987, -0.83871853, 0.24023719, -0.62139016, -0.14133608, 0.770648, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.536743e-07, 3.5153847, 3.6888437)
+current = true
+size = 13.304401
+script = ExtResource("5_y646j")
+target = NodePath("../Player")
+
+[node name="Area3D" type="Area3D" parent="Camera"]
+collision_layer = 256
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera/Area3D"]
+shape = SubResource("BoxShape3D_lowby")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.186166, 1.1099203, 0.31268227)
+visible = false
+layers = 2

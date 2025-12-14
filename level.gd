@@ -5,22 +5,24 @@ class_name Level extends Node3D
 
 @onready var hud_canvas := CanvasLayer.new()
 
-var player: Player
-var player_controller: PlayerController
+@export var player: Player
+@export var player_controller: PlayerController
 
 func _enter_tree() -> void:
 	Global.current_level = self
+	if not player:
+		player = player_prefab.instantiate()
+
+		add_child(player)
+	if not player_controller:
+		player_controller = PlayerController.new(player)
+		player_controller.name = &"PlayerController"
+
+		add_child(player_controller)
 
 
 func _ready() -> void:
 	var start_point := get_node(^"FuncGodotMap/SPAWN_PLAYER")
-
-	player = player_prefab.instantiate()
-	player_controller = PlayerController.new(player)
-	player_controller.name = &"PlayerController"
-
-	add_child(player)
-	add_child(player_controller)
 
 	if start_point:
 		player.position = start_point.position

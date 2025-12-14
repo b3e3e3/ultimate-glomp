@@ -7,8 +7,9 @@ class_name PlayerController extends Node
 var force_direction: Vector3 = Vector3.ZERO
 
 
-func _init(character_to_control: Character):
-	self.character = character_to_control
+func _init(character_to_control: Character = null):
+	if character_to_control:
+		self.character = character_to_control
 
 func _ready():
 	if character == null:

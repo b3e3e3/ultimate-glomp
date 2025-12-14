@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://c3cel231jmsnx"]
+[gd_scene load_steps=71 format=4 uid="uid://c3cel231jmsnx"]
 
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_eesb3"]
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_xjg0i"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://caf52joneadwj" path="res://environment/platform.gd" id="5_u2wky"]
 [ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/item_object.tscn" id="6_xjg0i"]
 [ext_resource type="Material" uid="uid://cucgturg2s4le" path="res://trenchbroom/textures/Photoreal_Stone_04-512x512.tres" id="7_bkkah"]
-[ext_resource type="Material" path="res://trenchbroom/textures/bush2.tres" id="7_cofcm"]
 [ext_resource type="Material" uid="uid://c8it57lopwtlv" path="res://trenchbroom/textures/Wood_07-256x256.tres" id="7_fxpm7"]
 [ext_resource type="Material" uid="uid://boltc4mx8hhu0" path="res://trenchbroom/textures/sprites/bush2.tres" id="7_kkae7"]
 [ext_resource type="Material" uid="uid://dfndue2ga3lln" path="res://trenchbroom/textures/Wood_15-256x256.tres" id="9_83eob"]
@@ -56,7 +55,6 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAAACAAMA"),
-"material": ExtResource("7_cofcm"),
 "name": "bush2",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -480,7 +478,6 @@ shape = SubResource("ConcavePolygonShape3D_y778q")
 
 [node name="entity_3_env_wall" type="StaticBody3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.968744, 2.3125, 0)
-collision_layer = 17
 script = ExtResource("5_bkkah")
 is_climbable = false
 metadata/func_godot_mesh_data = {
@@ -538,7 +535,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.31
 
 [node name="entity_8_env_wall" type="StaticBody3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.29454, 5.3675222, 0)
-collision_layer = 17
 script = ExtResource("5_bkkah")
 is_climbable = false
 metadata/func_godot_mesh_data = {
@@ -558,6 +554,7 @@ shape = SubResource("ConcavePolygonShape3D_as8k4")
 
 [node name="entity_9_spawn_item" parent="FuncGodotMap" instance=ExtResource("6_xjg0i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.625, 4, 0)
+collision_layer = 2
 resource = ExtResource("12_i6nmd")
 
 [node name="entity_10_env_wall" type="StaticBody3D" parent="FuncGodotMap"]

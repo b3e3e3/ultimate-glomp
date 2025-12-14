@@ -36,7 +36,8 @@ func _ready() -> void:
 	print("TARGET DIR:", target_direction)
 
 	lock_rotation = true
-	$Sprite.lock_rotation = true
+	if $Sprite is PlayerSprite:
+		$Sprite.lock_rotation = true
 	_direction = target_direction
 	linear_velocity = _direction * speed
 

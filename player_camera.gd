@@ -1,7 +1,8 @@
 class_name PlayerCamera extends Camera3D
 
 @export var target: Node3D
-
+@onready var initial_rotation: Vector3 = self.global_rotation
+@onready var initial_offset: Vector3 = Vector3(0, 1, 3.5)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,6 +24,6 @@ func _process(delta: float) -> void:
 		global_position = position.move_toward(area.camera.global_transform.origin, delta * 5)
 		global_rotation = global_rotation.move_toward(area.camera.global_rotation, delta * 1)
 	else:
-		global_position = position.lerp(target.position + Vector3(0, 1, 3.5), delta * 15)
-		global_rotation = global_rotation.move_toward(Vector3.ZERO, delta * 1)
+		global_position = position.lerp(target.position + initial_offset, delta * 15)
+		global_rotation = global_rotation.move_toward(initial_rotation, delta * 1)
 	# look_at(target.position)
