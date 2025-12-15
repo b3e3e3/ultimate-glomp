@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDModelPointClass" load_steps=3 format=3 uid="uid://b1mxc74h18lhs"]
+
+[ext_resource type="PackedScene" uid="uid://bmxc2k266lx7v" path="res://environment/door.tscn" id="1_3hhu4"]
+[ext_resource type="Script" uid="uid://ldfqjtq0br35" path="res://addons/func_godot/src/fgd/func_godot_fgd_model_point_class.gd" id="1_en2f2"]
+
+[resource]
+script = ExtResource("1_en2f2")
+scene_file = ExtResource("1_3hhu4")
+classname = "struct_door"
+class_properties = {
+&"interaction_name": "default"
+}
+auto_apply_to_matching_node_properties = true
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8),
+"studio": "\"trenchbroom/models/struct_door.glb\""
+}
+metadata/_custom_type_script = "uid://ldfqjtq0br35"

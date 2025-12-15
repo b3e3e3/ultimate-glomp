@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=11 format=3 uid="uid://lxiymot76kkk"]
+
+[ext_resource type="Resource" uid="uid://crgpdahjaj" path="res://addons/func_godot/fgd/func_godot_fgd.tres" id="1_7mcd2"]
+[ext_resource type="Script" uid="uid://drlmgulwbjwqu" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="1_gnek5"]
+[ext_resource type="Resource" uid="uid://b55l8485ldtj8" path="res://trenchbroom/fgd/point/spawn_player_fgd.tres" id="2_2qp6y"]
+[ext_resource type="Resource" uid="uid://2xf3phdie8rg" path="res://trenchbroom/fgd/point/world_ledge_grab_fgd.tres" id="2_u44g1"]
+[ext_resource type="Resource" uid="uid://cx3r6vgrkq17v" path="res://trenchbroom/fgd/point/spawn_item_fgd.tres" id="3_2fcxl"]
+[ext_resource type="Resource" uid="uid://dsg36wv8vxrrq" path="res://trenchbroom/fgd/solid/wall_fgd.tres" id="3_2qp6y"]
+[ext_resource type="Resource" uid="uid://cqaewqyhciphx" path="res://trenchbroom/fgd/point/spawn_enemy_fgd.tres" id="3_j5wcw"]
+[ext_resource type="Resource" uid="uid://bah0b7wb3vyqn" path="res://trenchbroom/fgd/solid/platform_fgd.tres" id="6_j5wcw"]
+[ext_resource type="Resource" uid="uid://b1mxc74h18lhs" path="res://trenchbroom/fgd/point/struct_door_fgd.tres" id="8_drpuk"]
+[ext_resource type="Resource" uid="uid://d3yabh7dr37of" path="res://trenchbroom/fgd/solid/util_camera_area.tres" id="9_lnk64"]
+
+[resource]
+script = ExtResource("1_gnek5")
+fgd_name = "GlompDev"
+base_fgd_files = Array[Resource]([ExtResource("1_7mcd2")])
+entity_definitions = Array[Resource]([ExtResource("2_u44g1"), ExtResource("2_2qp6y"), ExtResource("3_j5wcw"), ExtResource("3_2fcxl"), ExtResource("3_2qp6y"), ExtResource("6_j5wcw"), ExtResource("8_drpuk"), ExtResource("9_lnk64")])
+metadata/_custom_type_script = "uid://drlmgulwbjwqu"

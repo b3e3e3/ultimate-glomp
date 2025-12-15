@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=3 format=3 uid="uid://dsg36wv8vxrrq"]
+
+[ext_resource type="Script" uid="uid://5cow84q03m6a" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_26f7m"]
+[ext_resource type="Script" uid="uid://rgkemxecrobb" path="res://environment/wall.gd" id="2_ep68l"]
+
+[resource]
+script = ExtResource("1_26f7m")
+build_occlusion = true
+collision_shape_type = 2
+collision_layer = 17
+add_collision_shape_to_face_indices_metadata = true
+script_class = ExtResource("2_ep68l")
+classname = "env_wall"
+description = "A wall, optionally climbable (ladders), slideable, and swappable."
+class_properties = {
+"can_grab_ledge": true,
+"is_climbable": true,
+"is_slideable": true,
+"is_swappable": false
+}
+auto_apply_to_matching_node_properties = true
+node_class = "StaticBody3D"
+metadata/_custom_type_script = "uid://5cow84q03m6a"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=3 format=3 uid="uid://2xf3phdie8rg"]
+
+[ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_nxxsy"]
+[ext_resource type="PackedScene" uid="uid://bv7oyxt0i7jg5" path="res://environment/ledge_grab.tscn" id="1_o0cbl"]
+
+[resource]
+script = ExtResource("1_nxxsy")
+scene_file = ExtResource("1_o0cbl")
+classname = "world_ledge_grab"
+description = "Ledge grab"
+meta_properties = {
+"color": Color(0.8, 0, 0, 0.40392157),
+"size": AABB(-48, -8, -8, 48, 8, 8)
+}
+node_class = "Area3D"
+metadata/_custom_type_script = "uid://cxsqwtsqd8w33"

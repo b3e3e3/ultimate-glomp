@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://boltc4mx8hhu0"]
+
+[ext_resource type="Texture2D" uid="uid://c5dqq01pxhfy4" path="res://trenchbroom/textures/sprites/bush2.png" id="1_77h02"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_77h02")
+metallic_specular = 0.0
+texture_filter = 2

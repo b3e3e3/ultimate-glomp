@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=4 format=3 uid="uid://cx3r6vgrkq17v"]
+
+[ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/item_object.tscn" id="1_4dkj1"]
+[ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="2_tfxvt"]
+[ext_resource type="Script" uid="uid://cfuyelbqhwm4x" path="res://items/item_object.gd" id="3_5kpkk"]
+
+[resource]
+script = ExtResource("2_tfxvt")
+scene_file = ExtResource("1_4dkj1")
+script_class = ExtResource("3_5kpkk")
+apply_rotation_on_map_build = false
+classname = "spawn_item"
+description = "An item that can be picked up"
+class_properties = {
+"item_name": "berry"
+}
+meta_properties = {
+"color": Color(6.1270446e-05, 0.77079415, 0.20647293, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "ItemObject"
+metadata/_custom_type_script = "uid://cxsqwtsqd8w33"

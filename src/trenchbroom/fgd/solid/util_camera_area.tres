@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=3 format=3 uid="uid://d3yabh7dr37of"]
+
+[ext_resource type="Script" uid="uid://5cow84q03m6a" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_5hfmq"]
+[ext_resource type="Script" uid="uid://bibv4usl2j5gl" path="res://environment/camera_focus_area.gd" id="2_0ohyy"]
+
+[resource]
+script = ExtResource("1_5hfmq")
+build_visuals = false
+collision_layer = 256
+collision_mask = 256
+script_class = ExtResource("2_0ohyy")
+classname = "util_camera_area"
+class_properties = {
+"camera_pos": Vector3(0, 0, 0),
+"camera_rot": Vector3(0, 0, 0)
+}
+auto_apply_to_matching_node_properties = true
+node_class = "Area3D"
+metadata/_custom_type_script = "uid://5cow84q03m6a"

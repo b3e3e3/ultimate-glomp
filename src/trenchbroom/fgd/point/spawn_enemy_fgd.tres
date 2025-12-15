@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=4 format=3 uid="uid://cqaewqyhciphx"]
+
+[ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_88dlu"]
+[ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="1_aowys"]
+[ext_resource type="Script" uid="uid://dccbvvcfrufu" path="res://character/enemy/enemy.gd" id="3_bpr0r"]
+
+[resource]
+script = ExtResource("1_88dlu")
+scene_file = ExtResource("1_aowys")
+script_class = ExtResource("3_bpr0r")
+apply_rotation_on_map_build = false
+classname = "spawn_enemy"
+description = "Spawn location for an enemy"
+auto_apply_to_matching_node_properties = true
+meta_properties = {
+"color": Color(0.8, 0, 0, 1),
+"size": AABB(-8, -8, -12, 8, 8, 12)
+}
+node_class = "Enemy"
+metadata/_custom_type_script = "uid://cxsqwtsqd8w33"

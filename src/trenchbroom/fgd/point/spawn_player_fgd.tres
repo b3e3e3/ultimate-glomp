@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=2 format=3 uid="uid://b55l8485ldtj8"]
+
+[ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_y8tcu"]
+
+[resource]
+script = ExtResource("1_y8tcu")
+apply_rotation_on_map_build = false
+classname = "spawn_player"
+description = "Spawn location for the player"
+class_properties = {
+"name": &"SPAWN_PLAYER"
+}
+auto_apply_to_matching_node_properties = true
+meta_properties = {
+"color": Color(0.8, 1, 0, 1),
+"size": AABB(-8, -8, -12, 8, 8, 12)
+}
+node_class = "Node3D"
+metadata/_custom_type_script = "uid://cxsqwtsqd8w33"
