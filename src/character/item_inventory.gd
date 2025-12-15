@@ -1,12 +1,12 @@
 class_name ItemInventory extends Node3D
 
-@export var items: Array[ItemObject]:
+@export var items: Dictionary[ItemResource, ItemObject]:
 	get:
-		var _arr: Array[ItemObject] = []
+		var _dict: Dictionary[ItemResource, ItemObject] = {}
 		for item in get_children():
 			if item is ItemObject:
-				_arr.append(item)
-		return _arr
+				_dict.set(item.resource, item)
+		return _dict
 
 
 func _ready() -> void:

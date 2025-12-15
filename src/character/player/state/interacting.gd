@@ -28,11 +28,11 @@ func on_update(_delta: float) -> void:
 		interact_area.step.call_deferred()
 
 
-func _on_interaction_started(_interaction: Interaction):
+func _on_interaction_started(_interaction: GameAction):
 	pass
 
-func _on_interaction_finished(_interaction: Interaction):
+func _on_interaction_finished(_interaction: GameAction):
 	goto(idle_state)
 
-func _on_interaction_stepped(_interaction: Interaction):
+func _on_interaction_stepped(_interaction: GameAction):
 	pass

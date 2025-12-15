@@ -1,4 +1,4 @@
-class_name MessageInteraction extends Interaction
+class_name MessageAction extends GameAction
 
 @export var max_lines: int = 2
 @export_multiline var messages: Array[String] = [
@@ -13,7 +13,7 @@ var msg_idx: int = 0
 var box: MessageBox
 
 
-func on_start() -> void:
+func on_start(_character: Character = null) -> void:
 	msg_idx = -1
 
 	next_message()

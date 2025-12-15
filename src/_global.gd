@@ -6,6 +6,7 @@ const message_box_scene: PackedScene = preload("res://ui/message_box.tscn")
 @export var current_level: Level
 
 @onready var tree := self.get_tree()
+@onready var Flags: FlagsManager = FlagsManager.new()
 
 
 func create_timer(time_sec: float, process_always: bool = true, process_in_physics: bool = false, ignore_time_scale: bool = false):

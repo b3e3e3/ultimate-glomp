@@ -1,12 +1,12 @@
 class_name InteractArea extends Area3D
 
-signal started(interaction: Interaction)
-signal finished(interaction: Interaction)
-signal stepped(interaction: Interaction)
+signal started(interaction: GameAction)
+signal finished(interaction: GameAction)
+signal stepped(interaction: GameAction)
 
 
-var _current_interaction: Interaction
-var current_interaction: Interaction:
+var _current_interaction: GameAction
+var current_interaction: GameAction:
 	get:
 		return _current_interaction
 	set(value):
@@ -39,7 +39,7 @@ func find_and_start_interaction() -> void:
 			# current_interaction = a.interact(self)
 			current_interaction = a.get_interaction()
 			current_interaction.initialize(a)
-			current_interaction.start()
+			current_interaction.start(owner)
 			break
 
 

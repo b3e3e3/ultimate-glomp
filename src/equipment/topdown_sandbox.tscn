@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b3igd3a7jqodm" path="res://character/player/topdown/top_down_player.tscn" id="2_l4rn0"]
 [ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="4_peklp"]
 [ext_resource type="Script" uid="uid://ctivwyfwka2ys" path="res://player_controller.gd" id="4_xkc80"]
-[ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/test_msg_interaction.gd" id="5_peklp"]
+[ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/test_msg_action.gd" id="5_peklp"]
 
 [sub_resource type="Gradient" id="Gradient_16mkr"]
 colors = PackedColorArray(0.08590173, 0.023329917, 0, 1, 0.31644037, 0.22125904, 0.12794405, 1)

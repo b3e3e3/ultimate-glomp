@@ -65,7 +65,7 @@ func _on_pickup_area_body_entered(body: Node3D) -> void:
 func use(character: Character) -> void:
 	print(resource.consume_on_use)
 	if not resource.action: return
-	resource.action.execute(character)
+	resource.action.start(character)
 	if resource.consume_on_use:
 		print("Consuming item")
 		queue_free()

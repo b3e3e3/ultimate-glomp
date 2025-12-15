@@ -1,16 +1,18 @@
 class_name InteractionTrigger extends Node3D
 
-signal started(interaction: Interaction)
-signal stepped(interaction: Interaction)
-signal finished(interaction: Interaction, success: bool)
-signal updated(interaction: Interaction)
+signal started(interaction: GameAction)
+signal stepped(interaction: GameAction)
+signal finished(interaction: GameAction, success: bool)
+signal updated(interaction: GameAction)
 
-@export var interaction: Interaction
+@export var interaction: GameAction
 
 
-func get_interaction() -> Interaction:
+func get_interaction() -> GameAction:
 	return interaction
 
+func start_interaction() -> void:
+	interaction.start(Global.current_level.player) # TODO: WHICH CHARACTER?!?!?!
 
 func _ready() -> void:
 	interaction.started.connect(_on_interaction_started)
@@ -38,6 +40,6 @@ func _on_interaction_updated():
 	updated.emit(interaction)
 
 
-# func interact(_with: InteractArea) -> Interaction:
+# func interact(_with: InteractArea) -> GameAction:
 # 	interaction.start()
 # 	return interaction

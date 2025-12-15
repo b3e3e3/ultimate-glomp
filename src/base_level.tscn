@@ -1,7 +1,8 @@
-[gd_scene load_steps=71 format=4 uid="uid://c3cel231jmsnx"]
+[gd_scene load_steps=78 format=4 uid="uid://c3cel231jmsnx"]
 
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_eesb3"]
 [ext_resource type="Script" uid="uid://t1qlum4l30q5" path="res://level.gd" id="1_xjg0i"]
+[ext_resource type="Script" uid="uid://dj3i2dswhvkh6" path="res://flags_manager.gd" id="2_3fo8u"]
 [ext_resource type="Resource" uid="uid://cekfl7kq3tyho" path="res://trenchbroom/GlompDev_settings.tres" id="2_eesb3"]
 [ext_resource type="Texture2D" uid="uid://b7j3da8udn0r" path="res://trenchbroom/textures/Elements_01-256x256.png" id="2_umuus"]
 [ext_resource type="Material" uid="uid://d1i2kbcaggdkj" path="res://trenchbroom/textures/Grass_06-256x256.tres" id="4_xjg0i"]
@@ -22,6 +23,13 @@
 [ext_resource type="Material" uid="uid://dvw46iy82pv1e" path="res://trenchbroom/textures/Pebbles_22-256x256.tres" id="18_87xd1"]
 [ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="19_87xd1"]
 [ext_resource type="Material" uid="uid://bs4nvp4ln62og" path="res://trenchbroom/textures/7VIBDAV0.tres" id="20_lxby7"]
+[ext_resource type="Script" uid="uid://ciknw8yni1yp3" path="res://enemy_count_area.gd" id="23_kkae7"]
+[ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="24_cofcm"]
+[ext_resource type="Script" uid="uid://rxgcaogdwe7e" path="res://interact/set_flags_action.gd" id="26_3fo8u"]
+
+[sub_resource type="Resource" id="Resource_uwsf7"]
+script = ExtResource("2_3fo8u")
+metadata/_custom_type_script = "uid://dj3i2dswhvkh6"
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fxpm7"]
 panorama = ExtResource("2_umuus")
@@ -408,10 +416,21 @@ _surfaces = [{
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lbjvu"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_cofcm"]
+size = Vector3(2.236084, 1.9423828, 1)
+
+[sub_resource type="Resource" id="Resource_4cbnv"]
+script = ExtResource("26_3fo8u")
+level_flags_to_set = Dictionary[StringName, bool]({
+&"enemies cleared 1": true
+})
+metadata/_custom_type_script = "uid://rxgcaogdwe7e"
+
 [node name="Level" type="Node3D" node_paths=PackedStringArray("player", "player_controller")]
 script = ExtResource("1_xjg0i")
 player = NodePath("Player")
 player_controller = NodePath("PlayerController")
+Flags = SubResource("Resource_uwsf7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ypj6x")
@@ -720,6 +739,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.186166, 1.1099203, 0.312682
 visible = false
 layers = 2
 
+[node name="EnemyCountArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.15, 1.0887997, 0)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("23_kkae7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyCountArea"]
+shape = SubResource("BoxShape3D_cofcm")
+
+[node name="Label3D" type="Label3D" parent="EnemyCountArea"]
+text = "0"
+
+[node name="InteractionTrigger" type="Node3D" parent="."]
+script = ExtResource("24_cofcm")
+interaction = SubResource("Resource_4cbnv")
+metadata/_custom_type_script = "uid://djwj7b2cn65ud"
+
 [connection signal="build_complete" from="FuncGodotMap" to="." method="_on_func_godot_map_build_complete"]
+[connection signal="count_zero" from="EnemyCountArea" to="InteractionTrigger" method="start_interaction"]
 [connection signal="glomped" from="Player" to="Player/StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="jumped" from="Player" to="Player/Sprite" method="_on_player_jumped"]

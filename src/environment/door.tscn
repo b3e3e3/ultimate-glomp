@@ -93,17 +93,17 @@ size = Vector3(0.45385742, 1, 1.24)
 [node name="Door" type="Node3D"]
 script = ExtResource("1_are4n")
 
-[node name="InteractArea" type="Area3D" parent="."]
+[node name="InteractionTriggerArea" type="Area3D" parent="."]
 collision_layer = 32
 collision_mask = 32
 script = ExtResource("2_jehm5")
 interaction = ExtResource("3_mubsm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionTriggerArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 1, 0)
 shape = SubResource("BoxShape3D_are4n")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="InteractArea"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="InteractionTriggerArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, 1, 0)
 shape = SubResource("BoxShape3D_are4n")
 
@@ -176,5 +176,5 @@ camera_rot = Vector3(-9, 15, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060920894, 0, 0)
 shape = SubResource("BoxShape3D_6xqf3")
 
-[connection signal="finished" from="InteractArea" to="CameraFocusArea" method="_on_interact_area_finished"]
-[connection signal="started" from="InteractArea" to="." method="open" unbinds=1]
+[connection signal="finished" from="InteractionTriggerArea" to="CameraFocusArea" method="_on_interact_area_finished"]
+[connection signal="started" from="InteractionTriggerArea" to="." method="open" unbinds=1]

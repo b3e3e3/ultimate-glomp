@@ -8,6 +8,9 @@ class_name Level extends Node3D
 @export var player: Player
 @export var player_controller: PlayerController
 
+@export var Flags: FlagsManager = FlagsManager.new()
+
+
 func _enter_tree() -> void:
 	Global.current_level = self
 	if not player:
