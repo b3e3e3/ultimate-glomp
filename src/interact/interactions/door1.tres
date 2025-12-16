@@ -8,18 +8,17 @@
 
 [sub_resource type="Resource" id="Resource_2q3gc"]
 script = ExtResource("3_spc6r")
-message = "kill"
+message = "This door is locked."
 metadata/_custom_type_script = "uid://bavqpqa1tu0om"
 
 [sub_resource type="Resource" id="Resource_silng"]
 script = ExtResource("3_spc6r")
-message = "yay"
+message = "Door unlocked!"
 metadata/_custom_type_script = "uid://bavqpqa1tu0om"
 
 [sub_resource type="Resource" id="Resource_spc6r"]
 script = ExtResource("5_8nvia")
 signal_to_await = &"finished"
-target_path = NodePath("..")
 timeout = 2.0
 on_signal = SubResource("Resource_silng")
 metadata/_custom_type_script = "uid://bgfufrv5qnx68"

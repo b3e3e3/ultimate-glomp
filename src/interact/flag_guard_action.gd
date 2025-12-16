@@ -5,15 +5,23 @@ class_name FlagGuardAction extends GuardAction
 
 
 func is_successful() -> bool:
-	return _get_guard_result(Global.Flags) and _get_guard_result(Global.current_level.Flags)
+	var has_global: bool = global_flags.size() == 0 or _get_guard_result(Global.Flags)
+	var has_level: bool = level_flags.size() == 0 or _get_guard_result(Global.current_level.Flags)
+
+	return has_global and has_level
 
 func _get_guard_result(flags: FlagsManager):
-	for key in global_flags:
-		var val: bool = global_flags[key]
+	print("For flags in ", flags.flags)
 
-		if not flags.has_flag(key):
-			return false
+	var i: int = 0
+	var size := flags.flags.size()
 
-		if not flags.get_flag(key) == val:
-			return false
-	return true
+	for key in flags.flags:
+		var val: bool = flags.get_flag(key)
+
+		print("Has flag %s? %s" % [key, flags.has_flag(key)])
+		print("Flag %s value? %s" % [key, flags.get_flag(key)])
+		if flags.has_flag(key) and flags.get_flag(key) == val:
+			i += 1
+
+	return i == size and size > 0

@@ -5,7 +5,13 @@ signal stepped(interaction: GameAction)
 signal finished(interaction: GameAction, success: bool)
 signal updated(interaction: GameAction)
 
-@export var interaction: GameAction
+var _interaction: GameAction
+@export var interaction: GameAction:
+	get:
+		return _interaction
+	set(val):
+		_interaction = val
+		_update_interaction_signals()
 
 
 func get_interaction() -> GameAction:
@@ -14,11 +20,28 @@ func get_interaction() -> GameAction:
 func start_interaction() -> void:
 	interaction.start(Global.current_level.player) # TODO: WHICH CHARACTER?!?!?!
 
-func _ready() -> void:
+func _update_interaction_signals():
+	if not interaction: return
+
+	if interaction.started.is_connected(_on_interaction_started):
+		interaction.started.disconnect(_on_interaction_started)
+
+	if interaction.stepped.is_connected(_on_interaction_stepped):
+		interaction.stepped.disconnect(_on_interaction_stepped)
+
+	if interaction.finished.is_connected(_on_interaction_finished):
+		interaction.finished.disconnect(_on_interaction_finished)
+
+	if interaction.updated.is_connected(_on_interaction_updated):
+		interaction.updated.disconnect(_on_interaction_updated)
+
 	interaction.started.connect(_on_interaction_started)
 	interaction.stepped.connect(_on_interaction_stepped)
 	interaction.finished.connect(_on_interaction_finished)
 	interaction.updated.connect(_on_interaction_updated)
+
+func _ready() -> void:
+	_update_interaction_signals()
 
 func _exit_tree() -> void:
 	interaction.started.disconnect(_on_interaction_started)

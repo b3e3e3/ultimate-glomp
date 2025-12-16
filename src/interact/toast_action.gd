@@ -5,3 +5,4 @@ class_name ToastAction extends GameAction
 
 func on_start(_character: Character = null) -> void:
 	Global.create_toast(message)
+	finish()

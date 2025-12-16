@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="FlagGuardAction" load_steps=7 format=3 uid="uid://dt62ntwjjv5k1"]
+
+[ext_resource type="Script" uid="uid://dhq011spo65jl" path="res://interact/flag_guard_action.gd" id="1_ek1re"]
+[ext_resource type="Script" uid="uid://bavqpqa1tu0om" path="res://interact/toast_action.gd" id="3_yuvy2"]
+[ext_resource type="Script" uid="uid://bgfufrv5qnx68" path="res://interact/wait_for_signal_action.gd" id="4_l3q60"]
+
+[sub_resource type="Resource" id="Resource_w3w4q"]
+script = ExtResource("3_yuvy2")
+message = "This door is locked."
+metadata/_custom_type_script = "uid://bavqpqa1tu0om"
+
+[sub_resource type="Resource" id="Resource_skrq5"]
+script = ExtResource("3_yuvy2")
+message = "Door unlocked!"
+metadata/_custom_type_script = "uid://bavqpqa1tu0om"
+
+[sub_resource type="Resource" id="Resource_5v2g1"]
+script = ExtResource("4_l3q60")
+signal_to_await = &"finished"
+timeout = 2.0
+on_signal = SubResource("Resource_skrq5")
+metadata/_custom_type_script = "uid://bgfufrv5qnx68"
+
+[resource]
+script = ExtResource("1_ek1re")
+level_flags = Dictionary[StringName, bool]({
+&"enemies cleared 1": true
+})
+on_success = SubResource("Resource_5v2g1")
+on_failure = SubResource("Resource_w3w4q")
+one_shot = true
+metadata/_custom_type_script = "uid://dhq011spo65jl"

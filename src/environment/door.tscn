@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://bmxc2k266lx7v"]
+[gd_scene load_steps=16 format=3 uid="uid://bmxc2k266lx7v"]
 
 [ext_resource type="Material" uid="uid://c8it57lopwtlv" path="res://trenchbroom/textures/Wood_07-256x256.tres" id="1_05hnu"]
 [ext_resource type="Script" uid="uid://dftsmffs0nvs5" path="res://environment/door.gd" id="1_are4n"]
 [ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="2_jehm5"]
-[ext_resource type="Resource" uid="uid://ds6i7071qtehr" path="res://interact/interactions/door1.tres" id="3_mubsm"]
 [ext_resource type="Script" uid="uid://bibv4usl2j5gl" path="res://environment/camera_focus_area.gd" id="8_6xqf3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_are4n"]
@@ -97,7 +96,6 @@ script = ExtResource("1_are4n")
 collision_layer = 32
 collision_mask = 32
 script = ExtResource("2_jehm5")
-interaction = ExtResource("3_mubsm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionTriggerArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 1, 0)
@@ -177,4 +175,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.060920894, 0, 0)
 shape = SubResource("BoxShape3D_6xqf3")
 
 [connection signal="finished" from="InteractionTriggerArea" to="CameraFocusArea" method="_on_interact_area_finished"]
-[connection signal="started" from="InteractionTriggerArea" to="." method="open" unbinds=1]
+[connection signal="started" from="InteractionTriggerArea" to="." method="_on_interaction_trigger_area_started"]

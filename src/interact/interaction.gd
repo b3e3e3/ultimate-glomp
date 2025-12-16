@@ -18,8 +18,8 @@ func start(_character: Character = null) -> void:
 
 	current_character = _character
 
-	on_start(_character)
 	started.emit()
+	on_start(_character)
 
 	_start_count += 1
 

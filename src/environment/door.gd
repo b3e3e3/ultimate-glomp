@@ -47,3 +47,7 @@ func close() -> void:
 
 func toggle_open() -> void:
 	call(&"open" if state == DoorState.CLOSED else &"close")
+
+
+func _on_interaction_trigger_area_started(_interaction: GameAction) -> void:
+	open()

@@ -14,15 +14,17 @@ func initialize(owner: Node3D):
 func start(character: Character = null) -> void:
 	if is_successful():
 		if on_success:
+			print("Success!")
 			on_success.start(current_character)
 
-		success.emit()
 		super.start(character)
+		success.emit()
 	else:
 		if on_failure:
+			print("Failed.")
 			on_failure.start(current_character)
 
-		failure.emit()
 		finish(false)
+		failure.emit()
 
 func is_successful() -> bool: return true

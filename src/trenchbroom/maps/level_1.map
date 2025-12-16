@@ -782,3 +782,10 @@
 "origin" "0 56 48"
 "angle" "0"
 }
+// entity 36
+{
+"classname" "struct_door"
+"origin" "-24 904 224"
+"angle" "270"
+"interaction_name" "door2"
+}
