@@ -7,7 +7,7 @@ func is_successful() -> bool:
 	var inventory := Global.current_level.player.item_inventory
 
 	for item in items:
-		if not inventory.items.has(item):
+		if not inventory.has_item_resource(item):
 			return false
 
 	return true

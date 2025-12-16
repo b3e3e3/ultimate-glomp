@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=4 format=3 uid="uid://cx3r6vgrkq17v"]
 
-[ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/item_object.tscn" id="1_4dkj1"]
+[ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/src/item_object.tscn" id="1_4dkj1"]
 [ext_resource type="Script" uid="uid://cxsqwtsqd8w33" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="2_tfxvt"]
-[ext_resource type="Script" uid="uid://cfuyelbqhwm4x" path="res://items/item_object.gd" id="3_5kpkk"]
+[ext_resource type="Script" uid="uid://cfuyelbqhwm4x" path="res://items/src/item_object.gd" id="3_5kpkk"]
 
 [resource]
 script = ExtResource("2_tfxvt")
