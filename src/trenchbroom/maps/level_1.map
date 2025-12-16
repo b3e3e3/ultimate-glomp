@@ -795,6 +795,6 @@
 {
 "classname" "struct_door"
 "origin" "-24 904 224"
-"angle" "270"
+"angle" "90"
 "interaction_name" "door2"
 }
