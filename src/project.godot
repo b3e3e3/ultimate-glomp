@@ -25,6 +25,21 @@ LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg", "res://addons/limbo_console/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "red",
+"res://character/": "blue",
+"res://environment/": "green",
+"res://equipment/": "yellow",
+"res://fonts/": "orange",
+"res://interact/": "pink",
+"res://items/": "teal",
+"res://states/": "gray",
+"res://trenchbroom/": "red",
+"res://ui/": "orange"
+}
+
 [filesystem]
 
 import/blender/enabled=false

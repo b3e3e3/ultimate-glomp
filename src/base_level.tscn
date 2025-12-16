@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://rgkemxecrobb" path="res://environment/wall.gd" id="5_bkkah"]
 [ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_i6nmd"]
 [ext_resource type="Script" uid="uid://caf52joneadwj" path="res://environment/platform.gd" id="5_u2wky"]
-[ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/item_object.tscn" id="6_xjg0i"]
+[ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/src/item_object.tscn" id="6_xjg0i"]
 [ext_resource type="Texture2D" uid="uid://cyg2snr1w5xw5" path="res://addons/func_godot/textures/default_texture.png" id="7_3fo8u"]
 [ext_resource type="Material" uid="uid://cucgturg2s4le" path="res://trenchbroom/textures/Photoreal_Stone_04-512x512.tres" id="7_bkkah"]
 [ext_resource type="Material" uid="uid://c8it57lopwtlv" path="res://trenchbroom/textures/Wood_07-256x256.tres" id="7_fxpm7"]
@@ -25,8 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="19_87xd1"]
 [ext_resource type="Material" uid="uid://bs4nvp4ln62og" path="res://trenchbroom/textures/7VIBDAV0.tres" id="20_lxby7"]
 [ext_resource type="Script" uid="uid://ciknw8yni1yp3" path="res://enemy_count_area.gd" id="23_kkae7"]
-[ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="24_cofcm"]
-[ext_resource type="Script" uid="uid://rxgcaogdwe7e" path="res://interact/set_flags_action.gd" id="26_3fo8u"]
+[ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/src/interaction_trigger.gd" id="24_cofcm"]
+[ext_resource type="Script" uid="uid://rxgcaogdwe7e" path="res://interact/src/set_flags_action.gd" id="26_3fo8u"]
 
 [sub_resource type="Resource" id="Resource_uwsf7"]
 script = ExtResource("2_3fo8u")
@@ -507,7 +507,6 @@ shape = SubResource("ConcavePolygonShape3D_0fmsj")
 
 [node name="entity_3_env_wall" type="StaticBody3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.968744, 2.3125, 0)
-collision_layer = 17
 script = ExtResource("5_bkkah")
 is_climbable = false
 metadata/func_godot_mesh_data = {
@@ -565,7 +564,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7.31
 
 [node name="entity_8_env_wall" type="StaticBody3D" parent="FuncGodotMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.29454, 5.3675222, 0)
-collision_layer = 17
 script = ExtResource("5_bkkah")
 is_climbable = false
 metadata/func_godot_mesh_data = {
@@ -585,6 +583,7 @@ shape = SubResource("ConcavePolygonShape3D_uab2u")
 
 [node name="entity_9_spawn_item" parent="FuncGodotMap" instance=ExtResource("6_xjg0i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.625, 4, 0)
+collision_layer = 2
 resource = ExtResource("12_i6nmd")
 
 [node name="entity_10_env_wall" type="StaticBody3D" parent="FuncGodotMap"]

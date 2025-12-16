@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://c8it57lopwtlv" path="res://trenchbroom/textures/Wood_07-256x256.tres" id="1_05hnu"]
 [ext_resource type="Script" uid="uid://dftsmffs0nvs5" path="res://environment/door.gd" id="1_are4n"]
-[ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="2_jehm5"]
+[ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/src/interaction_trigger.gd" id="2_jehm5"]
 [ext_resource type="Script" uid="uid://bibv4usl2j5gl" path="res://environment/camera_focus_area.gd" id="8_6xqf3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_are4n"]

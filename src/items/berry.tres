@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://ywusm5o2vksf"]
 
-[ext_resource type="Script" uid="uid://cs8r76v542cvh" path="res://items/item_resource.gd" id="1_pu6kj"]
-[ext_resource type="Script" uid="uid://bae1hwx4irog3" path="res://interact/stat_change_action.gd" id="1_tv1d7"]
-[ext_resource type="Texture2D" uid="uid://frrmanqrsgdx" path="res://items/IconSet.png" id="2_n0tcq"]
+[ext_resource type="Script" uid="uid://bae1hwx4irog3" path="res://interact/src/stat_change_action.gd" id="1_tv1d7"]
+[ext_resource type="Texture2D" uid="uid://frrmanqrsgdx" path="res://items/tex/IconSet.png" id="2_tv1d7"]
+[ext_resource type="Script" uid="uid://cs8r76v542cvh" path="res://items/src/item_resource.gd" id="3_tv1d7"]
 
 [sub_resource type="Resource" id="Resource_n0tcq"]
 script = ExtResource("1_tv1d7")
@@ -12,11 +12,11 @@ adds = Dictionary[StringName, Variant]({
 metadata/_custom_type_script = "uid://bae1hwx4irog3"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tv1d7"]
-atlas = ExtResource("2_n0tcq")
+atlas = ExtResource("2_tv1d7")
 region = Rect2(448, 512, 32, 32)
 
 [resource]
-script = ExtResource("1_pu6kj")
+script = ExtResource("3_tv1d7")
 glompable = false
 pickup_on_touch = true
 use_on_pickup = true

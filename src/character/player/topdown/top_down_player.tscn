@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://d0kjjdsnvw5xd" path="res://character/player/topdown/state/idle.gd" id="3_jl2s0"]
 [ext_resource type="Script" uid="uid://1ull3e63npou" path="res://character/player/topdown/state/moving.gd" id="4_jl2s0"]
 [ext_resource type="Script" uid="uid://b8bde5re80571" path="res://character/player/state/interacting.gd" id="5_nt0ue"]
-[ext_resource type="Script" uid="uid://qr7l074g6ha3" path="res://interact/interact_area.gd" id="6_nt0ue"]
+[ext_resource type="Script" uid="uid://qr7l074g6ha3" path="res://interact/src/interact_area.gd" id="6_nt0ue"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2bod6"]
 load_path = "res://.godot/imported/Untitled.png-30da513a925d9064453decddf41ecbd4.s3tc.ctex"

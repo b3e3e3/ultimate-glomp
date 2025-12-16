@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="FlagGuardAction" load_steps=7 format=3 uid="uid://dt62ntwjjv5k1"]
 
-[ext_resource type="Script" uid="uid://dhq011spo65jl" path="res://interact/flag_guard_action.gd" id="1_ek1re"]
-[ext_resource type="Script" uid="uid://bavqpqa1tu0om" path="res://interact/toast_action.gd" id="3_yuvy2"]
-[ext_resource type="Script" uid="uid://bgfufrv5qnx68" path="res://interact/wait_for_signal_action.gd" id="4_l3q60"]
+[ext_resource type="Script" uid="uid://dhq011spo65jl" path="res://interact/src/guard/flag_guard_action.gd" id="1_ek1re"]
+[ext_resource type="Script" uid="uid://bavqpqa1tu0om" path="res://interact/src/toast_action.gd" id="3_yuvy2"]
+[ext_resource type="Script" uid="uid://bgfufrv5qnx68" path="res://interact/src/utility/wait_for_signal_action.gd" id="4_l3q60"]
 
 [sub_resource type="Resource" id="Resource_w3w4q"]
 script = ExtResource("3_yuvy2")

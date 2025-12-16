@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://qhbkquiln6bf" path="res://addons/kenney_particle_pack/smoke_06.png" id="18_q13i1"]
 [ext_resource type="Script" uid="uid://b8bde5re80571" path="res://character/player/state/interacting.gd" id="20_7ahtn"]
 [ext_resource type="Script" uid="uid://c3uvgyfciagb1" path="res://character/player/state/ledge_grab.gd" id="22_jm5j8"]
-[ext_resource type="Script" uid="uid://qr7l074g6ha3" path="res://interact/interact_area.gd" id="23_7lmhl"]
+[ext_resource type="Script" uid="uid://qr7l074g6ha3" path="res://interact/src/interact_area.gd" id="23_7lmhl"]
 
 [sub_resource type="Resource" id="Resource_7ahtn"]
 script = ExtResource("4_5tmop")

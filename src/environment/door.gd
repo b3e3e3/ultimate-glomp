@@ -8,7 +8,7 @@ enum DoorState {
 }
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var interaction: GameAction = load("res://interact/interactions/" + interaction_name + ".tres")
+@onready var interaction: GameAction = load("res://interact/" + interaction_name + ".tres")
 
 @export var interaction_name: String = "default"
 @export var state: DoorState = DoorState.CLOSED

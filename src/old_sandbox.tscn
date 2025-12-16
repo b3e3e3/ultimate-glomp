@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://b62ryo7j2npl1" path="res://environment/wall.tscn" id="3_bcj43"]
 [ext_resource type="PackedScene" uid="uid://dr4ihbcr24q34" path="res://character/enemy/enemy.tscn" id="4_rvmsc"]
 [ext_resource type="Script" uid="uid://g5u0h5mi4tm8" path="res://player_camera.gd" id="5_rjrbw"]
-[ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/interaction_trigger.gd" id="6_44b12"]
-[ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/test_msg_action.gd" id="7_0fpt2"]
-[ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/item_object.tscn" id="8_78e30"]
+[ext_resource type="Script" uid="uid://djwj7b2cn65ud" path="res://interact/src/interaction_trigger.gd" id="6_44b12"]
+[ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/src/test_msg_action.gd" id="7_0fpt2"]
+[ext_resource type="PackedScene" uid="uid://yx2r1xmguupe" path="res://items/src/item_object.tscn" id="8_78e30"]
 [ext_resource type="Resource" uid="uid://ywusm5o2vksf" path="res://items/berry.tres" id="9_igx0j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rvmsc"]
