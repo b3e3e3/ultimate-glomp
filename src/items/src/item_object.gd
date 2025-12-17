@@ -16,6 +16,7 @@ func _init(item_resource: ItemResource = null):
 	initialize(item_resource)
 
 func _func_godot_apply_properties(entity_properties: Dictionary):
+	print("Loading item %s" % entity_properties["item_name"])
 	initialize(load("res://items/" + entity_properties["item_name"] + ".tres"))
 
 func initialize(item_resource: ItemResource = null):
@@ -23,7 +24,8 @@ func initialize(item_resource: ItemResource = null):
 		resource = item_resource
 		sprite.texture = resource.icon_texture
 
-func _ready() -> void:
+# func _ready() -> void:
+func _func_godot_build_complete() -> void:
 	if not Engine.is_editor_hint():
 		sprite.texture = resource.icon_texture
 

@@ -91,6 +91,7 @@ size = Vector3(0.45385742, 1, 1.24)
 
 [node name="Door" type="Node3D"]
 script = ExtResource("1_are4n")
+interaction_name = "defaultd"
 
 [node name="InteractionTriggerArea" type="Area3D" parent="."]
 collision_layer = 32

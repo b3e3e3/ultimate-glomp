@@ -93,3 +93,6 @@ func check_for_ledge_grab() -> bool:
 	var area: Area3D = player.ledge_grab_area
 	return character.is_on_wall() and area.has_overlapping_areas()
 	# return player.ledge_detector.is_on_ledge and character.is_on_wall()
+
+func check_for_enter_portal() -> bool:
+	return controller.get_vertical_input() > 0

@@ -130,6 +130,7 @@ limbo_console_search_history={
 3d_physics/layer_8="ledge"
 3d_physics/layer_9="camera"
 3d_physics/layer_10="item"
+3d_physics/layer_11="portal"
 
 [rendering]
 

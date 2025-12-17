@@ -44,6 +44,8 @@ func _ready() -> void:
 	_update_interaction_signals()
 
 func _exit_tree() -> void:
+	if not interaction: return
+
 	interaction.started.disconnect(_on_interaction_started)
 	interaction.stepped.disconnect(_on_interaction_stepped)
 	interaction.finished.disconnect(_on_interaction_finished)

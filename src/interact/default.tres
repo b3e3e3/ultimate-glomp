@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="MessageInteraction" load_steps=3 format=3 uid="uid://ccggc0533jaim"]
+[gd_resource type="Resource" script_class="MessageAction" load_steps=2 format=3 uid="uid://ccggc0533jaim"]
 
-[ext_resource type="Script" uid="uid://cs8r76v542cvh" path="res://items/src/item_resource.gd" id="1_bi2b6"]
-[ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/src/test_msg_action.gd" id="2_xjeo6"]
+[ext_resource type="Script" uid="uid://bp75ylxcq7yed" path="res://interact/src/test_msg_action.gd" id="1_oi5uk"]
 
 [resource]
-script = ExtResource("2_xjeo6")
+script = ExtResource("1_oi5uk")
 messages = Array[String](["Welcome to glomp city fool...", "Default interaction."])
 metadata/_custom_type_script = "uid://bp75ylxcq7yed"

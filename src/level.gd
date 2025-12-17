@@ -25,16 +25,29 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	var start_point := get_node(^"FuncGodotMap/SPAWN_PLAYER")
-
-	if start_point:
-		player.position = start_point.position
-		player.rotation = start_point.rotation
+	_connect_map_signals()
 
 	hud_canvas.name = &"HUDCanvasLayer"
 	add_child(hud_canvas)
 
 
-func _on_func_godot_map_build_complete() -> void:
-	pass # var map := $FuncGodotMap as FuncGodotMap
-	# for child in map.get_children():
+func _on_func_godot_map_build_complete(map: FuncGodotMap) -> void:
+	var start_point := map.get_node(^"SPAWN_PLAYER")
+
+	player.global_position = start_point.global_position
+	player.global_rotation = start_point.global_rotation
+
+func _connect_map_signals(map: FuncGodotMap = $FuncGodotMap):
+	map.build_complete.connect(_on_func_godot_map_build_complete.bind(map))
+
+func load_map(path: String):
+	$FuncGodotMap.queue_free()
+
+	var map := preload("res://default_map.tscn").instantiate() as FuncGodotMap
+	map.local_map_file = path
+
+	add_child(map)
+	map.name = "FuncGodotMap"
+
+	_connect_map_signals(map)
+	map.build()

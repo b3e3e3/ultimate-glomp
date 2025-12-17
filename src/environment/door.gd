@@ -8,11 +8,10 @@ enum DoorState {
 }
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var interaction: GameAction = load("res://interact/" + interaction_name + ".tres")
+var interaction: GameAction
 
 @export var interaction_name: String = "default"
 @export var state: DoorState = DoorState.CLOSED
-
 
 func _ready() -> void:
 	match state:
@@ -26,8 +25,10 @@ func _ready() -> void:
 	)
 	anim_player.advance(anim_player.current_animation_length) # advance not seek so anim finished signal fires
 
-	if interaction:
-		$InteractionTriggerArea.interaction = interaction
+	interaction = load("res://interact/" + interaction_name + ".tres")
+
+	assert(interaction)
+	$InteractionTriggerArea.interaction = interaction
 
 func open() -> void:
 	if state == DoorState.OPEN:
