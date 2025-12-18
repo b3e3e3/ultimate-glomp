@@ -599,7 +599,6 @@ shape = SubResource("ConcavePolygonShape3D_jwmom")
 
 [node name="entity_9_spawn_item" parent="FuncGodotMap" instance=ExtResource("6_xjg0i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.625, 4, 0)
-collision_layer = 2
 resource = ExtResource("12_i6nmd")
 
 [node name="entity_10_env_wall" type="StaticBody3D" parent="FuncGodotMap"]
@@ -742,7 +741,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.875, 0.75, 0)
 resource = ExtResource("16_n4s56")
 
 [node name="entity_29_struct_door" parent="FuncGodotMap" instance=ExtResource("16_lbjvu")]
-transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 14.125, 3.5, -0.375)
+transform = Transform3D(1.3907092e-07, 0, 1, 0, 1, 0, -1, 0, 1.3907092e-07, 14.125, 3.5, -0.375)
 interaction_name = "door2"
 
 [node name="Camera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]

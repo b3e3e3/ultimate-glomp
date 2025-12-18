@@ -8,11 +8,10 @@ signal thrown(by: Character)
 @onready var sprite: Sprite3D = $Sprite3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
-@export var resource: ItemResource
+@export var resource: ItemResource = null
 
 
-
-func _init(item_resource: ItemResource = null):
+func _init(item_resource: ItemResource = resource):
 	initialize(item_resource)
 
 func _func_godot_apply_properties(entity_properties: Dictionary):
@@ -24,13 +23,13 @@ func initialize(item_resource: ItemResource = null):
 		resource = item_resource
 		sprite.texture = resource.icon_texture
 
-# func _ready() -> void:
-func _func_godot_build_complete() -> void:
-	if not Engine.is_editor_hint():
-		sprite.texture = resource.icon_texture
+func _ready() -> void:
+	if resource:
+		if not Engine.is_editor_hint():
+			sprite.texture = resource.icon_texture
 
-	if resource.glompable:
-		set_collision_layer_value(2, true)
+		if resource.glompable:
+			set_collision_layer_value(2, true)
 	# sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	# add_child(sprite)
 

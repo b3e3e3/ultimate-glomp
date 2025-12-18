@@ -39,7 +39,7 @@ func on_start(_character: Character = null):
 
 	if not complete:
 		print("Wait for signal interaction timed out.")
-		owner.disconnect(signal_to_await, f)
+		if owner: owner.disconnect(signal_to_await, f)
 		finish(false)
 
 func on_finish(_success: bool) -> void:

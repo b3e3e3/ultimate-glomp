@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 
 signal finished
@@ -25,6 +26,7 @@ func _ready() -> void:
 	)
 	anim_player.advance(anim_player.current_animation_length) # advance not seek so anim finished signal fires
 
+# func _func_godot_apply_properties(properties: Dictionary) -> void:
 	interaction = load("res://interact/" + interaction_name + ".tres")
 
 	assert(interaction)
