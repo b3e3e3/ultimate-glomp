@@ -23,7 +23,7 @@ LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/func_godot/plugin.cfg", "res://addons/limbo_console/plugin.cfg")
+enabled=PackedStringArray("res://addons/func_godot/plugin.cfg", "res://addons/func_godot_scene_import/plugin.cfg", "res://addons/limbo_console/plugin.cfg")
 
 [file_customization]
 

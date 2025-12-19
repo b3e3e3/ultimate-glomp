@@ -1,14 +1,42 @@
 [remap]
 
-importer="func_godot.map"
-type="Resource"
+importer="scene"
+importer_version=1
+type="PackedScene"
 uid="uid://dtgfxscwhuths"
-path="res://.godot/imported/sandbox.map-d27a40d5dfbc41df8897d8fa0c49482d.tres"
+path="res://.godot/imported/sandbox.map-d27a40d5dfbc41df8897d8fa0c49482d.scn"
 
 [deps]
 
 source_file="res://trenchbroom/maps/sandbox.map"
-dest_files=["res://.godot/imported/sandbox.map-d27a40d5dfbc41df8897d8fa0c49482d.tres"]
+dest_files=["res://.godot/imported/sandbox.map-d27a40d5dfbc41df8897d8fa0c49482d.scn"]
 
 [params]
 
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={}
+map_settings=Resource("uid://cekfl7kq3tyho", "res://trenchbroom/GlompDev_settings.tres")
+build_flags=0

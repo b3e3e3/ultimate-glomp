@@ -29,6 +29,3 @@ func create_message_box(position: Vector2, box_scene: PackedScene = message_box_
 func pos2screen(position: Vector3) -> Vector2:
 	var cam := get_viewport().get_camera_3d()
 	return cam.unproject_position(position)
-
-func load_map(_path: String):
-	push_error("Load map not implemented")
