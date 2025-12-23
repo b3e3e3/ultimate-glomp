@@ -32,6 +32,7 @@ func _on_interaction_started(_interaction: GameAction):
 	pass
 
 func _on_interaction_finished(_interaction: GameAction):
+	print("FINASH")
 	goto(idle_state)
 
 func _on_interaction_stepped(_interaction: GameAction):

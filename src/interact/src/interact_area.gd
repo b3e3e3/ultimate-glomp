@@ -36,10 +36,8 @@ func find_and_start_interaction() -> void:
 
 	for a in areas:
 		if a.has_method(&"get_interaction"):
-			# current_interaction = a.interact(self)
 			current_interaction = a.get_interaction()
-			current_interaction.initialize(a)
-			current_interaction.start(owner)
+			current_interaction.start(owner, a.get_parent())
 			break
 
 

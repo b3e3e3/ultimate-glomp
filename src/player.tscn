@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://c1wv0ies7lixs"]
+[gd_scene load_steps=42 format=3 uid="uid://c1wv0ies7lixs"]
 
 [ext_resource type="Script" uid="uid://bt0fbp0l6xn61" path="res://character/player/player.gd" id="1_1jxqw"]
 [ext_resource type="Script" uid="uid://bkq11pbfu554k" path="res://equipment/equipment.gd" id="2_5tmop"]
@@ -120,6 +120,70 @@ size = Vector2(0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dx0e4"]
 size = Vector3(0.258, 0.72, 1.28)
+
+[sub_resource type="Animation" id="Animation_jm5j8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/SubViewport/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/SubViewport/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_7hik5"]
+resource_name = "default"
+
+[sub_resource type="Animation" id="Animation_dx0e4"]
+resource_name = "enter_door"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/SubViewport/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0.7, 0.7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Sprite/SubViewport/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.033333335, 0.26666668, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(32, 32), Vector2(32, 32), Vector2(32, 45)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7hik5"]
+_data = {
+&"RESET": SubResource("Animation_jm5j8"),
+&"default": SubResource("Animation_7hik5"),
+&"enter_door": SubResource("Animation_dx0e4")
+}
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 4
@@ -283,6 +347,11 @@ debug_fill = false
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7hik5")
+}
 
 [connection signal="glomped" from="." to="StateMachine/Idle" method="_on_player_glomped"]
 [connection signal="jumped" from="." to="Sprite" method="_on_player_jumped"]

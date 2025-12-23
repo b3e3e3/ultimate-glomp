@@ -27,9 +27,10 @@ func _ready() -> void:
 	anim_player.advance(anim_player.current_animation_length) # advance not seek so anim finished signal fires
 
 # func _func_godot_apply_properties(properties: Dictionary) -> void:
-	interaction = load("res://interact/" + interaction_name + ".tres")
+	var paff := "res://interact/" + interaction_name + ".tres"
+	interaction = load(paff)
 
-	assert(interaction)
+	assert(interaction, "Interaction %s not found. Does it exist? Full path: %s" % [interaction_name + ".tres", paff])
 	$InteractionTriggerArea.interaction = interaction
 
 func open() -> void:
@@ -50,7 +51,3 @@ func close() -> void:
 
 func toggle_open() -> void:
 	call(&"open" if state == DoorState.CLOSED else &"close")
-
-
-func _on_interaction_trigger_area_started(_interaction: GameAction) -> void:
-	open()

@@ -11,15 +11,15 @@ var _start_count: int = 0
 
 var current_character: Character = null
 
-func start(_character: Character = null) -> void:
+func start(character: Character, _owner: Node) -> void:
 	if one_shot and _start_count > 0:
 		finish(false)
 		return
 
-	current_character = _character
+	current_character = character
 
 	started.emit()
-	on_start(_character)
+	on_start(character, _owner)
 
 	_start_count += 1
 
@@ -36,9 +36,9 @@ func finish(success: bool = true) -> void:
 	finished.emit(success)
 
 
-func on_start(_character: Character = null) -> void: step()
+func on_start(_character: Character, _owner: Node) -> void: step()
 func on_step() -> void: finish()
 func on_update(_delta: float) -> void: pass
 func on_finish(_success: bool) -> void: pass
 
-func initialize(_owner: Node3D): pass
+# func initialize(_owner: Node3D): pass

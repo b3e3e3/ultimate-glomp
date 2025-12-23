@@ -4,7 +4,7 @@ class_name SetFlagsAction extends GameAction
 @export var level_flags_to_set: Dictionary[StringName, bool] = {}
 
 
-func on_start(_character: Character = null) -> void:
+func on_start(_character: Character, _owner: Node) -> void:
 	for k in global_flags_to_set:
 		Global.Flags.set_flag(k, global_flags_to_set[k])
 	for k in level_flags_to_set:

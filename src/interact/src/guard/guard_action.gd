@@ -6,25 +6,34 @@ signal failure
 @export var on_success: GameAction
 @export var on_failure: GameAction
 
+var _was_successful: bool = false
 
-func initialize(owner: Node3D):
-	on_success.initialize(owner)
-	on_failure.initialize(owner)
+# func initialize(owner: Node3D):
+# 	on_success.initialize(owner)
+# 	on_failure.initialize(owner)
 
-func start(character: Character = null) -> void:
+func on_start(character: Character, owner: Node) -> void:
 	if is_successful():
 		if on_success:
 			print("Success!")
-			on_success.start(current_character)
+			_was_successful = true
+			on_success.finished.connect(_on_action_finished)
+			on_success.start(character, owner)
 
-		super.start(character)
+		# super.start(character, owner)
 		success.emit()
 	else:
 		if on_failure:
 			print("Failed.")
-			on_failure.start(current_character)
+			_was_successful = false
+			on_failure.finished.connect(_on_action_finished)
+			on_failure.start(character, owner)
 
-		finish(false)
 		failure.emit()
 
+func _on_action_finished(_success: bool):
+	finish(_was_successful)
+
 func is_successful() -> bool: return true
+
+func on_step() -> void: pass

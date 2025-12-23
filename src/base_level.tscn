@@ -38,11 +38,9 @@ level_flags_to_set = Dictionary[StringName, bool]({
 })
 metadata/_custom_type_script = "uid://rxgcaogdwe7e"
 
-[node name="Level" type="Node3D" node_paths=PackedStringArray("player", "player_controller")]
+[node name="Level" type="Node3D"]
 script = ExtResource("1_xjg0i")
 default_map = ExtResource("2_bkkah")
-player = NodePath("Player")
-player_controller = NodePath("PlayerController")
 Flags = SubResource("Resource_uwsf7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

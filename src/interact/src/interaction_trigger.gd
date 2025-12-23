@@ -18,7 +18,7 @@ func get_interaction() -> GameAction:
 	return interaction
 
 func start_interaction() -> void:
-	interaction.start(Global.current_level.player) # TODO: WHICH CHARACTER?!?!?!
+	interaction.start(Global.current_level.player, owner) # TODO: WHICH CHARACTER?!?!?!
 
 func _update_interaction_signals():
 	if not interaction: return

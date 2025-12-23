@@ -6,7 +6,7 @@ class_name StatChangeGameAction extends GameAction
 
 
 # func execute(character: Character = null):
-func on_start(character: Character = null) -> void:
+func on_start(character: Character, _owner: Node) -> void:
 	for a in adds:
 		print("Giving %s some %s" % [character, a])
 

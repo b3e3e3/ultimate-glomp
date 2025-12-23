@@ -42,6 +42,7 @@ var direction: Vector3:
 @onready var equip_inventory: EquipInventory = $EquipInventory
 @onready var item_inventory: ItemInventory = $ItemInventory
 @onready var floor_cast: RayCast3D = $FloorCast as RayCast3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 # hooks

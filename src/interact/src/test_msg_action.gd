@@ -13,13 +13,15 @@ var msg_idx: int = 0
 var box: MessageBox
 
 
-func on_start(_character: Character = null) -> void:
+func on_start(character: Character, _owner: Node) -> void:
+	box = Global.create_message_box(Global.pos2screen(character.global_position))
+
 	msg_idx = -1
 
 	next_message()
 
-func initialize(owner: Node3D):
-	box = Global.create_message_box(Global.pos2screen(owner.global_position))
+# func initialize(owner: Node3D):
+	# box = Global.create_message_box(Global.pos2screen(owner.global_position))
 
 func next_message() -> void:
 	if not messages.is_empty():
