@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4ajhsl5ty78j"]
+
+[ext_resource type="PackedScene" uid="uid://c3cel231jmsnx" path="res://base_level.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://d0pqqivti3nh8" path="res://game.gd" id="1_e2o6t"]
+[ext_resource type="Theme" uid="uid://dq4nntds66bix" path="res://addons/limbo_console/res/default_theme.tres" id="3_fc0e3"]
+[ext_resource type="Script" uid="uid://beukpohsbxde5" path="res://inventory_ui.gd" id="4_fc0e3"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_e2o6t")
+
+[node name="Level" parent="." instance=ExtResource("1_80nbo")]
+
+[node name="InventoryUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_fc0e3")
+script = ExtResource("4_fc0e3")
+
+[node name="TabContainer" type="TabContainer" parent="InventoryUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Item" type="MarginContainer" parent="InventoryUI/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ItemList" type="ItemList" parent="InventoryUI/TabContainer/Item"]
+layout_mode = 2
+allow_reselect = true
+max_columns = 2
+same_column_width = true
+fixed_column_width = 512
+
+[node name="Event" type="MarginContainer" parent="InventoryUI/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Status" type="MarginContainer" parent="InventoryUI/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[connection signal="glomped" from="Level/Player" to="Level/Player/StateMachine/Idle" method="_on_player_glomped"]
+[connection signal="jumped" from="Level/Player" to="Level/Player/Sprite" method="_on_player_jumped"]
+[connection signal="item_selected" from="InventoryUI/TabContainer/Item/ItemList" to="InventoryUI" method="_on_item_list_item_selected"]
+
+[editable path="Level"]

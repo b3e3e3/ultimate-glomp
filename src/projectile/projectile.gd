@@ -54,7 +54,6 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.has_method(&"get_hit"):
 		body.get_hit(self)
-	print("AKJHGKDJFHG")
 
 	if hitting_particles:
 		var particles = hitting_particles.instantiate()

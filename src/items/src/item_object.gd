@@ -65,11 +65,18 @@ func _on_pickup_area_body_entered(body: Node3D) -> void:
 
 func use(character: Character) -> void:
 	print(resource.consume_on_use)
-	if not resource.action: return
-	resource.action.start(character, self)
-	if resource.consume_on_use:
-		print("Consuming item")
-		queue_free()
+
+	if not resource.can_use():
+		Global.create_toast("Cannot use this item.")
+		return
+
+	resource.use_action.finished.connect(func(success: bool):
+		if success and resource.consume_on_use:
+			print("Consuming item")
+			queue_free()
+	, CONNECT_ONE_SHOT)
+
+	resource.use_action.start(character, self)
 
 func pick_up(character: Character) -> void:
 	print("ASJKNSDFKJKFJGN")

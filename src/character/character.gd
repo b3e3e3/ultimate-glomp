@@ -1,3 +1,4 @@
+@tool
 class_name Character
 extends CharacterBody3D
 
@@ -9,17 +10,20 @@ signal attack_finished
 signal glomped(body: PhysicsBody3D)
 signal unglomped(body: PhysicsBody3D)
 
-@export var ACCEL_SPEED: float = 3.0
-@export var ACCEL_SPEED_AIR: float =  3.0
+@export var stats: Stats = Stats.new()
+# @export var hp: int = 100
 
-@export var DECEL_SPEED: float = 8.0
-@export var DECEL_SPEED_AIR: float = 0.03
+# @export var ACCEL_SPEED: float = 3.0
+# @export var ACCEL_SPEED_AIR: float =  3.0
 
-@export var SPEED: float = 2.0
-@export var SPEED_AIR: float = 2.0
+# @export var DECEL_SPEED: float = 8.0
+# @export var DECEL_SPEED_AIR: float = 0.03
 
-@export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
-@export var WALL_SLIDE_SPEED: float = 1.0
+# @export var SPEED: float = 2.0
+# @export var SPEED_AIR: float = 2.0
+
+# @export var JUMP_VELOCITY: Vector3 = Vector3(0, 4.0, 0)
+# @export var WALL_SLIDE_SPEED: float = 1.0
 
 @export var gravity_enabled: bool = true
 @export var move_enabled: bool = true
@@ -98,7 +102,7 @@ func move_multi(dir: Vector2, speed: float = get_speed(), accel: float = get_acc
 
 	velocity = velocity.move_toward(target, delta)
 
-func jump(force: Vector3 = JUMP_VELOCITY) -> void:
+func jump(force: Vector3 = get_jump_force()) -> void:
 	print("Jumping with force: ", force)
 
 	if remaining_jumps > 0:
@@ -119,13 +123,20 @@ func is_moving() -> bool:
 
 
 # stats
-func get_stat_with_buffs(key: StringName, value: Variant):
-	var val = value
+func set_stat(key: StringName, value: Variant):
+	if get(key) != value:
+		set(key, value) # TODO: this is dangerous!! dont just let us set ANY property as a stat lmfao
+
+func get_stat_with_buffs(key: StringName, value: Variant = null):
+	var val = value if value else stats.values[key]
 
 	val += $EquipInventory.get_all_adds(key)
 	val *= $EquipInventory.get_all_multipliers(key)
 
 	return val
+
+func get_hp() -> int:
+	return get_stat_with_buffs(&"hp")
 
 func get_jumps_after_climbing() -> int:
 	var _jumps := 0
@@ -135,38 +146,32 @@ func get_jumps_after_climbing() -> int:
 	return _jumps
 
 func get_speed() -> float:
-	return _get_air_variant_stat(&"speed", &"air_speed", SPEED, SPEED_AIR)
+	return _get_air_variant_stat(&"speed", &"air_speed")
 
 func get_decel_speed() -> float:
-	return _get_air_variant_stat(&"decel_speed", &"air_decel_speed", DECEL_SPEED, DECEL_SPEED_AIR)
+	return _get_air_variant_stat(&"decel_speed", &"air_decel_speed")
 
 func get_accel_speed() -> float:
-	return _get_air_variant_stat(&"accel_speed", &"air_accel_speed", ACCEL_SPEED, ACCEL_SPEED_AIR)
+	return _get_air_variant_stat(&"accel_speed", &"air_accel_speed")
 
 func get_jump_force() -> Vector3:
-	var _vel := JUMP_VELOCITY
+	# var _vel := JUMP_VELOCITY
 
-	_vel = get_stat_with_buffs(&"jump_force", _vel)
+	var _vel = get_stat_with_buffs(&"jump_force")
 
 	return _vel
 
 func get_wall_slide_speed() -> float:
-	var _speed := WALL_SLIDE_SPEED
+	# var _speed := WALL_SLIDE_SPEED
 
-	_speed = get_stat_with_buffs(&"wall_slide_speed", _speed)
+	var _speed = get_stat_with_buffs(&"wall_slide_speed")
 
 	return _speed
 
-func _get_air_variant_stat(grounded_key: StringName, air_key: StringName, grounded: Variant, air: Variant) -> Variant:
+func _get_air_variant_stat(grounded_key: StringName, air_key: StringName) -> Variant:
 	var value: float
-	var _key: StringName = grounded_key
+	var _key: StringName = grounded_key if is_on_floor() else air_key
 
-	if is_on_floor():
-		value = grounded
-	else:
-		value = air
-		_key = air_key
-
-	value = get_stat_with_buffs(_key, value)
+	value = get_stat_with_buffs(_key)
 
 	return value

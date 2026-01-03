@@ -90,7 +90,8 @@ func un_glomp() -> void:
 # debug
 func __process_debug_hud():
 	var l: Label = $"CanvasLayer/Label"
-	l.text = state_machine.state.name + '\n'
+	l.text = "hp: " + str(get_hp()) + '\n'
+	l.text += state_machine.state.name + '\n'
 	l.text += glomped_body.name as String if glomped_body else "No glomp"
 
 	if has_node(^"../Falling"):

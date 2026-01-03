@@ -8,9 +8,13 @@ class_name StatChangeGameAction extends GameAction
 # func execute(character: Character = null):
 func on_start(character: Character, _owner: Node) -> void:
 	for a in adds:
-		print("Giving %s some %s" % [character, a])
+		print("Giving %s %s %s" % [character.name, adds[a], a])
+		var val = character.get_stat_with_buffs(a) + adds[a]
+		character.set_stat(a, val)
 
 	for m in multipliers:
-		print("Multiplying %s some %s" % [character, m])
+		print("Giving %s %s %s" % [character.name, multipliers[m], m])
+		var val = character.get_stat_with_buffs(m) * multipliers[m]
+		character.set_stat(m, val)
 
 	finish()

@@ -12,11 +12,14 @@ func equip(item: Equipment) -> void:
 	# item.equip()
 
 func get_all_adds(key: StringName) -> Variant:
-	var default: Variant = Equipment.get_default(Equipment.BuffTypes[key])
-	var val: Variant = default
+	var c := owner as Character
+	var val: Variant = Stats.get_default_value(typeof(c.stats.get_value(key)))
 
 	for e in equipment:
-		val += e.adds.get(key, default)
+		var a = e.adds.get(key)
+		if not a: continue
+
+		val += a
 
 	return val
 

@@ -4,16 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://frrmanqrsgdx" path="res://items/tex/IconSet.png" id="2_tv1d7"]
 [ext_resource type="Script" uid="uid://cs8r76v542cvh" path="res://items/src/item_resource.gd" id="3_tv1d7"]
 
-[sub_resource type="Resource" id="Resource_n0tcq"]
-script = ExtResource("1_tv1d7")
-adds = Dictionary[StringName, Variant]({
-&"chump": Color(1, 0, 0, 1)
-})
-metadata/_custom_type_script = "uid://bae1hwx4irog3"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_tv1d7"]
 atlas = ExtResource("2_tv1d7")
 region = Rect2(448, 512, 32, 32)
+
+[sub_resource type="Resource" id="Resource_tv1d7"]
+script = ExtResource("1_tv1d7")
+adds = Dictionary[StringName, Variant]({
+&"hp": 10
+})
+metadata/_custom_type_script = "uid://bae1hwx4irog3"
 
 [resource]
 script = ExtResource("3_tv1d7")
@@ -24,5 +24,5 @@ consume_on_use = true
 icon_texture = SubResource("AtlasTexture_tv1d7")
 display_name = "Berry"
 description = "marahcmrcmrcprpamcrharmp"
-action = SubResource("Resource_n0tcq")
+use_action = SubResource("Resource_tv1d7")
 metadata/_custom_type_script = "uid://cs8r76v542cvh"
